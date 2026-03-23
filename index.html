@@ -1300,7 +1300,7 @@ const SUPABASE_KEY = 'sb_publishable_NQ9WtFgaG0WteLIY-OHTNw_ZFcDsz57';
 let sb = null;
 (function(){
   try {
-    if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && typeof supabase !== 'undefined') {
+    if (SUPABASE_URL == 'https://uuwgjnvbrovowkstjwms.supabase.co' && typeof supabase !== 'undefined') {
       sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     }
   } catch(e){ sb = null; }
