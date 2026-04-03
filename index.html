@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="uz">
-<head script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#1a7a3c">
@@ -121,17 +121,7 @@ body{
   margin-top:4px;transition:background .2s;letter-spacing:.3px;
 }
 .btn-auth:active{background:#145c2e;}
-.divider{display:flex;align-items:center;gap:12px;width:100%;margin:18px 0;}
-.divider span{font-size:13px;color:var(--tx2);white-space:nowrap;}
-.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--gr2);}
-.soc-row{display:flex;gap:10px;width:100%;}
-.btn-soc{
-  flex:1;padding:13px;border:2px solid var(--gr2);border-radius:14px;
-  background:white;font-family:inherit;font-size:14px;font-weight:700;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
-  transition:border-color .2s;
-}
-.btn-soc:hover{border-color:var(--g);}
+/* social login CSS removed */
 .auth-sw{margin-top:20px;font-size:14px;color:var(--tx2);text-align:center;}
 .auth-sw a{color:var(--g);font-weight:800;cursor:pointer;}
 .otp-row{display:flex;gap:12px;justify-content:center;margin:10px 0 6px;}
@@ -505,6 +495,17 @@ body{
   background:#e8f5ed;color:var(--g);font-size:13px;font-weight:800;
   padding:6px 12px;border-radius:10px;white-space:nowrap;
 }
+
+/* MY ADS + NOTIFICATIONS */
+.msg-card{background:#fff;border-radius:14px;padding:16px;margin-bottom:10px;box-shadow:var(--sh);border-left:4px solid var(--g);}
+.msg-card.read{border-left-color:var(--gr2);}
+.ad-card-closed{opacity:.5;pointer-events:none;}
+/* Lazy load images */
+img[loading="lazy"]{opacity:0;transition:opacity .3s;}
+img[loading="lazy"].loaded{opacity:1;}
+/* Filter district */
+#filter-district{display:none;}
+
 </style>
 </head>
 <body>
@@ -540,18 +541,7 @@ body{
       <input class="finp" id="login-pass" type="password" placeholder="••••••••">
     </div>
     <button class="btn-auth" onclick="doLogin()" data-k="btn_login">Kirish →</button>
-    <div class="divider"><span data-k="or">yoki</span></div>
-    <div class="soc-row">
-      <button class="btn-soc" onclick="socialLogin('Google')">
-        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.2l6.7-6.7C35.7 2.3 30.2 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.8 6c1.8-5.4 6.8-9.8 13.5-9.8z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.5 2.8-2.2 5.2-4.7 6.8l7.3 5.7c4.3-4 6.7-9.8 7.2-16.5z"/><path fill="#FBBC05" d="M10.5 28.7c-.3-1-.5-2.1-.5-3.2s.2-2.2.5-3.2l-7.8-6A23.9 23.9 0 0 0 0 25c0 3.9.9 7.5 2.7 10.7l7.8-6z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.5l-7.3-5.7c-2 1.4-4.7 2.2-7.9 2.2-6.6 0-12.2-4.4-14.2-10.3l-7.8 6C6.6 42.6 14.6 48 24 48z"/></svg>
-        Google
-      </button>
-      <button class="btn-soc" onclick="socialLogin('Telegram')">
-        <svg width="20" height="20" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#2CA5E0"/><path fill="white" d="M10 23.5l6.7 2.5 2.6 8.2 3.3-4.2 6.8 5 6.6-19-26 7.5zm9.3 3.8l9.8-6.1-7.2 7.2-.1 4.4-2.5-5.5z"/></svg>
-        Telegram
-      </button>
-    </div>
-    <div class="auth-sw"><span data-k="no_acc">Akkount yo'qmi?</span> <a onclick="go('screen-register')" data-k="reg_link">Ro'yxatdan o'ting</a></div>
+    <div class="auth-sw" style="margin-top:16px"><span data-k="no_acc">Akkount yo'qmi?</span> <a onclick="go('screen-register')" data-k="reg_link">Ro'yxatdan o'ting</a></div>
   </div>
 </div>
 
@@ -587,19 +577,16 @@ body{
       <label class="flbl" data-k="lbl_pass2">Parolni tasdiqlang</label>
       <input class="finp" id="reg-pass2" type="password" placeholder="Parolni qayta kiriting">
     </div>
-    <button class="btn-auth" onclick="doRegister()" data-k="btn_reg">Ro'yxatdan o'tish →</button>
-    <div class="divider"><span data-k="or">yoki</span></div>
-    <div class="soc-row">
-      <button class="btn-soc" onclick="socialLogin('Google')">
-        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.2l6.7-6.7C35.7 2.3 30.2 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.8 6c1.8-5.4 6.8-9.8 13.5-9.8z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.5 2.8-2.2 5.2-4.7 6.8l7.3 5.7c4.3-4 6.7-9.8 7.2-16.5z"/><path fill="#FBBC05" d="M10.5 28.7c-.3-1-.5-2.1-.5-3.2s.2-2.2.5-3.2l-7.8-6A23.9 23.9 0 0 0 0 25c0 3.9.9 7.5 2.7 10.7l7.8-6z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.5l-7.3-5.7c-2 1.4-4.7 2.2-7.9 2.2-6.6 0-12.2-4.4-14.2-10.3l-7.8 6C6.6 42.6 14.6 48 24 48z"/></svg>
-        Google
-      </button>
-      <button class="btn-soc" onclick="socialLogin('Telegram')">
-        <svg width="20" height="20" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#2CA5E0"/><path fill="white" d="M10 23.5l6.7 2.5 2.6 8.2 3.3-4.2 6.8 5 6.6-19-26 7.5zm9.3 3.8l9.8-6.1-7.2 7.2-.1 4.4-2.5-5.5z"/></svg>
-        Telegram
-      </button>
+    <div class="fld">
+      <label class="flbl" data-k="lbl_age">Yosh *</label>
+      <input class="finp" id="reg-age" type="number" inputmode="numeric" placeholder="25" min="14" max="80">
     </div>
-    <div class="auth-sw"><span data-k="have_acc">Akkount bormi?</span> <a onclick="go('screen-login')" data-k="login_link">Kiring</a></div>
+    <div class="fld">
+      <label class="flbl" data-k="lbl_passport_series">Pasport seriyasi (ixtiyoriy)</label>
+      <input class="finp" id="reg-passport" type="text" placeholder="AA 1234567" maxlength="20">
+    </div>
+    <button class="btn-auth" onclick="doRegister()" data-k="btn_reg">Ro'yxatdan o'tish →</button>
+    <div class="auth-sw" style="margin-top:16px"><span data-k="have_acc">Akkount bormi?</span> <a onclick="go('screen-login')" data-k="login_link">Kiring</a></div>
   </div>
 </div>
 
@@ -708,37 +695,20 @@ body{
       <div class="auth-sub" style="margin-bottom:16px" data-k="ob_s2_sub">Shahringiz va rolingizni tanlang</div>
 
       <div class="fld">
-        <label class="flbl" data-k="lbl_city">Shahar / Viloyat</label>
+        <label class="flbl">🏛️ Вилоят / Минтақа *</label>
+        <select class="finp" id="ob-region" onchange="onRegionChange('ob')">
+          <option value="">Вилоятро интихоб кунед...</option>
+          <option value="dushanbe">🏙️ Душанбе (Пойтахт)</option>
+          <option value="drs">📍 РРП (Ноҳияҳои тобеи Ҷумҳурӣ)</option>
+          <option value="sughd">🌄 Суғд</option>
+          <option value="khatlon">🌾 Хатлон</option>
+          <option value="gbao">🏔️ ВМКБ (Бадахшон)</option>
+        </select>
+      </div>
+      <div class="fld" id="ob-district-wrap" style="display:none">
+        <label class="flbl">🏘️ Ноҳия / Шаҳр *</label>
         <select class="finp" id="ob-city">
-          <option value="">Интихоб кунед...</option>
-          <optgroup label="🇹🇯 Тоҷикистон — Шаҳрҳо">
-            <option value="Душанбе">Душанбе</option>
-            <option value="Хуҷанд">Хуҷанд</option>
-            <option value="Кӯлоб">Кӯлоб</option>
-            <option value="Бохтар">Бохтар</option>
-            <option value="Қӯрғонтеппа">Қӯрғонтеппа</option>
-            <option value="Хоруғ">Хоруғ</option>
-            <option value="Ҳисор">Ҳисор</option>
-            <option value="Турсунзода">Турсунзода</option>
-            <option value="Исфара">Исфара</option>
-            <option value="Конибодом">Конибодом</option>
-            <option value="Панҷакент">Панҷакент</option>
-          </optgroup>
-          <optgroup label="🇹🇯 Тоҷикистон — Ноҳияҳо">
-            <option value="Ваҳдат">Ваҳдат</option>
-            <option value="Рӯдакӣ">Рӯдакӣ</option>
-            <option value="Варзоб">Варзоб</option>
-            <option value="Шаҳринав">Шаҳринав</option>
-            <option value="Файзобод">Файзобод</option>
-            <option value="Нуробод">Нуробод</option>
-            <option value="Роштқалъа">Роштқалъа</option>
-            <option value="Ишкошим">Ишкошим</option>
-            <option value="Мурғоб">Мурғоб</option>
-            <option value="Дарвоз">Дарвоз</option>
-            <option value="Кӯшониён">Кӯшониён</option>
-            <option value="Левакант">Левакант</option>
-            <option value="Сарбанд">Сарбанд</option>
-          </optgroup>
+          <option value="">Ноҳияро интихоб кунед...</option>
         </select>
       </div>
       <div class="fld">
@@ -769,15 +739,21 @@ body{
       <div id="ob-cats-wrap" style="display:none">
         <div class="form-lbl" data-k="lbl_workcats">Bajara oladigan ishlaringiz</div>
         <div class="cat-chips" id="ob-cat-chips">
-          <button class="cat-chip" onclick="togCatChip(this,'home')">✨ <span data-k="c_home">Uy ishlari</span></button>
+          <button class="cat-chip" onclick="togCatChip(this,'home')">🏠 <span data-k="c_home">Uy ishlari</span></button>
           <button class="cat-chip" onclick="togCatChip(this,'field')">🌾 <span data-k="c_field">Dala ishlari</span></button>
           <button class="cat-chip" onclick="togCatChip(this,'build')">🔨 <span data-k="c_build">Qurilish</span></button>
-          <button class="cat-chip" onclick="togCatChip(this,'help')">🤝 <span data-k="c_help">Yordamchi</span></button>
-          <button class="cat-chip" onclick="togCatChip(this,'daily')">⏱️ <span data-k="c_daily">Kunlik ish</span></button>
-          <button class="cat-chip" onclick="togCatChip(this,'master')">🔧 <span data-k="c_master">Usta</span></button>
           <button class="cat-chip" onclick="togCatChip(this,'courier')">🚗 <span data-k="c_courier">Kuryer</span></button>
+          <button class="cat-chip" onclick="togCatChip(this,'sales')">🛍️ <span data-k="c_sales">Sotuvchi</span></button>
+          <button class="cat-chip" onclick="togCatChip(this,'promoter')">📢 <span data-k="c_promoter">Promoter</span></button>
+          <button class="cat-chip" onclick="togCatChip(this,'clean')">🧹 <span data-k="c_clean">Tozalash</span></button>
+          <button class="cat-chip" onclick="togCatChip(this,'tutor')">📚 <span data-k="c_tutor">Repetitor</span></button>
+          <button class="cat-chip" onclick="togCatChip(this,'student')">🎓 <span data-k="c_student">Talaba ishi</span></button>
+          <button class="cat-chip" onclick="togCatChip(this,'mardikor')">💪 <span data-k="c_mardikor">Mardikor</span></button>
+          <button class="cat-chip" onclick="togCatChip(this,'master')">🔧 <span data-k="c_master">Usta</span></button>
           <button class="cat-chip" onclick="togCatChip(this,'gruzchik')">📦 <span data-k="c_gruzchik">Gruzchik</span></button>
           <button class="cat-chip" onclick="togCatChip(this,'workers')">👷 <span data-k="c_workers">Ishchilar guruhi</span></button>
+          <button class="cat-chip" onclick="togCatChip(this,'help')">🤝 <span data-k="c_help">Yordamchi</span></button>
+          <button class="cat-chip" onclick="togCatChip(this,'daily')">⏱️ <span data-k="c_daily">Kunlik ish</span></button>
           <button class="cat-chip" onclick="togCatChip(this,'other')">📋 <span data-k="c_other">Boshqalar</span></button>
         </div>
       </div>
@@ -843,43 +819,36 @@ body{
   <div class="content">
     <!-- Filter bar -->
     <div class="filter-bar">
-      <select class="filter-sel" id="filter-city" onchange="renderAdsList()">
-        <option value="">📍 Ҳама шаҳрҳо</option>
-        <optgroup label="🇹🇯 Тоҷикистон — Шаҳрҳо">
-          <option value="Душанбе">Душанбе</option>
-          <option value="Хуҷанд">Хуҷанд</option>
-          <option value="Кӯлоб">Кӯлоб</option>
-          <option value="Бохтар">Бохтар</option>
-          <option value="Қӯрғонтеппа">Қӯрғонтеппа</option>
-          <option value="Хоруғ">Хоруғ</option>
-          <option value="Ҳисор">Ҳисор</option>
-          <option value="Турсунзода">Турсунзода</option>
-          <option value="Исфара">Исфара</option>
-          <option value="Конибодом">Конибодом</option>
-          <option value="Панҷакент">Панҷакент</option>
-          <option value="Ваҳдат">Ваҳдат</option>
-          <option value="Рӯдакӣ">Рӯдакӣ</option>
-          <option value="Варзоб">Варзоб</option>
-        </optgroup>
+      <select class="filter-sel" id="filter-region" style="flex:1">
+        <option value="">🏛️ Барча вилоятлар</option>
+        <option value="dushanbe">🏙️ Душанбе</option>
+        <option value="drs">📍 РРП</option>
+        <option value="sughd">🌄 Суғд</option>
+        <option value="khatlon">🌾 Хатлон</option>
+        <option value="gbao">🏔️ ВМКБ</option>
       </select>
-      <select class="filter-sel" id="filter-radius" onchange="renderAdsList()" style="max-width:100px">
-        <option value="50">≤50 km</option>
-        <option value="25">≤25 km</option>
-        <option value="10">≤10 km</option>
-        <option value="0">Faqat shahar</option>
+      <select class="filter-sel" id="filter-district" style="flex:1;display:none">
+        <option value="">Барча ноҳиялар</option>
       </select>
+      <input type="hidden" id="filter-city" value="">
     </div>
 
     <div class="cat-grid">
-      <div class="cat-item act" onclick="selCat(this,'home')"><span class="em">✨</span><span data-k="c_home">Uy ishlari</span></div>
+      <div class="cat-item act" onclick="selCat(this,'home')"><span class="em">🏠</span><span data-k="c_home">Uy ishlari</span></div>
       <div class="cat-item" onclick="selCat(this,'field')"><span class="em">🌾</span><span data-k="c_field">Dala ishlari</span></div>
       <div class="cat-item" onclick="selCat(this,'build')"><span class="em">🔨</span><span data-k="c_build">Qurilish</span></div>
-      <div class="cat-item" onclick="selCat(this,'help')"><span class="em">🤝</span><span data-k="c_help">Yordamchi</span></div>
-      <div class="cat-item" onclick="selCat(this,'daily')"><span class="em">⏱️</span><span data-k="c_daily">Kunlik ish</span></div>
-      <div class="cat-item" onclick="selCat(this,'master')"><span class="em">🔧</span><span data-k="c_master">Usta</span></div>
       <div class="cat-item" onclick="selCat(this,'courier')"><span class="em">🚗</span><span data-k="c_courier">Kuryer</span></div>
+      <div class="cat-item" onclick="selCat(this,'sales')"><span class="em">🛍️</span><span data-k="c_sales">Sotuvchi</span></div>
+      <div class="cat-item" onclick="selCat(this,'promoter')"><span class="em">📢</span><span data-k="c_promoter">Promoter</span></div>
+      <div class="cat-item" onclick="selCat(this,'clean')"><span class="em">🧹</span><span data-k="c_clean">Tozalash</span></div>
+      <div class="cat-item" onclick="selCat(this,'tutor')"><span class="em">📚</span><span data-k="c_tutor">Repetitor</span></div>
+      <div class="cat-item" onclick="selCat(this,'student')"><span class="em">🎓</span><span data-k="c_student">Talaba ishi</span></div>
+      <div class="cat-item" onclick="selCat(this,'mardikor')"><span class="em">💪</span><span data-k="c_mardikor">Mardikor</span></div>
+      <div class="cat-item" onclick="selCat(this,'master')"><span class="em">🔧</span><span data-k="c_master">Usta</span></div>
       <div class="cat-item" onclick="selCat(this,'gruzchik')"><span class="em">📦</span><span data-k="c_gruzchik">Gruzchik</span></div>
-      <div class="cat-item" onclick="selCat(this,'workers')"><span class="em">👷</span><span data-k="c_workers">Ishchilar guruhi</span></div>
+      <div class="cat-item" onclick="selCat(this,'workers')"><span class="em">👷</span><span data-k="c_workers">Ishchilar</span></div>
+      <div class="cat-item" onclick="selCat(this,'daily')"><span class="em">⏱️</span><span data-k="c_daily">Kunlik ish</span></div>
+      <div class="cat-item" onclick="selCat(this,'help')"><span class="em">🤝</span><span data-k="c_help">Yordamchi</span></div>
       <div class="cat-item" onclick="selCat(this,'other')"><span class="em">···</span><span data-k="c_other">Boshqalar</span></div>
       <div class="cat-item all-cat" onclick="selCat(this,'all')"><span style="font-size:26px">⊞</span><span data-k="c_all">Barchasi</span></div>
     </div>
@@ -904,7 +873,10 @@ body{
     <img class="logo-img" src="" id="fav-logo-img" alt="JobJobs">
     <span style="font-size:16px;font-weight:800;color:var(--nv);flex:1;text-align:center" data-k="nav_fav">Tanlangan</span>
   </div>
-  <div class="content"><div class="empty"><div style="font-size:60px">🤍</div><div style="font-size:16px;font-weight:800;color:var(--nv)" data-k="fav_empty">Tanlangan e'lon yo'q</div><div data-k="fav_hint">♥ bosib e'lonlarni saqlang</div></div></div>
+  <div class="content" id="fav-content">
+    <div class="empty" id="fav-empty-state"><div style="font-size:60px">🤍</div><div style="font-size:16px;font-weight:800;color:var(--nv)" data-k="fav_empty">Tanlangan e'lon yo'q</div><div data-k="fav_hint">♥ bosib e'lonlarni saqlang</div></div>
+    <div id="fav-list"></div>
+  </div>
   <nav class="bot-nav">
     <button class="ni" onclick="go('screen-home')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span data-k="nav_home">Bosh sahifa</span></button>
     <button class="ni active" onclick="go('screen-fav')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span data-k="nav_fav">Tanlangan</span></button>
@@ -944,17 +916,23 @@ body{
       <label class="form-lbl" data-k="lbl_cat">Kategoriya *</label>
       <select class="form-sel" id="ad-cat" onchange="onCatChange()">
         <option value="" data-k="c_sel">Tanlang...</option>
-        <option value="home" data-k="c_home">Uy ishlari</option>
-        <option value="field" data-k="c_field">Dala ishlari</option>
-        <option value="build" data-k="c_build">Qurilish</option>
-        <option value="help" data-k="c_help">Yordamchi</option>
-        <option value="daily" data-k="c_daily">Kunlik ish</option>
-        <option value="master" data-k="c_master">Usta</option>
-        <option value="courier" data-k="c_courier">Kuryer</option>
-        <option value="gruzchik" data-k="c_gruzchik">Gruzchik</option>
-        <option value="workers" data-k="c_workers">Ishchilar guruhi</option>
+        <option value="home" data-k="c_home">🏠 Uy ishlari</option>
+        <option value="field" data-k="c_field">🌾 Dala ishlari</option>
+        <option value="build" data-k="c_build">🔨 Qurilish</option>
+        <option value="courier" data-k="c_courier">🚗 Kuryer / Yetkazib berish</option>
+        <option value="sales" data-k="c_sales">🛍️ Sotuvchi</option>
+        <option value="promoter" data-k="c_promoter">📢 Promoter</option>
+        <option value="clean" data-k="c_clean">🧹 Tozalash</option>
+        <option value="tutor" data-k="c_tutor">📚 Repetitorlik</option>
+        <option value="student" data-k="c_student">🎓 Talaba ishi</option>
+        <option value="mardikor" data-k="c_mardikor">💪 Mardikor</option>
+        <option value="master" data-k="c_master">🔧 Usta</option>
+        <option value="gruzchik" data-k="c_gruzchik">📦 Gruzchik</option>
+        <option value="workers" data-k="c_workers">👷 Ishchilar guruhi</option>
+        <option value="help" data-k="c_help">🤝 Yordamchi</option>
+        <option value="daily" data-k="c_daily">⏱️ Kunlik ish</option>
         <option value="vacancy" data-k="c_vacancy">💼 Vakansiya</option>
-        <option value="other" data-k="c_other">Boshqalar</option>
+        <option value="other" data-k="c_other">📋 Boshqalar</option>
       </select>
     </div>
     <div class="form-grp">
@@ -1025,7 +1003,10 @@ body{
     <img class="logo-img" src="" id="msg-logo-img" alt="JobJobs">
     <span style="font-size:16px;font-weight:800;color:var(--nv);flex:1;text-align:center" data-k="nav_msg">Xabarlar</span>
   </div>
-  <div class="content"><div class="empty"><div style="font-size:60px">💬</div><div style="font-size:16px;font-weight:800;color:var(--nv)" data-k="msg_empty">Xabarlar yo'q</div></div></div>
+  <div class="content" id="msg-content">
+    <div id="msg-list"></div>
+    <div class="empty" id="msg-empty-state" style="display:none"><div style="font-size:60px">💬</div><div style="font-size:16px;font-weight:800;color:var(--nv)" data-k="msg_empty">Xabarlar yo'q</div></div>
+  </div>
   <nav class="bot-nav">
     <button class="ni" onclick="go('screen-home')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span data-k="nav_home">Bosh sahifa</span></button>
     <button class="ni" onclick="go('screen-fav')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span data-k="nav_fav">Tanlangan</span></button>
@@ -1055,7 +1036,7 @@ body{
       <button class="btn-edit-prof" onclick="openEditProf()" data-k="edit_prof">✏️ Profilni tahrirlash</button>
     </div>
     <div class="prof-list">
-      <button class="p-item" onclick="filterMyAds()"><div class="p-left"><div class="p-ico" style="background:#e8f5ed">📋</div><span style="font-weight:700" data-k="my_ads">Mening e'lonlarim</span></div><span class="p-badge" id="my-ads-count">0</span></button>
+      <button class="p-item" onclick="openMyAds()"><div class="p-left"><div class="p-ico" style="background:#e8f5ed">📋</div><span style="font-weight:700" data-k="my_ads">Mening e'lonlarim</span></div><span class="p-badge" id="my-ads-count">0</span></button>
       <button class="p-item" onclick="go('screen-fav')"><div class="p-left"><div class="p-ico" style="background:#fff0f5">❤️</div><span style="font-weight:700" data-k="nav_fav">Tanlangan</span></div><span class="p-badge">0</span></button>
       <div style="background:#fff;border-radius:14px;padding:16px;margin-bottom:10px;box-shadow:var(--sh)">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
@@ -1241,6 +1222,11 @@ body{
         <option value="master" data-k="c_master">🔧 Usta</option>
         <option value="courier" data-k="c_courier">🚗 Kuryer</option>
         <option value="field" data-k="c_field">🌾 Dala ishchi</option>
+        <option value="sales" data-k="c_sales">🛍️ Sotuvchi</option>
+        <option value="promoter" data-k="c_promoter">📢 Promoter</option>
+        <option value="clean" data-k="c_clean">🧹 Tozalovchi</option>
+        <option value="tutor" data-k="c_tutor">📚 Repetitor</option>
+        <option value="mardikor" data-k="c_mardikor">💪 Mardikor</option>
       </select>
     </div>
     <div class="form-grp">
@@ -1295,12 +1281,12 @@ body{
 /* ══════════════════════════════════════
    SUPABASE
 ══════════════════════════════════════ */
-const SUPABASE_URL = 'https://kgonmgxssisddaawmhaa.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtnb25tZ3hzc2lzZGRhYXdtaGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNzU1MDIsImV4cCI6MjA4OTg1MTUwMn0.uq09mfLuIoqgrJC-8iia8v_KaESs2OQJyN_1wKTP8LM';
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
 let sb = null;
 (function(){
   try {
-    if (SUPABASE_URL == 'https://kgonmgxssisddaawmhaa.supabase.co' && typeof supabase !== 'undefined') {
+    if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && typeof supabase !== 'undefined') {
       sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     }
   } catch(e){ sb = null; }
@@ -1925,14 +1911,8 @@ function oNext(el, i) {
 }
 
 function socialLogin(provider) {
-  user = { name: provider + ' foydalanuvchi', phone: '', pass: '', av: '', role: 'worker' };
-  var users = getUsers();
-  users.push(user);
-  saveUsers(users);
-  localStorage.setItem('jj_user', JSON.stringify(user));
-  updateProfUI();
-  localStorage.removeItem('jj_onboard_done');
-  goOnboard();
+  // Social login removed — phone+password only
+  alert('Iltimos, telefon raqam va parol bilan kiring!');
 }
 
 function doLogout() {
@@ -2643,6 +2623,590 @@ window.addEventListener('DOMContentLoaded', function() {
   }, 1500);
 });
 
+
+/* ══════════════════════════════════════
+   TRACCAR SMS GATEWAY
+══════════════════════════════════════ */
+var TRACCAR_TOKEN = 'b9b67b25-9b2c-49c5-80f0-b19c3271b81e';
+
+async function sendSmsTraccar(phone, message) {
+  try {
+    var cleanPhone = phone.replace(/\s/g,'').replace(/^\+/,'');
+    // Traccar SMS Gateway
+    await fetch('https://demo.traccar.org/api/commands/send', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+TRACCAR_TOKEN},
+      body:JSON.stringify({deviceId:1,type:'custom',attributes:{data:message}})
+    });
+  } catch(e) { console.log('SMS sent (demo):', phone, message); }
+}
+
+/* ══════════════════════════════════════
+   REGION → DISTRICT DATA (Tajikistan)
+══════════════════════════════════════ */
+var REGIONS = {
+  dushanbe:{label:'🏙️ Душанбе',districts:['Душанбе (марказ)','Исмоилӣ','Фирдавсӣ','Шоҳмансур','Сино']},
+  drs:{label:'📍 РРП',districts:['Рӯдакӣ','Ваҳдат','Варзоб','Шаҳринав','Файзобод','Нуробод','Турсунзода','Ҳисор','Рашт','Тавилдара','Лахш','Шаҳри Нав']},
+  sughd:{label:'🌄 Суғд',districts:['Хуҷанд','Исфара','Конибодом','Панҷакент','Истаравшан','Ӯротеппа','Ашт','Бӯстон','Ганчӣ','Зафаробод','Мастчоҳ','Шаҳристон','Спитамен','Кӯҳистони Мастчоҳ','Ҷаббор Расулов']},
+  khatlon:{label:'🌾 Хатлон',districts:['Бохтар','Қӯрғонтеппа','Кӯлоб','Данғара','Вахш','Балҷувон','Восеъ','Ёвон','Муминобод','Носири Хусрав','Пахтаобод','Роштқалъа','Сарбанд','Темурмалик','Хуросон','Шамсиддин Шоҳин','Хамадонӣ','Абдурахмони Ҷомӣ','Кӯшониён','Фархор','Левакант']},
+  gbao:{label:'🏔️ ВМКБ',districts:['Хоруғ','Ишкошим','Мурғоб','Рӯшон','Шуғнон','Вандоҷ','Язғулом','Дарвоз','Ванҷ','Шаҳдара']}
+};
+
+function onRegionChange(prefix) {
+  var regionSel = document.getElementById(prefix+'-region');
+  var distWrap  = document.getElementById(prefix+'-district-wrap');
+  var distSel   = document.getElementById(prefix+'-city');
+  if (!regionSel || !distSel) return;
+  var rKey = regionSel.value;
+  if (!rKey) { if(distWrap) distWrap.style.display='none'; return; }
+  var rd = REGIONS[rKey];
+  if (!rd) return;
+  distSel.innerHTML = '<option value="">Ноҳияро интихоб кунед...</option>';
+  rd.districts.forEach(function(d){ var o=document.createElement('option');o.value=d;o.textContent=d;distSel.appendChild(o); });
+  if(distWrap) distWrap.style.display='block';
+}
+
+function buildFilterDistricts(regionKey) {
+  var sel = document.getElementById('filter-district');
+  if (!sel) return;
+  sel.style.display = regionKey ? '' : 'none';
+  sel.innerHTML = '<option value="">Барча ноҳиялар</option>';
+  if (!regionKey || !REGIONS[regionKey]) return;
+  REGIONS[regionKey].districts.forEach(function(d){ var o=document.createElement('option');o.value=d;o.textContent=d;sel.appendChild(o); });
+}
+
+/* ══════════════════════════════════════
+   UPDATED doRegister — Traccar SMS + KYC + unique phone
+══════════════════════════════════════ */
+function doRegister() {
+  var name  = document.getElementById('reg-name').value.trim();
+  var code  = document.getElementById('reg-code').value;
+  var phone = document.getElementById('reg-phone').value.trim();
+  var pass  = document.getElementById('reg-pass').value;
+  var pass2 = document.getElementById('reg-pass2').value;
+  var ageEl = document.getElementById('reg-age');
+  var age   = ageEl ? (parseInt(ageEl.value)||0) : 18;
+  var passEl = document.getElementById('reg-passport');
+  var passport = passEl ? passEl.value.trim() : '';
+  var err   = document.getElementById('reg-err');
+
+  if (!name)           { showErr(err,'Ism kiritilmadi!'); return; }
+  if (phone.length<7)  { showErr(err,'Telefon noto\'g\'ri!'); return; }
+  if (age<14)          { showErr(err,'14 yoshdan kichiklar ro\'yxatdan o\'ta olmaydi!'); return; }
+  if (pass.length<6)   { showErr(err,'Parol kamida 6 belgi!'); return; }
+  if (pass!==pass2)    { showErr(err,'Parollar mos emas!'); return; }
+
+  var fullPhone = code+' '+phone;
+  var existing = getUsers();
+  if (existing.find(function(u){ return u.phone===fullPhone; })) {
+    showErr(err,'Bu telefon allaqachon ro\'yxatdan o\'tgan!'); return;
+  }
+  err.style.display='none';
+
+  var otp = String(Math.floor(1000+Math.random()*9000));
+  localStorage.setItem('jj_otp',otp);
+  localStorage.setItem('jj_otp_exp',String(Date.now()+5*60*1000));
+  localStorage.setItem('jj_pending',JSON.stringify({name:name,phone:fullPhone,pass:pass,av:'',role:'worker',age:age,passport:passport}));
+
+  var hint=document.getElementById('otp-hint');
+  if(hint) hint.textContent=fullPhone+' raqamiga SMS yuborildi';
+
+  sendSmsTraccar(fullPhone,'JobJobs tasdiqlash kodi: '+otp+'. Hech kimga bermang!');
+  setTimeout(function(){ confirm('📱 SMS Kodi (Demo):\n\n🔑 '+otp+'\n\nHaqiqiy ilovada SMS orqali keladi.'); },400);
+  go('screen-otp');
+}
+
+/* ══════════════════════════════════════
+   MY ADS — View / Edit / Delete
+══════════════════════════════════════ */
+function openMyAds() { openM('m-my-ads'); renderMyAdsList(); }
+
+async function renderMyAdsList() {
+  var list=document.getElementById('my-ads-list');
+  if(!list) return;
+  list.innerHTML='<div style="text-align:center;padding:20px;color:var(--tx2)">⏳...</div>';
+  var allAds=[];
+  if(sb){ try{ var r=await getAdsFromDB(); if(r) allAds=r; }catch(e){} }
+  if(!allAds.length) allAds=getLocalAds();
+  var myPhone=user?user.phone:'';
+  var mine=allAds.filter(function(a){ return a.phone===myPhone||(user&&a.author===user.name); });
+  if(mine.length===0){
+    list.innerHTML='<div style="text-align:center;padding:30px;color:var(--tx2)"><div style="font-size:48px">📭</div><div style="font-size:14px;margin-top:10px">E\'lon yo\'q!</div></div>';
+    return;
+  }
+  list.innerHTML=mine.map(function(ad){
+    var closed=ad.is_closed?'<span style="background:#e74c3c;color:#fff;font-size:10px;padding:2px 7px;border-radius:8px;margin-left:5px">Yopiq</span>':'';
+    var adJson=JSON.stringify({id:ad.id,title:ad.title,desc:ad.desc||ad.description||'',price:ad.price||''}).replace(/"/g,"'");
+    return '<div style="background:#f8f9fa;border-radius:12px;padding:14px;margin-bottom:10px;border:1.5px solid var(--gr2)">'+
+      '<div style="font-weight:800;font-size:14px;color:var(--nv);margin-bottom:4px">'+(CAT_EMOJI[ad.cat]||'📋')+' '+(ad.title||'')+closed+'</div>'+
+      '<div style="font-size:13px;color:var(--g);font-weight:700;margin-bottom:6px">'+(ad.price?Number(ad.price).toLocaleString()+' сомонӣ':'—')+'</div>'+
+      '<div style="font-size:11px;color:var(--tx2);margin-bottom:10px">📍 '+(ad.city||'')+' · '+(ad.date||'')+'</div>'+
+      '<div style="display:flex;gap:8px">'+
+        '<button onclick="openEditAd(''+adJson+'')" style="flex:1;background:var(--gl);color:var(--g);border:none;border-radius:20px;padding:9px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">✏️ Tahrirlash</button>'+
+        '<button onclick="confirmDeleteAd(''+ad.id+'')" style="background:#fff0f0;color:#e74c3c;border:none;border-radius:20px;padding:9px 14px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer">🗑️</button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+function openEditAd(adStr) {
+  var ad;
+  try{ ad=JSON.parse(adStr.replace(/'/g,'"')); }catch(e){ return; }
+  document.getElementById('edit-ad-id').value=ad.id||'';
+  document.getElementById('edit-ad-title').value=ad.title||'';
+  document.getElementById('edit-ad-desc').value=ad.desc||'';
+  document.getElementById('edit-ad-price').value=ad.price||'';
+  closeM('m-my-ads'); openM('m-edit-ad');
+}
+
+async function saveEditedAd() {
+  var id=document.getElementById('edit-ad-id').value;
+  var title=document.getElementById('edit-ad-title').value.trim();
+  var desc=document.getElementById('edit-ad-desc').value.trim();
+  var price=document.getElementById('edit-ad-price').value.trim();
+  if(!title){ alert('Sarlavha kiriting!'); return; }
+  if(sb&&id&&!String(id).startsWith('-')){
+    try{ await sb.from('ads').update({title:title,description:desc,price:price}).eq('id',id); }catch(e){}
+  }
+  var ads=getLocalAds();
+  var idx=ads.findIndex(function(a){ return String(a.id)===String(id); });
+  if(idx>-1){ ads[idx].title=title;ads[idx].desc=desc;ads[idx].price=price;saveLocalAds(ads); }
+  closeM('m-edit-ad'); renderAdsList(); updateMyAdsCount();
+  alert('✅ E\'lon yangilandi!');
+}
+
+function confirmDeleteAd(id) {
+  document.getElementById('del-ad-id').value=id;
+  closeM('m-my-ads'); openM('m-del-confirm');
+}
+
+async function deleteAd() {
+  var id=document.getElementById('del-ad-id').value;
+  if(sb&&id&&!String(id).startsWith('-')){
+    try{ await sb.from('ads').delete().eq('id',id); }catch(e){}
+  }
+  var ads=getLocalAds().filter(function(a){ return String(a.id)!==String(id); });
+  saveLocalAds(ads);
+  closeM('m-del-confirm'); renderAdsList(); updateMyAdsCount();
+}
+
+/* ══════════════════════════════════════
+   FAVORITES — localStorage
+══════════════════════════════════════ */
+function getFavs(){ try{ return JSON.parse(localStorage.getItem('jj_favs')||'[]'); }catch(e){ return []; } }
+function saveFavs(arr){ localStorage.setItem('jj_favs',JSON.stringify(arr)); }
+
+function togFav(btn, adId, adData) {
+  var favs=getFavs();
+  var idx=favs.findIndex(function(f){ return String(f.id)===String(adId); });
+  if(idx>-1){ favs.splice(idx,1); btn.textContent='🤍'; }
+  else{ if(adData) favs.push(adData); btn.textContent='❤️'; }
+  saveFavs(favs);
+  var fc=document.querySelector('.p-item:nth-child(2) .p-badge');
+  if(fc) fc.textContent=favs.length;
+}
+
+function renderFavList() {
+  var favs=getFavs();
+  var list=document.getElementById('fav-list');
+  var empty=document.getElementById('fav-empty-state');
+  if(!list) return;
+  if(favs.length===0){ list.innerHTML=''; if(empty) empty.style.display=''; return; }
+  if(empty) empty.style.display='none';
+  list.innerHTML='';
+  favs.forEach(function(ad){ var card=makeAdCard(ad,true); if(card&&card.tagName) list.appendChild(card); });
+}
+
+/* ══════════════════════════════════════
+   MESSAGES — System notifications
+══════════════════════════════════════ */
+var SYSTEM_MSGS=[
+  {id:1,icon:'🎉',title:'JobJobs ga xush kelibsiz!',body:"Platformamizda ish topish osonroq. Hoziroq e'lon joylang!",date:'Bugun',read:false},
+  {id:2,icon:'💡',title:"10% komissiya haqida",body:'E\'lon narxining 10% komissiyasini Душанбе Сити орқали to\'laydilar. Xavfsiz va kafollangan tizim.',date:'Bugun',read:false},
+  {id:3,icon:'👷',title:'Guruh xabari',body:"Siz tanlagan kategoriyangizda yangi guruhlar shakllandi. Profilingizdagi 'Guruhga qo'shilish' tugmasini bosing!",date:'Kecha',read:true}
+];
+
+function renderMsgList() {
+  var list=document.getElementById('msg-list');
+  var empty=document.getElementById('msg-empty-state');
+  if(!list) return;
+  if(empty) empty.style.display='none';
+  list.innerHTML=SYSTEM_MSGS.map(function(m){
+    return '<div onclick="markMsgRead('+m.id+')" style="background:'+(m.read?'#fff':'#f0f9f4')+';border-radius:14px;padding:16px;margin-bottom:10px;box-shadow:var(--sh);border-left:4px solid '+(m.read?'var(--gr2)':'var(--g)')+';cursor:pointer">'+
+      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">'+
+        '<span style="font-size:22px">'+m.icon+'</span>'+
+        '<div style="flex:1"><div style="font-weight:800;font-size:14px;color:var(--nv)">'+m.title+'</div>'+
+        '<div style="font-size:11px;color:var(--tx2)">'+m.date+'</div></div>'+
+        (m.read?'':'<span style="width:8px;height:8px;background:var(--g);border-radius:50%;flex-shrink:0;display:inline-block"></span>')+
+      '</div>'+
+      '<div style="font-size:13px;color:var(--tx2);line-height:1.5">'+m.body+'</div>'+
+    '</div>';
+  }).join('');
+}
+function markMsgRead(id){ var m=SYSTEM_MSGS.find(function(x){ return x.id===id; }); if(m) m.read=true; renderMsgList(); }
+
+/* ══════════════════════════════════════
+   PAYMENT LOCKDOWN — after confirmJob
+══════════════════════════════════════ */
+var currentJobAdId=null;
+function openJob(title, price, adId) {
+  document.getElementById('job-title').textContent='🤝 '+title;
+  document.getElementById('job-fee').textContent=Math.max(1,Math.ceil(+price*.1))+' сомонӣ';
+  currentJobAdId=adId||null;
+  openM('m-job');
+}
+async function confirmJob() {
+  closeM('m-job');
+  if(currentJobAdId) {
+    if(sb){ try{ await sb.from('ads').update({is_closed:true,is_active:false}).eq('id',currentJobAdId); }catch(e){} }
+    var ads=getLocalAds();
+    var idx=ads.findIndex(function(a){ return String(a.id)===String(currentJobAdId); });
+    if(idx>-1){ ads[idx].is_closed=true; saveLocalAds(ads); }
+    setTimeout(renderAdsList,400);
+  }
+  openM('m-contact');
+}
+
+/* ══════════════════════════════════════
+   UPDATED makeAdCard — fav + lockdown + lazy
+══════════════════════════════════════ */
+function makeAdCard(ad, isFavScreen) {
+  if(ad.is_closed&&!isFavScreen){ return document.createElement('span'); }
+  var card=document.createElement('div');
+  card.className='ad-card';
+  var imgHtml;
+  if(ad.photos&&ad.photos.length>0){
+    imgHtml='<div style="overflow:hidden;"><img src="'+ad.photos[0]+'" loading="lazy" style="width:100%;height:140px;object-fit:cover;display:block;"></div>';
+  } else {
+    imgHtml='<div class="ad-img">'+(CAT_EMOJI[ad.cat]||'📋')+'</div>';
+  }
+  var safeTitle=(ad.title||'').replace(/\\/g,'\\\\').replace(/'/g,"\'");
+  var safeId=String(ad.id||0);
+  var salaryHtml='';
+  if(ad.salary&&ad.cat==='vacancy'){
+    salaryHtml='<div class="ad-salary">💰 '+Number(ad.salary).toLocaleString()+' '+t('salary_month')+'</div>';
+  }
+  var favs=getFavs();
+  var isFav=favs.some(function(f){ return String(f.id)===String(ad.id); });
+  var adDataStr=JSON.stringify({id:ad.id,title:ad.title,price:ad.price,city:ad.city,cat:ad.cat,author:ad.author,phone:ad.phone,photos:[],tezkor:ad.tezkor}).replace(/'/g,'&#39;');
+  card.innerHTML=
+    (ad.tezkor?'<div class="ad-badge">⚡ '+t('tezkor')+'</div>':'')+
+    imgHtml+
+    '<button class="fav-btn" onclick="togFav(this,''+safeId+'',JSON.parse(this.dataset.ad.replace(/&#39;/g,'\'')));return false" data-ad=''+adDataStr+''>'+
+    (isFav?'❤️':'🤍')+'</button>'+
+    '<div class="ad-body">'+
+      '<div class="ad-title">'+(ad.title||'')+'</div>'+
+      '<div class="ad-price">'+(ad.price?Number(ad.price).toLocaleString()+' сомонӣ':t('p_nego'))+'</div>'+
+      salaryHtml+
+      '<div class="ad-meta"><span>📍 '+(ad.city||'')+'</span><span>👤 '+(ad.author||'')+'</span></div>'+
+      '<div class="ad-acts">'+
+        '<button class="btn-p" onclick="openJob(''+safeTitle+'',''+(ad.price||0)+'',''+safeId+'')" data-k="take_job">'+t('take_job')+'</button>'+
+        '<button class="btn-s">💬</button>'+
+      '</div>'+
+    '</div>';
+  return card;
+}
+
+/* ══════════════════════════════════════
+   UPDATED CAT_EMOJI + renderAdsList
+══════════════════════════════════════ */
+CAT_EMOJI = {
+  home:'🏠',field:'🌾',build:'🔨',help:'🤝',daily:'⏱️',
+  master:'🔧',courier:'🚗',gruzchik:'📦',workers:'👷',vacancy:'💼',
+  sales:'🛍️',promoter:'📢',clean:'🧹',tutor:'📚',
+  student:'🎓',mardikor:'💪',other:'📋'
+};
+
+async function renderAdsList() {
+  var list=document.getElementById('ads-list');
+  if(!list) return;
+  list.innerHTML='<div style="text-align:center;padding:30px 0;color:var(--tx2);font-size:14px">⏳...</div>';
+  var allAds=null;
+  if(sb){ try{ allAds=await getAdsFromDB(); }catch(e){} }
+  if(!allAds){ var local=getLocalAds(); allAds=local.length>0?local:SAMPLE_ADS; }
+  else if(allAds.length===0){ allAds=SAMPLE_ADS; }
+  allAds=allAds.filter(function(ad){ return !ad.is_closed; });
+  var searchQ=(document.getElementById('search-in')||{}).value||'';
+  if(searchQ.trim()){ var q=searchQ.toLowerCase(); allAds=allAds.filter(function(ad){ return (ad.title||'').toLowerCase().indexOf(q)>-1||(ad.desc||'').toLowerCase().indexOf(q)>-1; }); }
+  var fDist=(document.getElementById('filter-district')||{}).value||'';
+  if(fDist){ allAds=allAds.filter(function(ad){ return (ad.city||'')===fDist; }); }
+  var filtered=(currentCat==='all')?allAds:allAds.filter(function(ad){ return ad.cat===currentCat; });
+  list.innerHTML='';
+  if(filtered.length===0){
+    list.innerHTML='<div class="empty" style="padding:40px 0 20px;"><div style="font-size:50px">🔍</div><div style="font-size:15px;font-weight:800;color:var(--nv);margin-top:10px">E\'lon yo\'q</div></div>';
+    var cnt=document.querySelector('.ads-cnt'); if(cnt) cnt.textContent='0 ta'; return;
+  }
+  filtered.forEach(function(ad){ var card=makeAdCard(ad,false); if(card&&card.tagName==='DIV') list.appendChild(card); });
+  var cnt=document.querySelector('.ads-cnt'); if(cnt) cnt.textContent=filtered.length+' ta';
+}
+
+/* Navigation override for fav+msg */
+var _go_orig=go;
+go=function(id){
+  _go_orig(id);
+  if(id==='screen-fav') setTimeout(renderFavList,50);
+  if(id==='screen-msg') setTimeout(renderMsgList,50);
+};
+
+/* LANG patches for new categories */
+['uz','kk','ru','en','tg','ky'].forEach(function(l){
+  if(!LANG[l]) return;
+  var p={
+    uz:{c_sales:'Sotuvchi',c_promoter:'Promoter',c_clean:'Tozalash',c_tutor:'Repetitorlik',c_student:'Talaba ishi',c_mardikor:'Mardikor',lbl_passport_series:'Pasport seriyasi'},
+    tg:{c_sales:'Фурӯшанда',c_promoter:'Промоутер',c_clean:'Тозакунӣ',c_tutor:'Репетитор',c_student:'Кори донишҷӯ',c_mardikor:'Кори вазнин',lbl_passport_series:'Серияи шиноснома'},
+    ru:{c_sales:'Продавец',c_promoter:'Промоутер',c_clean:'Уборка',c_tutor:'Репетитор',c_student:'Студ. работа',c_mardikor:'Разнорабочий',lbl_passport_series:'Серия паспорта'},
+    en:{c_sales:'Sales Asst.',c_promoter:'Promoter',c_clean:'Cleaning',c_tutor:'Tutoring',c_student:'Student Jobs',c_mardikor:'Manual Labor',lbl_passport_series:'Passport Series'},
+    kk:{c_sales:'Сатушы',c_promoter:'Промоутер',c_clean:'Тазалау',c_tutor:'Репетитор',c_student:'Студент жұм.',c_mardikor:'Жалпы жұмыс',lbl_passport_series:'Паспорт серия'},
+    ky:{c_sales:'Сатуучу',c_promoter:'Промоутер',c_clean:'Тазалоо',c_tutor:'Репетитор',c_student:'Студент иш',c_mardikor:'Жалпы иш',lbl_passport_series:'Паспорт сер.'}
+  };
+  var patch=p[l]||{};
+  Object.keys(patch).forEach(function(k){ LANG[l][k]=patch[k]; });
+});
+
+/* Filter region change listener */
+setTimeout(function() {
+  var fRegion=document.getElementById('filter-region');
+  if(fRegion) fRegion.addEventListener('change',function(){ buildFilterDistricts(this.value); renderAdsList(); });
+  var fDist=document.getElementById('filter-district');
+  if(fDist) fDist.addEventListener('change',renderAdsList);
+},100);
+
+/* Lazy image observer */
+if('IntersectionObserver' in window){
+  var _imgObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.style.opacity='1'; _imgObs.unobserve(e.target); } });
+  },{rootMargin:'100px'});
+  var _lazyCheck=function(){
+    document.querySelectorAll('img[loading="lazy"]').forEach(function(img){
+      if(!img.dataset.observed){ img.dataset.observed='1'; img.style.opacity='0'; img.style.transition='opacity .3s'; _imgObs.observe(img); }
+    });
+  };
+  setInterval(_lazyCheck,500);
+}
+
 </script>
+
+<!-- MY ADS MODAL -->
+<div class="mo" id="m-my-ads">
+  <div class="md" style="max-height:88vh">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h3 data-k="my_ads">Mening e'lonlarim</h3>
+      <button onclick="closeM('m-my-ads')" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--tx2)">✕</button>
+    </div>
+    <div id="my-ads-list">
+      <div style="text-align:center;padding:20px;color:var(--tx2)">⏳ Yuklanmoqda...</div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT AD MODAL -->
+<div class="mo" id="m-edit-ad">
+  <div class="md" style="max-height:90vh">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <h3>✏️ E'lonni tahrirlash</h3>
+      <button onclick="closeM('m-edit-ad')" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--tx2)">✕</button>
+    </div>
+    <input type="hidden" id="edit-ad-id">
+    <div class="form-grp"><label class="form-lbl">Sarlavha *</label><input class="form-in" id="edit-ad-title" placeholder="Sarlavha"></div>
+    <div class="form-grp"><label class="form-lbl">Tavsif</label><textarea class="form-ta" id="edit-ad-desc" placeholder="Tavsif"></textarea></div>
+    <div class="form-grp"><label class="form-lbl">Нарх (сомонӣ)</label>
+      <div style="position:relative"><input class="form-in" id="edit-ad-price" type="number" placeholder="0" style="padding-right:70px">
+      <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-weight:800;color:var(--g);font-size:13px">сомонӣ</span></div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:8px">
+      <button class="btn-cl" onclick="closeM('m-edit-ad')">Bekor</button>
+      <button class="btn-p" onclick="saveEditedAd()">✓ Saqlash</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE CONFIRM MODAL -->
+<div class="mo" id="m-del-confirm">
+  <div class="md" style="text-align:center;padding:32px 24px">
+    <div style="font-size:52px;margin-bottom:12px">🗑️</div>
+    <h3>E'lonni o'chirish?</h3>
+    <p style="margin-bottom:20px;color:var(--tx2)">Bu amalni qaytarib bo'lmaydi</p>
+    <input type="hidden" id="del-ad-id">
+    <div style="display:flex;gap:10px">
+      <button class="btn-cl" onclick="closeM('m-del-confirm')" style="flex:1">Bekor</button>
+      <button style="flex:1;background:#e74c3c;color:#fff;border:none;border-radius:30px;padding:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer" onclick="deleteAd()">🗑️ O'chirish</button>
+    </div>
+  </div>
+</div>
+
 </body>
+
+<!--
+═══════════════════════════════════════════════════════════════
+  JOBJOBS — SUPABASE SQL SCHEMA (Yangilangan)
+  Supabase SQL Editor da ushbu SQL ni bajaring
+═══════════════════════════════════════════════════════════════
+
+-- 1. PROFILES jadval (foydalanuvchi profillari)
+CREATE TABLE IF NOT EXISTS public.profiles (
+  id            UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  name          TEXT,
+  firstname     TEXT,
+  lastname      TEXT,
+  age           INTEGER CHECK (age >= 14),
+  phone         TEXT UNIQUE,
+  passport_num  TEXT,
+  city          TEXT,
+  region        TEXT,
+  district      TEXT,
+  address       TEXT,
+  loc_text      TEXT,
+  lat           DOUBLE PRECISION,
+  lng           DOUBLE PRECISION,
+  role          TEXT DEFAULT 'worker' CHECK (role IN ('worker','employer','both')),
+  cats          TEXT[],
+  grp_opt       TEXT CHECK (grp_opt IN ('own','solo','join','')),
+  grp_count     INTEGER DEFAULT 1,
+  is_brigadir   BOOLEAN DEFAULT false,
+  passport_url  TEXT,
+  avatar_url    TEXT,
+  lang          TEXT DEFAULT 'tg',
+  created_at    TIMESTAMPTZ DEFAULT NOW(),
+  updated_at    TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 2. ADS jadval (e'lonlar) — YANGI ustunlar bilan
+CREATE TABLE IF NOT EXISTS public.ads (
+  id            BIGSERIAL PRIMARY KEY,
+  user_id       UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+  title         TEXT NOT NULL,
+  description   TEXT,
+  price         NUMERIC(12,2),
+  salary        NUMERIC(12,2),
+  city          TEXT,
+  region        TEXT,
+  district      TEXT,
+  cat           TEXT,
+  cat_label     TEXT,
+  loc_text      TEXT,
+  lat           DOUBLE PRECISION,
+  lng           DOUBLE PRECISION,
+  photos        JSONB DEFAULT '[]',
+  tezkor        BOOLEAN DEFAULT false,
+  is_active     BOOLEAN DEFAULT true,
+  is_closed     BOOLEAN DEFAULT false,   -- YANGI: to'lovdan keyin yopiladi
+  buyer_id      UUID REFERENCES auth.users(id) ON DELETE SET NULL, -- YANGI: kim sotib oldi
+  author        TEXT,
+  phone         TEXT,
+  date          TEXT,
+  created_at    TIMESTAMPTZ DEFAULT NOW(),
+  updated_at    TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS ads_city_cat_idx     ON public.ads(city, cat);
+CREATE INDEX IF NOT EXISTS ads_region_cat_idx   ON public.ads(region, cat);
+CREATE INDEX IF NOT EXISTS ads_created_idx      ON public.ads(created_at DESC);
+CREATE INDEX IF NOT EXISTS ads_active_idx       ON public.ads(is_active, is_closed);
+CREATE INDEX IF NOT EXISTS ads_user_idx         ON public.ads(user_id);
+
+-- 3. GROUPS jadval (guruhlar)
+CREATE TABLE IF NOT EXISTS public.groups (
+  id            BIGSERIAL PRIMARY KEY,
+  user_id       UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+  user_name     TEXT,
+  user_phone    TEXT,
+  specialty     TEXT,
+  phone         TEXT,
+  city          TEXT,
+  region        TEXT,
+  district      TEXT,
+  lat           DOUBLE PRECISION,
+  lng           DOUBLE PRECISION,
+  is_brigadir   BOOLEAN DEFAULT false,
+  member_count  INTEGER DEFAULT 1,
+  created_at    TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS groups_region_spec_idx ON public.groups(region, specialty);
+
+-- 4. MESSAGES jadval (xabarlar — kelajak uchun)
+CREATE TABLE IF NOT EXISTS public.messages (
+  id          BIGSERIAL PRIMARY KEY,
+  from_id     UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+  to_id       UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+  ad_id       BIGINT REFERENCES public.ads(id) ON DELETE SET NULL,
+  body        TEXT NOT NULL,
+  read        BOOLEAN DEFAULT false,
+  created_at  TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 5. PAYMENTS jadval (to'lovlar)
+CREATE TABLE IF NOT EXISTS public.payments (
+  id          BIGSERIAL PRIMARY KEY,
+  user_id     UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+  ad_id       BIGINT REFERENCES public.ads(id) ON DELETE SET NULL,
+  amount      NUMERIC(12,2),
+  percent     INTEGER DEFAULT 10,
+  type        TEXT CHECK (type IN ('tezkor','job_unlock')),
+  status      TEXT DEFAULT 'pending' CHECK (status IN ('pending','paid','confirmed')),
+  created_at  TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 6. AUTO-UPDATE trigger
+CREATE OR REPLACE FUNCTION public.set_updated_at()
+RETURNS TRIGGER LANGUAGE plpgsql AS $$
+BEGIN NEW.updated_at = NOW(); RETURN NEW; END;
+$$;
+
+CREATE TRIGGER ads_updated_at      BEFORE UPDATE ON public.ads      FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
+CREATE TRIGGER profiles_updated_at BEFORE UPDATE ON public.profiles FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
+
+-- 7. AUTO-CREATE profile on signup
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER LANGUAGE plpgsql SECURITY DEFINER AS $$
+BEGIN
+  INSERT INTO public.profiles (id, phone)
+  VALUES (NEW.id, NEW.phone)
+  ON CONFLICT (id) DO NOTHING;
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
+
+-- 8. ROW LEVEL SECURITY
+ALTER TABLE public.profiles  ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.ads       ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.groups    ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.messages  ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.payments  ENABLE ROW LEVEL SECURITY;
+
+-- Profiles
+CREATE POLICY "profiles_self"   ON public.profiles FOR ALL USING (auth.uid() = id);
+
+-- Ads: barcha ko'rishi mumkin, faqat egasi o'zgartirishi mumkin
+CREATE POLICY "ads_select_all"  ON public.ads FOR SELECT USING (true);
+CREATE POLICY "ads_insert_auth" ON public.ads FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+CREATE POLICY "ads_update_own"  ON public.ads FOR UPDATE USING (auth.uid() = user_id);
+CREATE POLICY "ads_delete_own"  ON public.ads FOR DELETE USING (auth.uid() = user_id);
+
+-- Groups
+CREATE POLICY "groups_select_all"  ON public.groups FOR SELECT USING (true);
+CREATE POLICY "groups_insert_auth" ON public.groups FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+
+-- Messages
+CREATE POLICY "messages_own" ON public.messages FOR SELECT USING (auth.uid() = from_id OR auth.uid() = to_id);
+CREATE POLICY "messages_insert_auth" ON public.messages FOR INSERT WITH CHECK (auth.uid() = from_id);
+
+-- Payments
+CREATE POLICY "payments_own" ON public.payments FOR ALL USING (auth.uid() = user_id);
+
+═══════════════════════════════════════════════════════════════
+  JADVAL NOMLARI JADVALI:
+  - public.profiles  → Foydalanuvchi profillari
+  - public.ads       → E'lonlar (is_closed, buyer_id yangi ustunlar)
+  - public.groups    → Guruhlar
+  - public.messages  → Xabarlar (kelajak)
+  - public.payments  → To'lovlar tarixi
+═══════════════════════════════════════════════════════════════
+-->
+
 </html>
