@@ -1129,12 +1129,12 @@ body{
 })();
 
 /* SUPABASE */
-const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL = 'https://kgonmgxssisddaawmhaa.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtnb25tZ3hzc2lzZGRhYXdtaGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNzU1MDIsImV4cCI6MjA4OTg1MTUwMn0.uq09mfLuIoqgrJC-8iia8v_KaESs2OQJyN_1wKTP8LM';
 let sb = null;
 (function(){
   try {
-    if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && typeof supabase !== 'undefined') {
+    if (SUPABASE_URL !== 'https://kgonmgxssisddaawmhaa.supabase.co' && typeof supabase !== 'undefined') {
       sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     }
   } catch(e){ sb = null; }
@@ -1677,7 +1677,37 @@ function doRegister() {
   sendSms(fullPhone, 'JobJobs тасдиқ коди: ' + otp + '. Ҳеч кимга берманг!');
 
   setTimeout(function() {
-    confirm('📱 SMS Коди (Demo):\n\n🔑 ' + otp + '\n\nOK босиб кодни нусхаланг!');
+    // --- SMS ЮБОРИШ ТИЗИМИ (TRACCAR) ---
+const smsToken = "b9b67b25-9b2c-49c5-80f0-b19c3271b81e";
+const smsUrl = "https://sms.traccar.org/api/send";
+// regPhone — бу рўйхатдан ўтишдаги телефон рақами киритилган input ID-си
+const userPhoneNumber = document.getElementById('regPhone') ? document.getElementById('regPhone').value : "";
+
+if (userPhoneNumber) {
+    fetch(smsUrl, {
+        method: "POST",
+        headers: {
+            "Authorization": smsToken,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            to: userPhoneNumber,
+            message: "Jobjobs тасдиқлаш коди: " + otp
+        })
+    })
+    .then(res => {
+        if (res.ok) {
+            console.log("SMS муваффақиятли юборилди");
+        } else {
+            alert("СМС юборишда хатолик! Traccar иловасини текширинг.");
+        }
+    })
+    .catch(err => console.error("СМС тизимида хато:", err));
+}
+
+// Экранда кодни кўрсатиш (Нусхалаб олиш учун)
+confirm("Confirm sms коди \n\n" + otp + "\n\nОК босиб кодни нусхаланг ва пастга киритинг.");
+//
   }, 400);
 
   go('screen-otp');
