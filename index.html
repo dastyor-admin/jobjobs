@@ -845,7 +845,7 @@ body{
         </button>
         <button class="grp-btn" id="grp-opt-join" onclick="selGrpOpt('join')">
           <div class="grp-btn-title">🔗 <span data-k="grp_join">Guruhga qo'shilish</span></div>
-          <div class="grp-btn-sub" data-k="grp_join_sub">Tizim lokatsiya va kategoriyangizga mos guruh topib beradi</div>
+          <div class="grp-btn-sub" data-k="grp_join_sub">система ишит группу</div>
         </button>
       </div>
 
@@ -1285,8 +1285,8 @@ body{
     <h3>⚡ <span data-k="tezkor">Tezkor e'lon</span></h3>
     <p data-k="tez_modal_sub">E'loningiz barcha e'lonlardan yuqorida ko'rinadi</p>
     <div class="card-ui">
-      <div style="font-size:11px;opacity:.7;margin-bottom:6px">🏦 ДУШАНБЕ СИТИ — КАРД РАҚАМИ</div>
-      <div class="card-num">4169 7388 2XXX XXXX</div>
+      <div style="font-size:11px;opacity:.7;margin-bottom:6px">🏦 ДУШАНБЕ СИТИ — по номеру телефон</div>
+      <div class="card-num">+992928487070</div>
       <div style="font-size:12px;opacity:.8;margin-top:8px">JOBJOBS · Тоҷикистон</div>
       <div style="font-size:11px;opacity:.65;margin-top:4px">Душанбе Сити Бонк</div>
     </div>
@@ -1302,8 +1302,8 @@ body{
     <h3 id="job-title">🤝 Ishni olish</h3>
     <p><span data-k="job_info">Ish beruvchi ma'lumotlarini ko'rish uchun</span> <strong>10%</strong> <span data-k="job_info2">xizmat haqi to'lashingiz kerak</span></p>
     <div class="card-ui">
-      <div style="font-size:11px;opacity:.7;margin-bottom:6px">🏦 ДУШАНБЕ СИТИ — КАРД РАҚАМИ</div>
-      <div class="card-num">4169 7388 2XXX XXXX</div>
+      <div style="font-size:11px;opacity:.7;margin-bottom:6px">🏦 ДУШАНБЕ СИТИ — по номеру телефон</div>
+      <div class="card-num">+992928487070</div>
       <div style="font-size:12px;opacity:.8;margin-top:8px">JOBJOBS · Тоҷикистон</div>
       <div style="font-size:11px;opacity:.65;margin-top:4px">Душанбе Сити Бонк</div>
     </div>
@@ -1445,7 +1445,7 @@ let sb = null;
 
 /* ══════════════════════════════════════
    TRANSLATIONS — UZ, KK, RU, EN
-══════════════════════════════════════ */
+══════════════════════════════════════ */а
 const LANG = {
 uz:{
   nav_home:"Bosh sahifa",nav_fav:"Tanlangan",nav_msg:"Xabarlar",nav_prof:"Profil",
@@ -2779,7 +2779,55 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   }, 1500);
 });
+async function acceptJob(adId) {
+    // 1. Огоҳлантириш
+    const confirmPay = confirm("Диққат! Ишни олиш учун 10% комиссия тўланиши керак. Тасдиқлайсизми?");
+   
+    if (confirmPay) {
+        const userPhone = localStorage.getItem('userPhone');
+       
+        // 2. Базада эълон статусини ва ишчи номерини янгилаш
+        const { error } = await sb.from('ads')
+            .update({
+                status: 'accepted',
+                worker_phone: userPhone
+            })
+            .eq('id', adId);
 
+        if (!error) {
+            alert("Тасдиқланди! Энди сиз эълоннинг барча маълумотларини кўра оласиз.");
+            location.reload(); // Саҳифани янгилаб, маълумотларни очамиз
+        } else {
+            alert("Хатолик: " + error.message);
+        }
+    }
+}
+  // Бу қисм эълонларни чиқарувчи цикл (loop) ичида бўлиши керак
+let detailsHtml = "";
+const myPhone = localStorage.getItem('userPhone');
+
+// Агар иш ҳали очиқ бўлса (ҳеч ким олмаган бўлса)
+if (ad.status === 'open') {
+    detailsHtml = `
+        <p><b>Шаҳар:</b> ${ad.city}</p>
+        <p><b>Тўлов:</b> ${ad.salary} сомони</p>
+        <p style="color: #666;"><i>(Тўлиқ маълумот ишни олгандан сўнг очилади)</i></p>
+        <button class="btn-primary" onclick="acceptJob('${ad.id}')">Взять работу (10% комиссия)</button>
+    `;
+}
+// Агар ишни СИЗ олган бўлсангиз ёки бу СИЗНИНГ эълонингиз бўлса
+else if (ad.status === 'accepted' && (ad.worker_phone === myPhone || ad.owner_phone === myPhone)) {
+    detailsHtml = `
+        <div style="background: #e8f5e9; padding: 10px; border-radius: 10px; border: 1px solid #4caf50;">
+            <p><b>📋 Тўлиқ маълумот:</b> ${ad.description}</p>
+            <p><b>📅 Сана:</b> ${ad.job_date || 'Кўрсатилмаган'}</p>
+            <p><b>📞 Телефон:</b> <a href="tel:${ad.phone}">${ad.phone}</a></p>
+            <p><b>💰 Тўлов:</b> ${ad.salary} сомони</p>
+            <hr>
+            <button class="btn-complete" onclick="completeJob('${ad.id}')">Работа завершена</button>
+        </div>
+    `;
+}
 </script>
 </body>
 </html>
