@@ -2779,54 +2779,7 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   }, 1500);
 });
-async function acceptJob(adId) {
-    // 1. Огоҳлантириш
-    const confirmPay = confirm("Диққат! Ишни олиш учун 10% комиссия тўланиши керак. Тасдиқлайсизми?");
-   
-    if (confirmPay) {
-        const userPhone = localStorage.getItem('userPhone');
-       
-        // 2. Базада эълон статусини ва ишчи номерини янгилаш
-        const { error } = await sb.from('ads')
-            .update({
-                status: 'accepted',
-                worker_phone: userPhone
-            })
-            .eq('id', adId);
 
-        if (!error) {
-            alert("Тасдиқланди! Энди сиз эълоннинг барча маълумотларини кўра оласиз.");
-            location.reload(); // Саҳифани янгилаб, маълумотларни очамиз
-        } else {
-            alert("Хатолик: " + error.message);
-        }
-    }
-}
-  // Бу қисм эълонларни чиқарувчи цикл (loop) ичида бўлиши керак
-let detailsHtml = "";
-const myPhone = localStorage.getItem('userPhone');
-
-// Агар иш ҳали очиқ бўлса (ҳеч ким олмаган бўлса)
-if (ad.status === 'open') {
-    detailsHtml = `
-        <p><b>Шаҳар:</b> ${ad.city}</p>
-        <p><b>Тўлов:</b> ${ad.salary} сомони</p>
-        <p style="color: #666;"><i>(Тўлиқ маълумот ишни олгандан сўнг очилади)</i></p>
-        <button class="btn-primary" onclick="acceptJob('${ad.id}')">Взять работу (10% комиссия)</button>
-    `;
-}
-// Агар ишни СИЗ олган бўлсангиз ёки бу СИЗНИНГ эълонингиз бўлса
-else if (ad.status === 'accepted' && (ad.worker_phone === myPhone || ad.owner_phone === myPhone)) {
-    detailsHtml = `
-        <div style="background: #e8f5e9; padding: 10px; border-radius: 10px; border: 1px solid #4caf50;">
-            <p><b>📋 Тўлиқ маълумот:</b> ${ad.description}</p>
-            <p><b>📅 Сана:</b> ${ad.job_date || 'Кўрсатилмаган'}</p>
-            <p><b>📞 Телефон:</b> <a href="tel:${ad.phone}">${ad.phone}</a></p>
-            <p><b>💰 Тўлов:</b> ${ad.salary} сомони</p>
-            <hr>
-            <button class="btn-complete" onclick="completeJob('${ad.id}')">Работа завершена</button>
-        </div>
-    `;
 }
 </script>
 </body>
