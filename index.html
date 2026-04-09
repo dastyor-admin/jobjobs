@@ -170,7 +170,7 @@ body{
 /* AD CARD */
 .ad-card{
   background:var(--wh);border-radius:var(--r);
-  overflow:hidden;margin-bottom:12px;
+  overflow:hidden;
   box-shadow:var(--sh);position:relative;
 }
 .ad-badge{
@@ -180,10 +180,10 @@ body{
   padding:3px 12px;border-radius:20px;z-index:2;
 }
 .ad-img{
-  width:100%;height:140px;
+  width:100%;height:110px;
   background:linear-gradient(135deg,#e8f5ed,#d4edda);
   display:flex;align-items:center;justify-content:center;
-  font-size:60px;overflow:hidden;
+  font-size:44px;overflow:hidden;
 }
 .ad-img img{width:100%;height:100%;object-fit:cover;}
 .fav-btn{
@@ -193,11 +193,13 @@ body{
   border:none;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.13);
   font-size:16px;z-index:2;
 }
-.ad-body{padding:12px;}
-.ad-title{font-size:15px;font-weight:800;margin-bottom:4px;}
-.ad-price{color:var(--g);font-size:15px;font-weight:800;margin-bottom:6px;}
+.ad-body{padding:8px;}
+.ad-title{font-size:13px;font-weight:800;margin-bottom:3px;line-height:1.3;}
+.ad-price{color:var(--g);font-size:13px;font-weight:800;margin-bottom:4px;}
 .ad-salary{color:#e67e22;font-size:13px;font-weight:700;margin-bottom:4px;}
-.ad-meta{font-size:12px;color:var(--tx2);display:flex;gap:12px;flex-wrap:wrap;}
+.ad-meta{font-size:11px;color:var(--tx2);display:flex;gap:6px;flex-wrap:wrap;}
+#ads-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+#fav-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .ad-acts{display:flex;gap:8px;margin-top:10px;}
 
 /* BUTTONS */
@@ -519,8 +521,8 @@ body{
 <div class="screen" id="screen-login">
   <div class="auth-wrap">
     <img style="height:60px;width:auto;margin-bottom:20px" id="login-logo-img" src="" alt="JobJobs">
-    <div class="auth-title" data-k="login_title">Kirish</div>
-    <div class="auth-sub" data-k="login_sub">Telefon raqam yoki ijtimoiy tarmoq orqali kiring</div>
+    <div class="auth-title">Вход</div>
+    <div class="auth-sub">Введите номер телефона для входа по SMS-коду</div>
     <div class="auth-err" id="login-err">Xato!</div>
     <div class="fld">
       <label class="flbl" data-k="lbl_phone">Telefon raqam</label>
@@ -535,23 +537,8 @@ body{
         <input class="finp" id="login-phone" type="tel" placeholder="93 123 45 67" inputmode="numeric">
       </div>
     </div>
-    <div class="fld">
-      <label class="flbl" data-k="lbl_pass">Parol</label>
-      <input class="finp" id="login-pass" type="password" placeholder="••••••••">
-    </div>
-    <button class="btn-auth" onclick="doLogin()" data-k="btn_login">Kirish →</button>
-    <div class="divider"><span data-k="or">yoki</span></div>
-    <div class="soc-row">
-      <button class="btn-soc" onclick="socialLogin('Google')">
-        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.2l6.7-6.7C35.7 2.3 30.2 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.8 6c1.8-5.4 6.8-9.8 13.5-9.8z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.5 2.8-2.2 5.2-4.7 6.8l7.3 5.7c4.3-4 6.7-9.8 7.2-16.5z"/><path fill="#FBBC05" d="M10.5 28.7c-.3-1-.5-2.1-.5-3.2s.2-2.2.5-3.2l-7.8-6A23.9 23.9 0 0 0 0 25c0 3.9.9 7.5 2.7 10.7l7.8-6z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.5l-7.3-5.7c-2 1.4-4.7 2.2-7.9 2.2-6.6 0-12.2-4.4-14.2-10.3l-7.8 6C6.6 42.6 14.6 48 24 48z"/></svg>
-        Google
-      </button>
-      <button class="btn-soc" onclick="socialLogin('Telegram')">
-        <svg width="20" height="20" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#2CA5E0"/><path fill="white" d="M10 23.5l6.7 2.5 2.6 8.2 3.3-4.2 6.8 5 6.6-19-26 7.5zm9.3 3.8l9.8-6.1-7.2 7.2-.1 4.4-2.5-5.5z"/></svg>
-        Telegram
-      </button>
-    </div>
-    <div class="auth-sw"><span data-k="no_acc">Akkount yo'qmi?</span> <a onclick="go('screen-register')" data-k="reg_link">Ro'yxatdan o'ting</a></div>
+    <button class="btn-auth" onclick="doLogin()" style="margin-top:8px">Войти →</button>
+    <div class="auth-sw"><span data-k="no_acc">Нет аккаунта?</span> <a onclick="go('screen-register')" style="color:var(--g);font-weight:800;cursor:pointer" data-k="reg_link">Зарегистрироваться</a></div>
   </div>
 </div>
 
@@ -559,15 +546,11 @@ body{
 <div class="screen" id="screen-register">
   <div class="auth-wrap">
     <img style="height:60px;width:auto;margin-bottom:20px" src="" id="reg-logo-img" alt="JobJobs">
-    <div class="auth-title" data-k="reg_title">Ro'yxatdan o'tish</div>
-    <div class="auth-sub" data-k="reg_sub">Yangi akkount yarating</div>
+    <div class="auth-title">Регистрация</div>
+    <div class="auth-sub">Введите номер телефона для получения SMS-кода</div>
     <div class="auth-err" id="reg-err"></div>
     <div class="fld">
-      <label class="flbl" data-k="lbl_name">Ism Familiya</label>
-      <input class="finp" id="reg-name" type="text" placeholder="Ism Familiyangiz">
-    </div>
-    <div class="fld">
-      <label class="flbl" data-k="lbl_phone">Telefon raqam</label>
+      <label class="flbl">Номер телефона</label>
       <div class="phone-row">
         <select class="phone-code" id="reg-code">
           <option value="+992">🇹🇯 +992</option>
@@ -579,34 +562,15 @@ body{
         <input class="finp" id="reg-phone" type="tel" placeholder="93 123 45 67" inputmode="numeric">
       </div>
     </div>
-    <div class="fld">
-      <label class="flbl" data-k="lbl_pass">Parol</label>
-      <input class="finp" id="reg-pass" type="password" placeholder="Kamida 6 belgi">
-    </div>
-    <div class="fld">
-      <label class="flbl" data-k="lbl_pass2">Parolni tasdiqlang</label>
-      <input class="finp" id="reg-pass2" type="password" placeholder="Parolni qayta kiriting">
-    </div>
-    <button class="btn-auth" onclick="doRegister()" data-k="btn_reg">Ro'yxatdan o'tish →</button>
-    <div class="divider"><span data-k="or">yoki</span></div>
-    <div class="soc-row">
-      <button class="btn-soc" onclick="socialLogin('Google')">
-        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.2l6.7-6.7C35.7 2.3 30.2 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.8 6c1.8-5.4 6.8-9.8 13.5-9.8z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.5 2.8-2.2 5.2-4.7 6.8l7.3 5.7c4.3-4 6.7-9.8 7.2-16.5z"/><path fill="#FBBC05" d="M10.5 28.7c-.3-1-.5-2.1-.5-3.2s.2-2.2.5-3.2l-7.8-6A23.9 23.9 0 0 0 0 25c0 3.9.9 7.5 2.7 10.7l7.8-6z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.5l-7.3-5.7c-2 1.4-4.7 2.2-7.9 2.2-6.6 0-12.2-4.4-14.2-10.3l-7.8 6C6.6 42.6 14.6 48 24 48z"/></svg>
-        Google
-      </button>
-      <button class="btn-soc" onclick="socialLogin('Telegram')">
-        <svg width="20" height="20" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#2CA5E0"/><path fill="white" d="M10 23.5l6.7 2.5 2.6 8.2 3.3-4.2 6.8 5 6.6-19-26 7.5zm9.3 3.8l9.8-6.1-7.2 7.2-.1 4.4-2.5-5.5z"/></svg>
-        Telegram
-      </button>
-    </div>
-    <div class="auth-sw"><span data-k="have_acc">Akkount bormi?</span> <a onclick="go('screen-login')" data-k="login_link">Kiring</a></div>
+    <button class="btn-auth" onclick="doRegister()">Получить SMS-код →</button>
+    <div class="auth-sw"><span>Уже есть аккаунт?</span> <a onclick="go('screen-login')" style="color:var(--g);font-weight:800;cursor:pointer">Войти</a></div>
   </div>
 </div>
 
 <!-- OTP -->
 <div class="screen" id="screen-otp">
   <div class="auth-wrap">
-    <button class="back-link" onclick="go('screen-register')">← <span data-k="back">Orqaga</span></button>
+    <button class="back-link" onclick="go(localStorage.getItem('jj_login_mode') ? 'screen-login' : 'screen-register')">← Назад</button>
     <div class="auth-title" data-k="otp_title">SMS tasdiqlash</div>
     <div class="auth-sub" id="otp-hint" style="margin-bottom:20px">Raqamingizga SMS yuborildi</div>
     <div class="otp-row">
@@ -625,249 +589,25 @@ body{
 
 <!-- ONBOARDING (Ma'lumot to'ldirish — multi-step) -->
 <div class="screen" id="screen-onboard">
-  <div class="auth-wrap" style="justify-content:flex-start;padding-top:24px;gap:0">
-    <!-- Step dots -->
-    <div class="steps" id="ob-steps">
-      <div class="step-dot active" id="step-dot-0"></div>
-      <div class="step-dot" id="step-dot-1"></div>
-      <div class="step-dot" id="step-dot-2"></div>
-      <div class="step-dot" id="step-dot-3"></div>
+  <div class="auth-wrap" style="justify-content:flex-start;padding-top:40px;gap:0">
+    <div style="font-size:48px;text-align:center;margin-bottom:12px">👤</div>
+    <div class="auth-title" style="margin-bottom:4px">Заполните данные</div>
+    <div class="auth-sub" style="margin-bottom:24px">Введите ваше имя и возраст</div>
+    <div class="auth-err" id="ob-err"></div>
+    <div class="fld">
+      <label class="flbl">Имя *</label>
+      <input class="finp" id="ob-firstname" type="text" placeholder="Ваше имя">
     </div>
-
-    <!-- STEP -1: Language selection (first screen) -->
-    <div class="ob-step" id="ob-step-lang" style="display:none">
-      <div style="font-size:40px;text-align:center;margin-bottom:8px">🌐</div>
-      <div class="auth-title" style="margin-bottom:4px">Tilni tanlang / Забонро интихоб кунед</div>
-      <div class="auth-sub" style="margin-bottom:20px">Choose your language</div>
-      <div style="display:flex;flex-direction:column;gap:10px;width:100%">
-        <button class="grp-btn" onclick="selObLang('tg')" id="oblang-tg">
-          <div class="grp-btn-title">🇹🇯 Тоҷикӣ</div><div class="grp-btn-sub">Тоҷикистон</div>
-        </button>
-        <button class="grp-btn" onclick="selObLang('uz')" id="oblang-uz">
-          <div class="grp-btn-title">🇺🇿 O'zbek tili</div><div class="grp-btn-sub">O'zbekiston</div>
-        </button>
-        <button class="grp-btn" onclick="selObLang('ru')" id="oblang-ru">
-          <div class="grp-btn-title">🇷🇺 Русский язык</div><div class="grp-btn-sub">Россия</div>
-        </button>
-        <button class="grp-btn" onclick="selObLang('en')" id="oblang-en">
-          <div class="grp-btn-title">🇬🇧 English</div><div class="grp-btn-sub">International</div>
-        </button>
-        <button class="grp-btn" onclick="selObLang('kk')" id="oblang-kk">
-          <div class="grp-btn-title">🇰🇿 Қазақша</div><div class="grp-btn-sub">Қазақстан</div>
-        </button>
-        <button class="grp-btn" onclick="selObLang('ky')" id="oblang-ky">
-          <div class="grp-btn-title">🇰🇬 Кыргызча</div><div class="grp-btn-sub">Кыргызстан</div>
-        </button>
-      </div>
+    <div class="fld">
+      <label class="flbl">Фамилия *</label>
+      <input class="finp" id="ob-lastname" type="text" placeholder="Ваша фамилия">
     </div>
-
-    <!-- STEP 0: Shaxsiy ma'lumotlar -->
-    <div class="ob-step active" id="ob-step-0">
-      <div style="font-size:40px;text-align:center;margin-bottom:8px">👤</div>
-      <div class="auth-title" style="margin-bottom:4px" data-k="ob_s0_title">Ma'lumotlarni to'ldiring</div>
-      <div class="auth-sub" style="margin-bottom:20px" data-k="ob_s0_sub">Shaxsiy ma'lumotlaringizni kiriting</div>
-      <div class="fld">
-        <label class="flbl" data-k="lbl_firstname">Ism *</label>
-        <input class="finp" id="ob-firstname" type="text" placeholder="Ism">
-      </div>
-      <div class="fld">
-        <label class="flbl" data-k="lbl_lastname">Familiya *</label>
-        <input class="finp" id="ob-lastname" type="text" placeholder="Familiya">
-      </div>
-      <div class="fld">
-        <label class="flbl" data-k="lbl_age">Yosh *</label>
-        <input class="finp" id="ob-age" type="number" inputmode="numeric" placeholder="Masalan: 25" min="14" max="80">
-        <div style="font-size:12px;color:var(--tx2);margin-top:5px" data-k="age_note">⚠️ 14 yoshdan kichiklar ro'yxatdan o'ta olmaydi</div>
-      </div>
-      <button class="btn-auth" onclick="obNext(0)">Keyingi →</button>
+    <div class="fld">
+      <label class="flbl">Возраст *</label>
+      <input class="finp" id="ob-age" type="number" inputmode="numeric" placeholder="Например: 25" min="14" max="80">
+      <div style="font-size:12px;color:var(--tx2);margin-top:5px">⚠️ Лица до 14 лет не могут зарегистрироваться</div>
     </div>
-
-    <!-- STEP 1: Pasport / hujjat yuklash -->
-    <div class="ob-step" id="ob-step-1">
-      <div style="font-size:40px;text-align:center;margin-bottom:8px">🪪</div>
-      <div class="auth-title" style="margin-bottom:4px" data-k="ob_s1_title">Shaxsni tasdiqlash</div>
-      <div class="auth-sub" style="margin-bottom:20px" data-k="ob_s1_sub">Pasport yoki tug'ilganlik guvohnomasi rasmini yuklang</div>
-      <div class="passport-zone" id="passport-zone" onclick="document.getElementById('passport-file').click()">
-        <div style="font-size:36px">📄</div>
-        <div style="font-size:14px;font-weight:700;color:var(--tx2);margin-top:8px" data-k="passport_tap">Bosing — rasm yuklang</div>
-        <div style="font-size:12px;color:var(--tx2);margin-top:4px" data-k="passport_hint">Pasport yoki metrika (JPG, PNG)</div>
-        <img id="passport-preview" class="passport-thumb" style="display:none">
-      </div>
-      <input type="file" id="passport-file" accept="image/*" style="display:none" onchange="setPassport(this)">
-      <div style="display:flex;gap:10px;margin-top:14px">
-        <button class="btn-cl" onclick="obBack(1)">← <span data-k="back">Orqaga</span></button>
-        <button class="btn-auth" onclick="obNext(1)" style="margin-top:0">Keyingi →</button>
-      </div>
-      <button style="margin-top:10px;background:none;border:none;color:var(--tx2);font-size:13px;cursor:pointer;font-family:inherit;padding:8px;width:100%" onclick="obSkipPassport()" data-k="skip_later">Keyinroq yuklaman</button>
-    </div>
-
-    <!-- STEP 2: Lokatsiya va Rol -->
-    <div class="ob-step" id="ob-step-2">
-      <div style="font-size:40px;text-align:center;margin-bottom:8px">📍</div>
-      <div class="auth-title" style="margin-bottom:4px" data-k="ob_s2_title">Lokatsiya va Rol</div>
-      <div class="auth-sub" style="margin-bottom:16px" data-k="ob_s2_sub">Shahringiz va rolingizni tanlang</div>
-
-      <div class="fld">
-        <label class="flbl" data-k="lbl_city">Shahar / Viloyat</label>
-        <select class="finp" id="ob-city">
-          <option value="">въбор...</option>
-          <optgroup label="🇹🇯 все город">
-        <option value="Душанбе">Душанбе</option>
-<option value="Худжанд">Худжанд</option>
-<option value="Абдурахмони Джоми">Абдурахмони Джоми</option>
-<option value="Айни">Айни</option>
-<option value="Ашт">Ашт</option>
-<option value="Бальджувон">Бальджувон</option>
-<option value="Бободжон Гафуров">Бободжон Гафуров</option>
-<option value="Бохтар">Бохтар</option>
-<option value="Бустон">Бустон</option>
-<option value="Вандж">Вандж</option>
-<option value="Варзоб">Варзоб</option>
-<option value="Вахдат">Вахдат</option>
-<option value="Вахш">Вахш</option>
-<option value="Восе">Восе</option>
-<option value="Гиссар">Гиссар</option>
-<option value="Горная Матча">Горная Матча</option>
-<option value="Гулистон">Гулистон</option>
-<option value="Дангара">Дангара</option>
-<option value="Дарвоз">Дарвоз</option>
-<option value="Деваштич">Деваштич</option>
-<option value="Джаббор Расулов">Джаббор Расулов</option>
-<option value="Джайхун">Джайхун</option>
-<option value="Джалолиддин Балхи">Джалолиддин Балхи</option>
-<option value="Джами">Джами</option>
-<option value="Дусти">Дусти</option>
-<option value="Зафарабад">Зафарабад</option>
-<option value="Истаравшан">Истаравшан</option>
-<option value="Истиклол">Истиклол</option>
-<option value="Исфара">Исфара</option>
-<option value="Ишкашим">Ишкашим</option>
-<option value="Кабодиён">Кабодиён</option>
-<option value="Канибадам">Канибадам</option>
-<option value="Куляб">Куляб</option>
-<option value="Кушониён">Кушониён</option>
-<option value="Лахш">Лахш</option>
-<option value="Леваканд">Леваканд</option>
-<option value="Матча">Матча</option>
-<option value="Мехгатабад">Мехгатабад</option>
-<option value="Мургаб">Мургаб</option>
-<option value="Носири Хусрав">Носири Хусрав</option>
-<option value="Нурабад">Нурабад</option>
-<option value="Нурек">Нурек</option>
-<option value="Пенджикент">Пенджикент</option>
-<option value="Пандж">Пандж</option>
-<option value="Рашт">Рашт</option>
-<option value="Рогун">Рогун</option>
-<option value="Рошткала">Рошткала</option>
-<option value="Рудаки">Рудаки</option>
-<option value="Рушан">Рушан</option>
-<option value="Сангвор">Сангвор</option>
-<option value="Спитамен">Спитамен</option>
-<option value="Таджикабад">Таджикабад</option>
-<option value="Темурмалик">Темурмалик</option>
-<option value="Турсунзаде">Турсунзаде</option>
-<option value="Файзабад">Файзабад</option>
-<option value="Фархор">Фархор</option>
-<option value="Хамадани">Хамадани</option>
-<option value="Хаволинг">Хаволинг</option>
-<option value="Хорог">Хорог</option>
-<option value="Хуросон">Хуросон</option>
-<option value="Шурабад">Шурабад</option>
-<option value="Шахринав">Шахринав</option>
-<option value="Шахристон">Шахристон</option>
-<option value="Шахритус">Шахритус</option>
-<option value="Шугнан">Шугнан</option>
-<option value="Яван">Яван</option>  
-          </optgroup>
-        </select>
-      </div>
-      <div class="fld">
-        <label class="flbl">📍 <span data-k="lbl_loc">GPS Lokatsiya</span></label>
-        <button class="loc-btn" onclick="getObLoc()">📍 <span data-k="loc_btn">GPS orqali aniqlash</span></button>
-        <div class="loc-show" id="ob-loc-show" style="display:none">📍 <span id="ob-loc-txt"></span></div>
-      </div>
-
-      <div class="fld">
-        <label class="flbl" data-k="lbl_role">Rolni tanlang *</label>
-        <div class="role-grid">
-          <button class="role-btn" onclick="selRole(this,'employer')">
-            <span class="role-ico">🏢</span>
-            <span data-k="role_employer">Ish beruvchi</span>
-          </button>
-          <button class="role-btn" onclick="selRole(this,'worker')">
-            <span class="role-ico">👷</span>
-            <span data-k="role_worker">Ishchi</span>
-          </button>
-          <button class="role-btn" onclick="selRole(this,'both')" style="grid-column:span 2">
-            <span class="role-ico">🤝</span>
-            <span data-k="role_both">Iккаlаsi ham</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Worker categories (shown when worker/both) -->
-      <div id="ob-cats-wrap" style="display:none">
-        <div class="form-lbl" data-k="lbl_workcats">Bajara oladigan ishlaringiz</div>
-        <div class="cat-chips" id="ob-cat-chips">
-          <button class="cat-chip" onclick="togCatChip(this,'home')">✨ <span data-k="c_home">Uy ishlari</span></button>
-          <button class="cat-chip" onclick="togCatChip(this,'field')">🌾 <span data-k="c_field">Dala ishlari</span></button>
-          <button class="cat-chip" onclick="togCatChip(this,'build')">🔨 <span data-k="c_build">Qurilish</span></button>
-          <button class="cat-chip" onclick="togCatChip(this,'help')">🤝 <span data-k="c_help">Yordamchi</span></button>
-          <button class="cat-chip" onclick="togCatChip(this,'daily')">⏱️ <span data-k="c_daily">Kunlik ish</span></button>
-          <button class="cat-chip" onclick="togCatChip(this,'master')">🔧 <span data-k="c_master">Usta</span></button>
-          <button class="cat-chip" onclick="togCatChip(this,'courier')">🚗 <span data-k="c_courier">Kuryer</span></button>
-          <button class="cat-chip" onclick="togCatChip(this,'gruzchik')">📦 <span data-k="c_gruzchik">Gruzchik</span></button>
-          <button class="cat-chip" onclick="togCatChip(this,'workers')">👷 <span data-k="c_workers">Ishchilar guruhi</span></button>
-          <button class="cat-chip" onclick="togCatChip(this,'other')">📋 <span data-k="c_other">Boshqalar</span></button>
-        </div>
-      </div>
-
-      <div style="display:flex;gap:10px;margin-top:8px">
-        <button class="btn-cl" onclick="obBack(2)">← <span data-k="back">Orqaga</span></button>
-        <button class="btn-auth" onclick="obNext(2)" style="margin-top:0">Keyingi →</button>
-      </div>
-    </div>
-
-    <!-- STEP 3: Guruh tanlash -->
-    <div class="ob-step" id="ob-step-3">
-      <div style="font-size:40px;text-align:center;margin-bottom:8px">👥</div>
-      <div class="auth-title" style="margin-bottom:4px" data-k="ob_s3_title">Guruh holati</div>
-      <div class="auth-sub" style="margin-bottom:16px" data-k="ob_s3_sub">Guruh bilan ishlashni tanlang</div>
-
-      <div class="grp-opt">
-        <button class="grp-btn" id="grp-opt-own" onclick="selGrpOpt('own')">
-          <div class="grp-btn-title">👑 <span data-k="grp_own">Guruhim bor</span></div>
-          <div class="grp-btn-sub" data-k="grp_own_sub">Ishchilaringiz soni kiriting — siz Brigаdir bo'lasiz</div>
-        </button>
-        <button class="grp-btn" id="grp-opt-solo" onclick="selGrpOpt('solo')">
-          <div class="grp-btn-title">🧑 <span data-k="grp_solo">Yakka ishchi</span></div>
-          <div class="grp-btn-sub" data-k="grp_solo_sub">Mustaqil ishlaysiz, guruhga kirmasiz</div>
-        </button>
-        <button class="grp-btn" id="grp-opt-join" onclick="selGrpOpt('join')">
-          <div class="grp-btn-title">🔗 <span data-k="grp_join">Guruhga qo'shilish</span></div>
-          <div class="grp-btn-sub" data-k="grp_join_sub">система ишит группу</div>
-        </button>
-      </div>
-
-      <!-- Own group: member count -->
-      <div id="grp-own-wrap" style="display:none">
-        <div class="fld">
-          <label class="flbl" data-k="grp_member_cnt">Шумораи коргарон</label>
-          <input class="finp" id="ob-grp-count" type="number" inputmode="numeric" placeholder="Масалан: 5" min="1" oninput="obData.grpCount=parseInt(this.value)||0">
-        </div>
-      </div>
-
-      <!-- Join group: show matched groups -->
-      <div id="grp-join-wrap" style="display:none">
-        <div style="background:var(--gl);border-radius:12px;padding:12px;font-size:13px;color:var(--g);font-weight:700" data-k="grp_searching">🔍 Tizim mos guruhlarni izlamoqda...</div>
-        <div id="grp-suggestions" style="margin-top:10px"></div>
-      </div>
-
-      <div style="display:flex;gap:10px;margin-top:14px">
-        <button class="btn-cl" onclick="obBack(3)">← <span data-k="back">Orqaga</span></button>
-        <button class="btn-auth" onclick="finishOnboard()" style="margin-top:0" data-k="ob_finish">✓ Boshlash</button>
-      </div>
-    </div>
+    <button class="btn-auth" onclick="finishOnboard()" style="margin-top:20px">✓ Начать →</button>
   </div>
 </div>
 
@@ -877,82 +617,76 @@ body{
     <img class="logo-img" src="" id="home-logo-img" alt="JobJobs">
     <div class="search-box">
       <svg viewBox="0 0 24 24" fill="none" stroke="#1a7a3c" stroke-width="2.5" width="18" height="18"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" id="search-in" placeholder="Ish qidiring..." oninput="searchAds()">
+      <input type="text" id="search-in" placeholder="🔍 Поиск работы..." oninput="searchAds()">
     </div>
   </div>
   <div class="content">
     <!-- Filter bar -->
     <div class="filter-bar">
       <select class="filter-sel" id="filter-city" onchange="renderAdsList()">
-        <option value="">📍 все город</option>
-        <optgroup label="🇹🇯 вес Таджикистан">
-        <option value="Душанбе">Душанбе</option>
-<option value="Худжанд">Худжанд</option>
-<option value="Абдурахмони Джоми">Абдурахмони Джоми</option>
-<option value="Айни">Айни</option>
-<option value="Ашт">Ашт</option>
-<option value="Бальджувон">Бальджувон</option>
-<option value="Бободжон Гафуров">Бободжон Гафуров</option>
-<option value="Бохтар">Бохтар</option>
-<option value="Бустон">Бустон</option>
-<option value="Вандж">Вандж</option>
-<option value="Варзоб">Варзоб</option>
-<option value="Вахдат">Вахдат</option>
-<option value="Вахш">Вахш</option>
-<option value="Восе">Восе</option>
-<option value="Гиссар">Гиссар</option>
-<option value="Горная Матча">Горная Матча</option>
-<option value="Гулистон">Гулистон</option>
-<option value="Дангара">Дангара</option>
-<option value="Дарвоз">Дарвоз</option>
-<option value="Деваштич">Деваштич</option>
-<option value="Джаббор Расулов">Джаббор Расулов</option>
-<option value="Джайхун">Джайхун</option>
-<option value="Джалолиддин Балхи">Джалолиддин Балхи</option>
-<option value="Джами">Джами</option>
-<option value="Дусти">Дусти</option>
-<option value="Зафарабад">Зафарабад</option>
-<option value="Истаравшан">Истаравшан</option>
-<option value="Истиклол">Истиклол</option>
-<option value="Исфара">Исфара</option>
-<option value="Ишкашим">Ишкашим</option>
-<option value="Кабодиён">Кабодиён</option>
-<option value="Канибадам">Канибадам</option>
-<option value="Куляб">Куляб</option>
-<option value="Кушониён">Кушониён</option>
-<option value="Лахш">Лахш</option>
-<option value="Леваканд">Леваканд</option>
-<option value="Матча">Матча</option>
-<option value="Мехгатабад">Мехгатабад</option>
-<option value="Мургаб">Мургаб</option>
-<option value="Носири Хусрав">Носири Хусрав</option>
-<option value="Нурабад">Нурабад</option>
-<option value="Нурек">Нурек</option>
-<option value="Пенджикент">Пенджикент</option>
-<option value="Пандж">Пандж</option>
-<option value="Рашт">Рашт</option>
-<option value="Рогун">Рогун</option>
-<option value="Рошткала">Рошткала</option>
-<option value="Рудаки">Рудаки</option>
-<option value="Рушан">Рушан</option>
-<option value="Сангвор">Сангвор</option>
-<option value="Спитамен">Спитамен</option>
-<option value="Таджикабад">Таджикабад</option>
-<option value="Темурмалик">Темурмалик</option>
-<option value="Турсунзаде">Турсунзаде</option>
-<option value="Файзабад">Файзабад</option>
-<option value="Фархор">Фархор</option>
-<option value="Хамадани">Хамадани</option>
-<option value="Хаволинг">Хаволинг</option>
-<option value="Хорог">Хорог</option>
-<option value="Хуросон">Хуросон</option>
-<option value="Шурабад">Шурабад</option>
-<option value="Шахринав">Шахринав</option>
-<option value="Шахристон">Шахристон</option>
-<option value="Шахритус">Шахритус</option>
-<option value="Шугнан">Шугнан</option>
-<option value="Яван">Яван</option>
-        </optgroup>
+        <option value="">📍 Все города</option>
+          <option value="">Выберите город...</option>
+          <option value="Абдураҳмони Ҷомӣ">Абдураҳмони Ҷомӣ</option>
+          <option value="Айнӣ">Айнӣ</option>
+          <option value="Ашт">Ашт</option>
+          <option value="Балҷувон">Балҷувон</option>
+          <option value="Бобоҷон Ғафуров">Бобоҷон Ғафуров</option>
+          <option value="Бохтар">Бохтар</option>
+          <option value="Бӯстон">Бӯстон</option>
+          <option value="Ваҳдат">Ваҳдат</option>
+          <option value="Вахш">Вахш</option>
+          <option value="Ванҷ">Ванҷ</option>
+          <option value="Варзоб">Варзоб</option>
+          <option value="Восеъ">Восеъ</option>
+          <option value="Гулистон">Гулистон</option>
+          <option value="Данғара">Данғара</option>
+          <option value="Деваштич">Деваштич</option>
+          <option value="Душанбе">Душанбе</option>
+          <option value="Дӯстӣ">Дӯстӣ (Қубодиён)</option>
+          <option value="Жаббор Расулов">Жаббор Расулов</option>
+          <option value="Зафаробод">Зафаробод</option>
+          <option value="Истаравшан">Истаравшан</option>
+          <option value="Истиқлол">Истиқлол</option>
+          <option value="Исфара">Исфара</option>
+          <option value="Ишкошим">Ишкошим</option>
+          <option value="Конибодом">Конибодом</option>
+          <option value="Кушониён">Кушониён</option>
+          <option value="Кӯлоб">Кӯлоб</option>
+          <option value="Кӯлоб тумани">Кӯлоб тумани</option>
+          <option value="Кӯҳистони Мастчоҳ">Кӯҳистони Мастчоҳ</option>
+          <option value="Лахш">Лахш</option>
+          <option value="Левакант">Левакант</option>
+          <option value="Мастчоҳ">Мастчоҳ</option>
+          <option value="Муъминобод">Муъминобод</option>
+          <option value="Норак">Норак</option>
+          <option value="Носири Хусрав">Носири Хусрав</option>
+          <option value="Нуробод">Нуробод</option>
+          <option value="Панҷ">Панҷ</option>
+          <option value="Панҷакент">Панҷакент</option>
+          <option value="Пурканда">Пурканда (Румӣ)</option>
+          <option value="Рашт">Рашт</option>
+          <option value="Роғун">Роғун</option>
+          <option value="Рудакӣ">Рудакӣ</option>
+          <option value="Рӯшон">Рӯшон</option>
+          <option value="Сангвор">Сангвор</option>
+          <option value="Спитамен">Спитамен</option>
+          <option value="Темурмалик">Темурмалик</option>
+          <option value="Тоҷикобод">Тоҷикобод</option>
+          <option value="Турсунзода">Турсунзода</option>
+          <option value="Файзобод">Файзобод</option>
+          <option value="Фархор">Фархор</option>
+          <option value="Ховалинг">Ховалинг</option>
+          <option value="Хоруғ">Хоруғ</option>
+          <option value="Хуросон">Хуросон</option>
+          <option value="Хӯҷанд">Хӯҷанд</option>
+          <option value="Шаҳринав">Шаҳринав</option>
+          <option value="Шаҳристон">Шаҳристон</option>
+          <option value="Шаҳритус">Шаҳритус</option>
+          <option value="Шамсиддин Шоҳин">Шамсиддин Шоҳин</option>
+          <option value="Шуғнон">Шуғнон</option>
+          <option value="Ҳамадонӣ">Ҳамадонӣ</option>
+          <option value="Ҳисор">Ҳисор</option>
+          <option value="Ёвон">Ёвон</option>
       </select>
       <select class="filter-sel" id="filter-radius" onchange="renderAdsList()" style="max-width:100px">
         <option value="50">≤50 km</option>
@@ -962,18 +696,13 @@ body{
       </select>
     </div>
 
-    <div class="cat-grid">
-      <div class="cat-item act" onclick="selCat(this,'home')"><span class="em">✨</span><span data-k="c_home">Uy ishlari</span></div>
-      <div class="cat-item" onclick="selCat(this,'field')"><span class="em">🌾</span><span data-k="c_field">Dala ishlari</span></div>
-      <div class="cat-item" onclick="selCat(this,'build')"><span class="em">🔨</span><span data-k="c_build">Qurilish</span></div>
-      <div class="cat-item" onclick="selCat(this,'help')"><span class="em">🤝</span><span data-k="c_help">Yordamchi</span></div>
-      <div class="cat-item" onclick="selCat(this,'daily')"><span class="em">⏱️</span><span data-k="c_daily">Kunlik ish</span></div>
-      <div class="cat-item" onclick="selCat(this,'master')"><span class="em">🔧</span><span data-k="c_master">Usta</span></div>
-      <div class="cat-item" onclick="selCat(this,'courier')"><span class="em">🚗</span><span data-k="c_courier">Kuryer</span></div>
-      <div class="cat-item" onclick="selCat(this,'gruzchik')"><span class="em">📦</span><span data-k="c_gruzchik">Gruzchik</span></div>
-      <div class="cat-item" onclick="selCat(this,'workers')"><span class="em">👷</span><span data-k="c_workers">Ishchilar guruhi</span></div>
-      <div class="cat-item" onclick="selCat(this,'other')"><span class="em">···</span><span data-k="c_other">Boshqalar</span></div>
-      <div class="cat-item all-cat" onclick="selCat(this,'all')"><span style="font-size:26px">⊞</span><span data-k="c_all">Barchasi</span></div>
+    <div class="cat-grid" style="grid-template-columns:repeat(3,1fr);gap:8px">
+      <div class="cat-item act" onclick="selCat(this,'master_el')"><span class="em">🔌</span><span data-k="master_el">🔌 Мастер: Электрик</span></div>
+      <div class="cat-item" onclick="selCat(this,'mardikor')"><span class="em">👷</span><span data-k="mardikor">👷 Разнорабочий</span></div>
+      <div class="cat-item" onclick="selCat(this,'home_serv')"><span class="em">🏠</span><span data-k="home_serv">🏠 Дом. услуги</span></div>
+      <div class="cat-item" onclick="selCat(this,'trade')"><span class="em">🛒</span><span data-k="trade">🛒 Торговля</span></div>
+      <div class="cat-item" onclick="selCat(this,'master_app')"><span class="em">📺</span><span data-k="master_app">📺 Бытовая техника</span></div>
+      <div class="cat-item all-cat" onclick="openAllCats()"><span style="font-size:24px">⊞</span><span data-k="c_all_cats">Все категории</span></div>
     </div>
     <div class="ads-hdr">
       <div class="sec-title" data-k="new_ads">Yangi e'lonlar</div>
@@ -996,7 +725,9 @@ body{
     <img class="logo-img" src="" id="fav-logo-img" alt="JobJobs">
     <span style="font-size:16px;font-weight:800;color:var(--nv);flex:1;text-align:center" data-k="nav_fav">Tanlangan</span>
   </div>
-  <div class="content"><div class="empty"><div style="font-size:60px">🤍</div><div style="font-size:16px;font-weight:800;color:var(--nv)" data-k="fav_empty">Tanlangan e'lon yo'q</div><div data-k="fav_hint">♥ bosib e'lonlarni saqlang</div></div></div>
+  <div class="content">
+    <div id="fav-list"></div>
+  </div>
   <nav class="bot-nav">
     <button class="ni" onclick="go('screen-home')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span data-k="nav_home">Bosh sahifa</span></button>
     <button class="ni active" onclick="go('screen-fav')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span data-k="nav_fav">Tanlangan</span></button>
@@ -1015,6 +746,20 @@ body{
   <div class="content">
     <div class="form-grp"><label class="form-lbl" data-k="lbl_title">Sarlavha *</label><input class="form-in" id="ad-title" placeholder="Masalan: Kvartira tozalash..."></div>
     <div class="form-grp"><label class="form-lbl" data-k="lbl_desc">Tavsif *</label><textarea class="form-ta" id="ad-desc" placeholder="Xizmatingizni batafsil yozing..."></textarea></div>
+    <div class="form-grp">
+      <label class="form-lbl">📅 <span id="lbl-deadline-txt">Когда выполнить (дата)</span></label>
+      <div style="display:flex;gap:8px;align-items:center">
+        <input class="form-in" id="ad-day" type="number" inputmode="numeric" min="1" max="31" placeholder="КК" style="flex:1;text-align:center">
+        <select class="form-sel" id="ad-month" style="flex:2">
+          <option value="">Месяц</option>
+          <option value="1">Январь</option><option value="2">Февраль</option><option value="3">Март</option>
+          <option value="4">Апрель</option><option value="5">Май</option><option value="6">Июнь</option>
+          <option value="7">Июль</option><option value="8">Август</option><option value="9">Сентябрь</option>
+          <option value="10">Октябрь</option><option value="11">Ноябрь</option><option value="12">Декабрь</option>
+        </select>
+        <input class="form-in" id="ad-year" type="number" inputmode="numeric" min="2024" max="2099" placeholder="ЙЙЙЙ" style="flex:1.5;text-align:center">
+      </div>
+    </div>
     <div class="form-grp">
       <label class="form-lbl" data-k="lbl_price">💰 Нарх (Сомонӣ)</label>
       <div style="position:relative">
@@ -1035,91 +780,95 @@ body{
     <div class="form-grp">
       <label class="form-lbl" data-k="lbl_cat">Kategoriya *</label>
       <select class="form-sel" id="ad-cat" onchange="onCatChange()">
-        <option value="" data-k="c_sel">Tanlang...</option>
-        <option value="home" data-k="c_home">Uy ishlari</option>
-        <option value="field" data-k="c_field">Dala ishlari</option>
-        <option value="build" data-k="c_build">Qurilish</option>
-        <option value="help" data-k="c_help">Yordamchi</option>
-        <option value="daily" data-k="c_daily">Kunlik ish</option>
-        <option value="master" data-k="c_master">Usta</option>
-        <option value="courier" data-k="c_courier">Kuryer</option>
-        <option value="gruzchik" data-k="c_gruzchik">Gruzchik</option>
-        <option value="workers" data-k="c_workers">Ishchilar guruhi</option>
-        <option value="vacancy" data-k="c_vacancy">💼 Vakansiya</option>
-        <option value="other" data-k="c_other">Boshqalar</option>
+        <option value="" data-k="c_sel">Выберите...</option>
+        <option value="master_el" data-k="master_el">🔌 Мастер: Электрик и Сантехник</option>
+        <option value="mardikor" data-k="mardikor">👷 Разнорабочий и поденщик</option>
+        <option value="home_serv" data-k="home_serv">🏠 Домашние услуги</option>
+        <option value="trade" data-k="trade">🛒 Торговля и продавец</option>
+        <option value="master_app" data-k="master_app">📺 Мастер: Бытовая техника</option>
+        <option value="ac_cold" data-k="ac_cold">❄️ Мастер: Кондиционер и Холодильник</option>
+        <option value="medical" data-k="medical">💊 Медицина: Врач и Медсестра</option>
+        <option value="cat_build" data-k="cat_build">🏗️ Строительство и ремонт</option>
+        <option value="logistic" data-k="logistic">🚛 Грузоперевозки и логистика</option>
+        <option value="garden" data-k="garden">🌿 Садоводство и земледелие</option>
+        <option value="driver" data-k="driver">🚕 Водитель и такси</option>
+        <option value="sewing" data-k="sewing">🧵 Швейное дело и текстиль</option>
+        <option value="autoserv" data-k="autoserv">🚗 Автосервис</option>
+        <option value="kitchen" data-k="kitchen">👨‍🍳 Кухня и ресторан</option>
+        <option value="beauty" data-k="beauty">✂️ Красота и спорт</option>
+        <option value="education" data-k="education">📚 Образование и репетитор</option>
+        <option value="it_serv" data-k="it_serv">💻 IT и компьютерные услуги</option>
+        <option value="security" data-k="security">🛡️ Охрана и безопасность</option>
+        <option value="photo" data-k="photo">📸 Фото, Видео и Свадьбы</option>
+        <option value="legal" data-k="legal">⚖️ Бухгалтер и юрист</option>
+        <option value="other" data-k="other">⚙️ Другие услуги</option>
       </select>
     </div>
     <div class="form-grp">
-      <label class="form-lbl" data-k="lbl_city">Шаҳр</label>
+      <label class="form-lbl">🏙️ Город</label>
       <select class="form-sel" id="ad-city">
-        <optgroup label="🇹🇯 вес Таджикистан">
-        <option value="Душанбе">Душанбе</option>
-<option value="Худжанд">Худжанд</option>
-<option value="Абдурахмони Джоми">Абдурахмони Джоми</option>
-<option value="Айни">Айни</option>
-<option value="Ашт">Ашт</option>
-<option value="Бальджувон">Бальджувон</option>
-<option value="Бободжон Гафуров">Бободжон Гафуров</option>
-<option value="Бохтар">Бохтар</option>
-<option value="Бустон">Бустон</option>
-<option value="Вандж">Вандж</option>
-<option value="Варзоб">Варзоб</option>
-<option value="Вахдат">Вахдат</option>
-<option value="Вахш">Вахш</option>
-<option value="Восе">Восе</option>
-<option value="Гиссар">Гиссар</option>
-<option value="Горная Матча">Горная Матча</option>
-<option value="Гулистон">Гулистон</option>
-<option value="Дангара">Дангара</option>
-<option value="Дарвоз">Дарвоз</option>
-<option value="Деваштич">Деваштич</option>
-<option value="Джаббор Расулов">Джаббор Расулов</option>
-<option value="Джайхун">Джайхун</option>
-<option value="Джалолиддин Балхи">Джалолиддин Балхи</option>
-<option value="Джами">Джами</option>
-<option value="Дусти">Дусти</option>
-<option value="Зафарабад">Зафарабад</option>
-<option value="Истаравшан">Истаравшан</option>
-<option value="Истиклол">Истиклол</option>
-<option value="Исфара">Исфара</option>
-<option value="Ишкашим">Ишкашим</option>
-<option value="Кабодиён">Кабодиён</option>
-<option value="Канибадам">Канибадам</option>
-<option value="Куляб">Куляб</option>
-<option value="Кушониён">Кушониён</option>
-<option value="Лахш">Лахш</option>
-<option value="Леваканд">Леваканд</option>
-<option value="Матча">Матча</option>
-<option value="Мехгатабад">Мехгатабад</option>
-<option value="Мургаб">Мургаб</option>
-<option value="Носири Хусрав">Носири Хусрав</option>
-<option value="Нурабад">Нурабад</option>
-<option value="Нурек">Нурек</option>
-<option value="Пенджикент">Пенджикент</option>
-<option value="Пандж">Пандж</option>
-<option value="Рашт">Рашт</option>
-<option value="Рогун">Рогун</option>
-<option value="Рошткала">Рошткала</option>
-<option value="Рудаки">Рудаки</option>
-<option value="Рушан">Рушан</option>
-<option value="Сангвор">Сангвор</option>
-<option value="Спитамен">Спитамен</option>
-<option value="Таджикабад">Таджикабад</option>
-<option value="Темурмалик">Темурмалик</option>
-<option value="Турсунзаде">Турсунзаде</option>
-<option value="Файзабад">Файзабад</option>
-<option value="Фархор">Фархор</option>
-<option value="Хамадани">Хамадани</option>
-<option value="Хаволинг">Хаволинг</option>
-<option value="Хорог">Хорог</option>
-<option value="Хуросон">Хуросон</option>
-<option value="Шурабад">Шурабад</option>
-<option value="Шахринав">Шахринав</option>
-<option value="Шахристон">Шахристон</option>
-<option value="Шахритус">Шахритус</option>
-<option value="Шугнан">Шугнан</option>
-<option value="Яван">Яван</option>
-        </optgroup>
+          <option value="">Выберите город...</option>
+          <option value="Абдураҳмони Ҷомӣ">Абдураҳмони Ҷомӣ</option>
+          <option value="Айнӣ">Айнӣ</option>
+          <option value="Ашт">Ашт</option>
+          <option value="Балҷувон">Балҷувон</option>
+          <option value="Бобоҷон Ғафуров">Бобоҷон Ғафуров</option>
+          <option value="Бохтар">Бохтар</option>
+          <option value="Бӯстон">Бӯстон</option>
+          <option value="Ваҳдат">Ваҳдат</option>
+          <option value="Вахш">Вахш</option>
+          <option value="Ванҷ">Ванҷ</option>
+          <option value="Варзоб">Варзоб</option>
+          <option value="Восеъ">Восеъ</option>
+          <option value="Гулистон">Гулистон</option>
+          <option value="Данғара">Данғара</option>
+          <option value="Деваштич">Деваштич</option>
+          <option value="Душанбе">Душанбе</option>
+          <option value="Дӯстӣ">Дӯстӣ (Қубодиён)</option>
+          <option value="Жаббор Расулов">Жаббор Расулов</option>
+          <option value="Зафаробод">Зафаробод</option>
+          <option value="Истаравшан">Истаравшан</option>
+          <option value="Истиқлол">Истиқлол</option>
+          <option value="Исфара">Исфара</option>
+          <option value="Ишкошим">Ишкошим</option>
+          <option value="Конибодом">Конибодом</option>
+          <option value="Кушониён">Кушониён</option>
+          <option value="Кӯлоб">Кӯлоб</option>
+          <option value="Кӯлоб тумани">Кӯлоб тумани</option>
+          <option value="Кӯҳистони Мастчоҳ">Кӯҳистони Мастчоҳ</option>
+          <option value="Лахш">Лахш</option>
+          <option value="Левакант">Левакант</option>
+          <option value="Мастчоҳ">Мастчоҳ</option>
+          <option value="Муъминобод">Муъминобод</option>
+          <option value="Норак">Норак</option>
+          <option value="Носири Хусрав">Носири Хусрав</option>
+          <option value="Нуробод">Нуробод</option>
+          <option value="Панҷ">Панҷ</option>
+          <option value="Панҷакент">Панҷакент</option>
+          <option value="Пурканда">Пурканда (Румӣ)</option>
+          <option value="Рашт">Рашт</option>
+          <option value="Роғун">Роғун</option>
+          <option value="Рудакӣ">Рудакӣ</option>
+          <option value="Рӯшон">Рӯшон</option>
+          <option value="Сангвор">Сангвор</option>
+          <option value="Спитамен">Спитамен</option>
+          <option value="Темурмалик">Темурмалик</option>
+          <option value="Тоҷикобод">Тоҷикобод</option>
+          <option value="Турсунзода">Турсунзода</option>
+          <option value="Файзобод">Файзобод</option>
+          <option value="Фархор">Фархор</option>
+          <option value="Ховалинг">Ховалинг</option>
+          <option value="Хоруғ">Хоруғ</option>
+          <option value="Хуросон">Хуросон</option>
+          <option value="Хӯҷанд">Хӯҷанд</option>
+          <option value="Шаҳринав">Шаҳринав</option>
+          <option value="Шаҳристон">Шаҳристон</option>
+          <option value="Шаҳритус">Шаҳритус</option>
+          <option value="Шамсиддин Шоҳин">Шамсиддин Шоҳин</option>
+          <option value="Шуғнон">Шуғнон</option>
+          <option value="Ҳамадонӣ">Ҳамадонӣ</option>
+          <option value="Ҳисор">Ҳисор</option>
+          <option value="Ёвон">Ёвон</option>
       </select>
     </div>
     <div class="form-grp">
@@ -1135,17 +884,10 @@ body{
       <input type="file" id="ph-file" accept="image/*" multiple style="display:none" onchange="addPhotos(this)">
     </div>
 
-    <!-- Commission note for employers -->
-    <div class="comm-box" id="comm-note" style="display:none">
-      <div class="comm-title">💳 10% Komissiya va Kafolat</div>
-      <div class="comm-sub" id="comm-text">Корфармоён 10% комиссияи хидматро мепардозанд. Ин барои пардохти бехатар ва кафолати арбитраж аст. Кард: <strong>4169 7388 2XXX XXXX</strong> (Душанбе Сити Бонк · JobJobs)</div>
-    </div>
 
-    <div class="tez-row">
-      <div><div style="font-size:14px;font-weight:800">⚡ <span data-k="tezkor">Tezkor</span></div><div style="font-size:12px;color:var(--tx2)" data-k="tez_sub">E'lon yuqorida ko'rinadi — 10 сомонӣ</div></div>
-      <button class="tog" id="tez-tog" onclick="togTez()"></button>
-    </div>
-    <button class="btn-p" style="width:100%;padding:16px;font-size:16px;border-radius:16px" onclick="submitAd()" data-k="submit_ad">✓ E'lonni joylashtirish</button>
+
+
+    <button class="btn-p" style="width:100%;padding:16px;font-size:16px;border-radius:16px" onclick="submitAd()" data-k="submit_ad" id="submit-ad-btn">✓ E'lonni joylashtirish</button>
   </div>
   <nav class="bot-nav">
     <button class="ni" onclick="go('screen-home')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span data-k="nav_home">Bosh sahifa</span></button>
@@ -1160,9 +902,23 @@ body{
 <div class="screen" id="screen-msg">
   <div class="topbar">
     <img class="logo-img" src="" id="msg-logo-img" alt="JobJobs">
-    <span style="font-size:16px;font-weight:800;color:var(--nv);flex:1;text-align:center" data-k="nav_msg">Xabarlar</span>
+    <span style="font-size:16px;font-weight:800;color:var(--nv);flex:1;text-align:center" data-k="nav_msg">Сообщения</span>
   </div>
-  <div class="content"><div class="empty"><div style="font-size:60px">💬</div><div style="font-size:16px;font-weight:800;color:var(--nv)" data-k="msg_empty">Xabarlar yo'q</div></div></div>
+  <div class="content" id="msg-content">
+    <div id="msg-threads"></div>
+  </div>
+  <!-- Chat window -->
+  <div id="chat-window" style="display:none;flex-direction:column;position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:100vh;background:#fff;z-index:500">
+    <div style="background:var(--g);padding:14px 16px;display:flex;align-items:center;gap:12px">
+      <button onclick="closeChat()" style="background:none;border:none;color:#fff;font-size:22px;cursor:pointer">←</button>
+      <div id="chat-title" style="font-weight:800;color:#fff;font-size:16px;flex:1">Чат</div>
+    </div>
+    <div id="chat-messages" style="flex:1;overflow-y:auto;padding:12px 14px 80px;display:flex;flex-direction:column;gap:10px;min-height:0;height:calc(100vh - 60px - 64px)"></div>
+    <div style="position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;padding:10px 14px 16px;box-shadow:0 -2px 12px rgba(0,0,0,.1);display:flex;gap:8px;align-items:center">
+      <input id="chat-input" class="form-in" style="flex:1;margin:0" placeholder="Сообщение..." onkeydown="if(event.key==='Enter')sendMsg()">
+      <button class="btn-p" style="padding:10px 16px;border-radius:12px" onclick="sendMsg()">➤</button>
+    </div>
+  </div>
   <nav class="bot-nav">
     <button class="ni" onclick="go('screen-home')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span data-k="nav_home">Bosh sahifa</span></button>
     <button class="ni" onclick="go('screen-fav')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span data-k="nav_fav">Tanlangan</span></button>
@@ -1192,21 +948,7 @@ body{
       <button class="btn-edit-prof" onclick="openEditProf()" data-k="edit_prof">✏️ Profilni tahrirlash</button>
     </div>
     <div class="prof-list">
-      <button class="p-item" onclick="filterMyAds()"><div class="p-left"><div class="p-ico" style="background:#e8f5ed">📋</div><span style="font-weight:700" data-k="my_ads">Mening e'lonlarim</span></div><span class="p-badge" id="my-ads-count">0</span></button>
-      <button class="p-item" onclick="go('screen-fav')"><div class="p-left"><div class="p-ico" style="background:#fff0f5">❤️</div><span style="font-weight:700" data-k="nav_fav">Tanlangan</span></div><span class="p-badge">0</span></button>
-      <div style="background:#fff;border-radius:14px;padding:16px;margin-bottom:10px;box-shadow:var(--sh)">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-          <div style="display:flex;align-items:center;gap:10px">
-            <div class="p-ico" style="background:#e8f0ff;font-size:20px">👷</div>
-            <div>
-              <div style="font-weight:800;font-size:15px;color:var(--nv)" data-k="my_group">Mening guruhim</div>
-              <div style="font-size:12px;color:var(--tx2)"><span data-k="members_cnt">A'zolar soni:</span> <strong id="group-count" style="color:var(--g);font-size:14px">0</strong></div>
-            </div>
-          </div>
-        </div>
-        <div id="prof-grp-info" style="display:none;background:#f0f9f4;border-radius:10px;padding:10px;margin-bottom:10px;font-size:13px;color:var(--g);font-weight:700"></div>
-        <button class="btn-p" style="width:100%;padding:11px;border-radius:12px;font-size:14px" onclick="openGroupModal()" data-k="join_group">👷 Guruhga qo'shilish</button>
-      </div>
+      <button class="p-item" onclick="go('screen-my-ads')"><div class="p-left"><div class="p-ico" style="background:#e8f5ed">📋</div><span style="font-weight:700" data-k="my_ads">Mои объявления</span></div><span class="p-badge" id="my-ads-count">0</span></button>
 
       <!-- SETTINGS -->
       <div class="acc-box">
@@ -1265,6 +1007,26 @@ body{
         </div>
       </div>
 
+      <!-- О КОМПАНИИ -->
+      <div class="acc-box">
+        <button class="acc-head" onclick="togAcc('about')">
+          <div class="acc-head-l"><div class="acc-ico" style="background:#fff8e1">🏢</div><span class="acc-title">О компании</span></div>
+          <span class="chev" id="chev-about">▼</span>
+        </button>
+        <div class="acc-body" id="body-about">
+          <div style="padding:10px 0;font-size:13px;color:var(--tx);line-height:1.6">
+            <div style="font-weight:900;font-size:15px;color:var(--nv);margin-bottom:8px">🏢 JobJobs</div>
+            <p style="margin-bottom:8px">Компания была основана <strong>30 января 2026 года</strong> с целью снижения уровня безработицы и создания удобной платформы для поиска работы и работников.</p>
+            <p style="margin-bottom:8px">Интеллектуальная собственность компании принадлежит <strong>Муминову Турсунмуроду Шовкатовичу</strong>. Все права защищены.</p>
+            <div style="background:#fff3cd;border-radius:10px;padding:10px;margin:8px 0;border-left:3px solid var(--or)">
+              <div style="font-weight:800;font-size:13px;color:var(--nv);margin-bottom:4px">⚠️ Ограничение ответственности</div>
+              <p style="font-size:12px;color:var(--tx2);line-height:1.5">Компания JobJobs является информационной платформой и не несёт ответственности за: качество выполненных работ, действия третьих лиц, споры между работодателями и работниками, убытки, возникшие в результате использования платформы.</p>
+            </div>
+            <p style="font-size:12px;color:var(--tx2)">Используя платформу, вы соглашаетесь с условиями использования. © JobJobs 2026</p>
+          </div>
+        </div>
+      </div>
+
       <button class="logout-btn" onclick="doLogout()">🚪 <span data-k="logout">Chiqish</span></button>
     </div>
   </div>
@@ -1278,40 +1040,6 @@ body{
 </div>
 
 <!-- ════ MODALS ════ -->
-
-<!-- TEZKOR PAYMENT -->
-<div class="mo" id="m-tez">
-  <div class="md">
-    <h3>⚡ <span data-k="tezkor">Tezkor e'lon</span></h3>
-    <p data-k="tez_modal_sub">E'loningiz barcha e'lonlardan yuqorida ko'rinadi</p>
-    <div class="card-ui">
-      <div style="font-size:11px;opacity:.7;margin-bottom:6px">🏦 ДУШАНБЕ СИТИ — по номеру телефон</div>
-      <div class="card-num">+992928487070</div>
-      <div style="font-size:12px;opacity:.8;margin-top:8px">JOBJOBS · Тоҷикистон</div>
-      <div style="font-size:11px;opacity:.65;margin-top:4px">Душанбе Сити Бонк</div>
-    </div>
-    <div class="amount-box"><div><div style="font-size:13px;color:var(--tx2)" data-k="pay_amt">Маблағи пардохт</div><div class="amount">10 сомонӣ</div></div><div style="font-size:30px">⚡</div></div>
-    <p class="info-note note-warn" data-k="tez_note">To'lovdan so'ng e'lon birinchi qatorga ko'tariladi</p>
-    <div style="display:flex;gap:10px"><button class="btn-cl" onclick="closeM('m-tez')" data-k="cancel">Bekor</button><button class="btn-p" onclick="confirmTez()" data-k="paid">✓ To'ladim</button></div>
-  </div>
-</div>
-
-<!-- TAKE JOB PAYMENT -->
-<div class="mo" id="m-job">
-  <div class="md">
-    <h3 id="job-title">🤝 Ishni olish</h3>
-    <p><span data-k="job_info">Ish beruvchi ma'lumotlarini ko'rish uchun</span> <strong>10%</strong> <span data-k="job_info2">xizmat haqi to'lashingiz kerak</span></p>
-    <div class="card-ui">
-      <div style="font-size:11px;opacity:.7;margin-bottom:6px">🏦 ДУШАНБЕ СИТИ — по номеру телефон</div>
-      <div class="card-num">+992928487070</div>
-      <div style="font-size:12px;opacity:.8;margin-top:8px">JOBJOBS · Тоҷикистон</div>
-      <div style="font-size:11px;opacity:.65;margin-top:4px">Душанбе Сити Бонк</div>
-    </div>
-    <div class="amount-box"><div><div style="font-size:13px;color:var(--tx2)">10%</div><div class="amount" id="job-fee">8 сомонӣ</div></div><div style="font-size:24px">🤝</div></div>
-    <p class="info-note note-ok" data-k="job_after">To'lovdan so'ng telefon, manzil va lokatsiya ochiladi</p>
-    <div style="display:flex;gap:10px"><button class="btn-cl" onclick="closeM('m-job')" data-k="back">Orqaga</button><button class="btn-p" onclick="confirmJob()" data-k="paid">✓ To'ladim</button></div>
-  </div>
-</div>
 
 <!-- CONTACT REVEAL -->
 <div class="mo" id="m-contact">
@@ -1363,34 +1091,6 @@ body{
   </div>
 </div>
 
-<!-- JOIN GROUP MODAL -->
-<div class="mo" id="m-group">
-  <div class="md">
-    <h3>👷 <span data-k="join_group">Guruhga qo'shilish</span></h3>
-    <p style="color:var(--tx2);font-size:14px;margin-bottom:16px" data-k="grp_modal_sub">Mutaxassisligingizni tanlang — tizim mos guruh topib beradi</p>
-    <div class="form-grp">
-      <label class="form-lbl" data-k="lbl_spec">Mutaxassislik</label>
-      <select class="form-sel" id="grp-spec">
-        <option value="">Tanlang...</option>
-        <option value="gruzchik" data-k="c_gruzchik">📦 Gruzchik</option>
-        <option value="workers" data-k="c_workers">👷 Ishchi</option>
-        <option value="build" data-k="c_build">🔨 Qurilishchi</option>
-        <option value="master" data-k="c_master">🔧 Usta</option>
-        <option value="courier" data-k="c_courier">🚗 Kuryer</option>
-        <option value="field" data-k="c_field">🌾 Dala ishchi</option>
-      </select>
-    </div>
-    <div class="form-grp">
-      <label class="form-lbl" data-k="lbl_phone">Telefon</label>
-      <input class="form-in" id="grp-phone" type="tel" placeholder="+992 93 123 45 67">
-    </div>
-    <div style="display:flex;gap:10px">
-      <button class="btn-cl" onclick="closeM('m-group')" data-k="cancel">Bekor</button>
-      <button class="btn-p" onclick="joinGroup()" data-k="join">✓ Qo'shilish</button>
-    </div>
-  </div>
-</div>
-
 <!-- SUCCESS -->
 <div class="mo" id="m-success">
   <div class="md" style="text-align:center;padding:36px 24px">
@@ -1432,12 +1132,12 @@ body{
 /* ══════════════════════════════════════
    SUPABASE
 ══════════════════════════════════════ */
-const SUPABASE_URL = 'https://kgonmgxssisddaawmhaa.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtnb25tZ3hzc2lzZGRhYXdtaGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNzU1MDIsImV4cCI6MjA4OTg1MTUwMn0.uq09mfLuIoqgrJC-8iia8v_KaESs2OQJyN_1wKTP8LM';
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
 let sb = null;
 (function(){
   try {
-    if (SUPABASE_URL !== 'https://kgonmgxssisddaawmhaa.supabase.co' && typeof supabase !== 'undefined') {
+    if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && typeof supabase !== 'undefined') {
       sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     }
   } catch(e){ sb = null; }
@@ -1445,7 +1145,7 @@ let sb = null;
 
 /* ══════════════════════════════════════
    TRANSLATIONS — UZ, KK, RU, EN
-══════════════════════════════════════ */а
+══════════════════════════════════════ */
 const LANG = {
 uz:{
   nav_home:"Bosh sahifa",nav_fav:"Tanlangan",nav_msg:"Xabarlar",nav_prof:"Profil",
@@ -1497,6 +1197,29 @@ uz:{
   grp_member_cnt:"Ishchilar soni",grp_searching:"🔍 Tizim mos guruhlarni izlamoqda...",
   ob_finish:"✓ Boshlash",lbl_spec:"Mutaxassislik",lbl_role_lbl:"Rol",
   grp_modal_sub:"Mutaxassisligingizni tanlang — tizim mos guruh topib beradi",
+
+  master_el:"🔌 Usta: Elektrik va Santexnik",
+  mardikor:"👷 Mardikor va kunlik ishchi",
+  home_serv:"🏠 Uy xizmatlari",
+  trade:"🛒 Savdo va sotuvchi",
+  master_app:"📺 Usta: Maishiy texnika",
+  ac_cold:"❄️ Usta: Konditsioner va Xolodilnik",
+  medical:"💊 Tibbiyot: Doktor va Medsestra",
+  cat_build:"🏗️ Qurilish va ta'mir",
+  logistic:"🚛 Yuk tashish va logistika",
+  garden:"🌿 Bog'dorchilik va dehqonchilik",
+  driver:"🚕 Haydovchi va taksi",
+  sewing:"🧵 Tikuvchilik va to'qimachilik",
+  autoserv:"🚗 Avtoservis",
+  kitchen:"👨‍🍳 Oshxona va restoran",
+  beauty:"✂️ Go'zallik va sport",
+  education:"📚 Ta'lim va repetitor",
+  it_serv:"💻 IT va kompyuter xizmatlari",
+  security:"🛡️ Qorovul va xavfsizlik",
+  photo:"📸 Foto, Video va To'ylar",
+  legal:"⚖️ Hisobchi va yurist",
+  other:"⚙️ Boshqa xizmatlar",
+  c_all_cats:"Barcha kategoriyalar",
   comm_title:"10% Komissiya",
 },
 kk:{
@@ -1549,6 +1272,29 @@ kk:{
   grp_member_cnt:"Жұмысшылар саны",grp_searching:"🔍 Жүйе сәйкес топтарды іздеуде...",
   ob_finish:"✓ Бастау",lbl_spec:"Мамандық",lbl_role_lbl:"Рөл",
   grp_modal_sub:"Мамандығыңызды таңдаңыз — жүйе сәйкес топ табады",
+
+  master_el:"🔌 Шебер: Электрик және Сантехник",
+  mardikor:"👷 Жалдамалы және күнделікті жұмысшы",
+  home_serv:"🏠 Үй қызметтері",
+  trade:"🛒 Сауда және сатушы",
+  master_app:"📺 Шебер: Тұрмыстық техника",
+  ac_cold:"❄️ Шебер: Кондиционер және Тоңазытқыш",
+  medical:"💊 Медицина: Дәрігер және Медбике",
+  cat_build:"🏗️ Құрылыс және жөндеу",
+  logistic:"🚛 Жүк тасымалдау және логистика",
+  garden:"🌿 Бақша және егіншілік",
+  driver:"🚕 Жүргізуші және такси",
+  sewing:"🧵 Тігіншілік және тоқымашылық",
+  autoserv:"🚗 Автосервис",
+  kitchen:"👨‍🍳 Асхана және мейрамхана",
+  beauty:"✂️ Сұлулық және спорт",
+  education:"📚 Білім және репетитор",
+  it_serv:"💻 IT және компьютер қызметтері",
+  security:"🛡️ Күзет және қауіпсіздік",
+  photo:"📸 Фото, Бейне және Тойлар",
+  legal:"⚖️ Бухгалтер және заңгер",
+  other:"⚙️ Басқа қызметтер",
+  c_all_cats:"Барлық санаттар",
   comm_title:"10% Комиссия",
 },
 ru:{
@@ -1601,6 +1347,29 @@ ru:{
   grp_member_cnt:"Количество рабочих",grp_searching:"🔍 Система ищет подходящие группы...",
   ob_finish:"✓ Начать",lbl_spec:"Специальность",lbl_role_lbl:"Роль",
   grp_modal_sub:"Выберите специальность — система найдёт группу",
+
+  master_el:"🔌 Мастер: Электрик и Сантехник",
+  mardikor:"👷 Разнорабочий и поденщик",
+  home_serv:"🏠 Домашние услуги",
+  trade:"🛒 Торговля и продавец",
+  master_app:"📺 Мастер: Бытовая техника",
+  ac_cold:"❄️ Мастер: Кондиционер и Холодильник",
+  medical:"💊 Медицина: Врач и Медсестра",
+  cat_build:"🏗️ Строительство и ремонт",
+  logistic:"🚛 Грузоперевозки и логистика",
+  garden:"🌿 Садоводство и земледелие",
+  driver:"🚕 Водитель и такси",
+  sewing:"🧵 Швейное дело и текстиль",
+  autoserv:"🚗 Автосервис",
+  kitchen:"👨‍🍳 Кухня и ресторан",
+  beauty:"✂️ Красота и спорт",
+  education:"📚 Образование и репетитор",
+  it_serv:"💻 IT и компьютерные услуги",
+  security:"🛡️ Охрана и безопасность",
+  photo:"📸 Фото, Видео и Свадьбы",
+  legal:"⚖️ Бухгалтер и юрист",
+  other:"⚙️ Другие услуги",
+  c_all_cats:"Все категории",
   comm_title:"10% Комиссия",
 },
 en:{
@@ -1653,6 +1422,29 @@ en:{
   grp_member_cnt:"Number of workers",grp_searching:"🔍 System is searching for matching groups...",
   ob_finish:"✓ Start",lbl_spec:"Specialty",lbl_role_lbl:"Role",
   grp_modal_sub:"Select your specialty — system will find a matching group",
+
+  master_el:"🔌 Master: Electrician & Plumber",
+  mardikor:"👷 Day Labour & Handyman",
+  home_serv:"🏠 Home Services",
+  trade:"🛒 Trade & Sales",
+  master_app:"📺 Master: Home Appliances",
+  ac_cold:"❄️ Master: AC & Refrigerator",
+  medical:"💊 Medical: Doctor & Nurse",
+  cat_build:"🏗️ Construction & Repair",
+  logistic:"🚛 Freight & Logistics",
+  garden:"🌿 Gardening & Farming",
+  driver:"🚕 Driver & Taxi",
+  sewing:"🧵 Tailoring & Textiles",
+  autoserv:"🚗 Auto Service",
+  kitchen:"👨‍🍳 Kitchen & Restaurant",
+  beauty:"✂️ Beauty & Sports",
+  education:"📚 Education & Tutoring",
+  it_serv:"💻 IT & Computer Services",
+  security:"🛡️ Security & Guard",
+  photo:"📸 Photo, Video & Events",
+  legal:"⚖️ Accountant & Lawyer",
+  other:"⚙️ Other Services",
+  c_all_cats:"All Categories",
   comm_title:"10% Commission",
 }
 ,tg:{
@@ -1705,6 +1497,29 @@ en:{
   grp_member_cnt:"Шумораи коргарон",grp_searching:"🔍 Система гурӯҳҳои мутобиқро меёбад...",
   ob_finish:"✓ Оғоз",lbl_spec:"Тахассус",lbl_role_lbl:"Нақш",
   grp_modal_sub:"Тахассуси худро интихоб кунед — система гурӯҳ меёбад",
+
+  master_el:"🔌 Устод: Барқчӣ ва Лӯлакаш",
+  mardikor:"👷 Мардикор ва коргари рӯзона",
+  home_serv:"🏠 Хидматҳои хона",
+  trade:"🛒 Тиҷорат ва фурӯшанда",
+  master_app:"📺 Устод: Техникаи маишӣ",
+  ac_cold:"❄️ Устод: Кондитсионер ва Яхдон",
+  medical:"💊 Тиббиёт: Духтур ва Медсестра",
+  cat_build:"🏗️ Сохтмон ва таъмир",
+  logistic:"🚛 Ҳамлу нақл ва логистика",
+  garden:"🌿 Боғдорӣ ва деҳқонӣ",
+  driver:"🚕 Ронанда ва такси",
+  sewing:"🧵 Дӯзандагӣ ва бофандагӣ",
+  autoserv:"🚗 Автосервис",
+  kitchen:"👨‍🍳 Ошхона ва тарабхона",
+  beauty:"✂️ Зебоӣ ва варзиш",
+  education:"📚 Таълим ва репетитор",
+  it_serv:"💻 IT ва хидматҳои компютерӣ",
+  security:"🛡️ Посбон ва амнияти",
+  photo:"📸 Акс, Видео ва Тӯйҳо",
+  legal:"⚖️ Муҳосиб ва ҳуқуқшинос",
+  other:"⚙️ Дигар хидматҳо",
+  c_all_cats:"Ҳамаи категорияҳо",
   comm_title:"10% Комиссия",
 }
 ,ky:{
@@ -1757,6 +1572,29 @@ en:{
   grp_member_cnt:"Жумушчулар саны",grp_searching:"🔍 Система ылайык топтарды издөөдө...",
   ob_finish:"✓ Баштоо",lbl_spec:"Адистик",lbl_role_lbl:"Ролу",
   grp_modal_sub:"Адистигиңизди тандаңыз — система топ табат",
+
+  master_el:"🔌 Чебер: Электрик жана Сантехник",
+  mardikor:"👷 Жалданма жана күндөлүк жумушчу",
+  home_serv:"🏠 Үй кызматтары",
+  trade:"🛒 Соода жана сатуучу",
+  master_app:"📺 Чебер: Турмуштук техника",
+  ac_cold:"❄️ Чебер: Кондиционер жана Муздаткыч",
+  medical:"💊 Медицина: Дарыгер жана Медайым",
+  cat_build:"🏗️ Куруучулук жана оңдоо",
+  logistic:"🚛 Жүк ташуу жана логистика",
+  garden:"🌿 Бак-дарак жана айыл чарба",
+  driver:"🚕 Айдоочу жана такси",
+  sewing:"🧵 Тигүүчүлүк жана токуучулук",
+  autoserv:"🚗 Автосервис",
+  kitchen:"👨‍🍳 Ашкана жана ресторан",
+  beauty:"✂️ Сулуулук жана спорт",
+  education:"📚 Билим жана репетитор",
+  it_serv:"💻 IT жана компьютер кызматтары",
+  security:"🛡️ Кароол жана коопсуздук",
+  photo:"📸 Сүрөт, Видео жана Тойлор",
+  legal:"⚖️ Бухгалтер жана юрист",
+  other:"⚙️ Башка кызматтар",
+  c_all_cats:"Бардык категориялар",
   comm_title:"10% Комиссия",
 }
 };
@@ -1764,7 +1602,7 @@ en:{
 /* ══════════════════════════════════════
    STATE
 ══════════════════════════════════════ */
-var lang = localStorage.getItem('jj_lang') || 'tg';
+var lang = localStorage.getItem('jj_lang') || 'ru';
 var user = null;
 var photos = [];
 var tezOn = false;
@@ -1810,8 +1648,9 @@ async function getAdsFromDB() {
         id: r.id, title: r.title, desc: r.description,
         price: r.price, salary: r.salary, city: r.city, cat: r.cat,
         catLabel: r.cat_label, locText: r.loc_text, lat: r.lat, lng: r.lng,
-        photos: ph, tezkor: r.tezkor,
-        author: r.author, phone: r.phone, date: r.date
+        photos: ph, tezkor: false,
+        author: r.author, phone: r.phone, date: r.date,
+        deadline: r.deadline || '', views: r.views || 0
       };
     });
   } catch(e) { return null; }
@@ -1823,9 +1662,11 @@ async function saveAdToDB(ad) {
     var res = await sb.from('ads').insert([{
       title: ad.title, description: ad.desc, price: ad.price, salary: ad.salary,
       city: ad.city, cat: ad.cat, cat_label: ad.catLabel,
-      loc_text: ad.locText, lat: ad.lat, lng: ad.lng,
-      photos: JSON.stringify(ad.photos),
-      tezkor: ad.tezkor, author: ad.author, phone: ad.phone, date: ad.date
+      loc_text: ad.locText, lat: ad.lat || 0, lng: ad.lng || 0,
+      photos: JSON.stringify(ad.photos || []),
+      tezkor: false, author: ad.author, phone: ad.phone, date: ad.date,
+      deadline: ad.deadline || null, views: 0,
+      user_phone: ad.phone || ''
     }]);
     return !res.error;
   } catch(e) { return false; }
@@ -1896,7 +1737,7 @@ function t(key) {
 function applyLang(l) {
   lang = l;
   localStorage.setItem('jj_lang', l);
-  var d = LANG[l] || LANG.uz;
+  var d = LANG[l] || LANG.ru;
   document.querySelectorAll('[data-k]').forEach(function(el){
     var k = el.getAttribute('data-k');
     if (d[k] != null) el.textContent = d[k];
@@ -1933,95 +1774,114 @@ function go(id) {
     loadGroupCount();
     updateMyAdsCount();
   }
+  if (id === 'screen-fav') {
+    setTimeout(function(){ renderFavsList(); }, 50);
+  }
+  if (id === 'screen-msg') {
+    setTimeout(function(){ renderMsgThreads(); }, 50);
+  }
+  if (id === 'screen-my-ads') {
+    setTimeout(function(){ renderMyAds(); }, 50);
+  }
 }
 
 /* ══════════════════════════════════════
-   AUTH — LOGIN
+   AUTH — LOGIN (SMS-based)
 ══════════════════════════════════════ */
-function doLogin() {
+async function doLogin() {
   var code  = document.getElementById('login-code').value;
   var phone = document.getElementById('login-phone').value.trim();
-  var pass  = document.getElementById('login-pass').value;
   var err   = document.getElementById('login-err');
 
-  if (phone.length < 7) { showErr(err, t('lbl_phone') + ' noto\'g\'ri!'); return; }
+  if (phone.length < 7) { showErr(err, 'Введите номер телефона!'); return; }
   err.style.display = 'none';
 
-  var fullPhone = code + ' ' + phone;
+  var fullPhone = code + phone.replace(/\s/g,'');
+
+  // Check if user exists in local storage
   var users = getUsers();
   var found = users.find(function(u){ return u.phone === fullPhone; });
 
-  if (!found) {
-    found = { name: 'Foydalanuvchi', phone: fullPhone, pass: pass, av: '', role: 'worker' };
-    users.push(found);
-    saveUsers(users);
-  } else if (found.pass && pass && found.pass !== pass) {
-    showErr(err, t('lbl_pass') + ' noto\'g\'ri!');
-    return;
-  }
+  var otp = String(Math.floor(1000 + Math.random() * 9000));
+  localStorage.setItem('jj_otp', otp);
+  localStorage.setItem('jj_otp_exp', String(Date.now() + 5 * 60 * 1000));
+  localStorage.setItem('jj_pending', JSON.stringify(
+    found || { phone: fullPhone, av: '', role: 'worker', name: '' }
+  ));
+  localStorage.setItem('jj_login_mode', '1');
 
-  user = found;
-  localStorage.setItem('jj_user', JSON.stringify(user));
-  updateProfUI();
-  // Check if onboarding done
-  if (!localStorage.getItem('jj_onboard_done')) {
-    goOnboard();
-  } else {
-    go('screen-home');
-    renderAdsList();
-  }
+  document.getElementById('otp-hint').textContent = 'Код отправлен на ' + fullPhone;
+
+  // Send via Gateway
+  try {
+    await fetch('https://gateway.api.sc/send?token=b9b67b25-9b2c-49c5-80f0-b19c3271b81e', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        phone: fullPhone,
+        text: 'Ваш код JobJobs: ' + otp + '. Никому не сообщайте.'
+      })
+    });
+  } catch(e) { console.log('SMS error', e); }
+
+  go('screen-otp');
 }
 
 /* ══════════════════════════════════════
    AUTH — REGISTER
 ══════════════════════════════════════ */
-function doRegister() {
-  var name  = document.getElementById('reg-name').value.trim();
+async function doRegister() {
   var code  = document.getElementById('reg-code').value;
   var phone = document.getElementById('reg-phone').value.trim();
-  var pass  = document.getElementById('reg-pass').value;
-  var pass2 = document.getElementById('reg-pass2').value;
   var err   = document.getElementById('reg-err');
 
-  if (!name)           { showErr(err, t('lbl_firstname') + '!'); return; }
-  if (phone.length < 7){ showErr(err, t('lbl_phone') + ' noto\'g\'ri!'); return; }
-  if (pass.length < 6) { showErr(err, t('lbl_pass') + ' kamida 6 belgi!'); return; }
-  if (pass !== pass2)  { showErr(err, t('lbl_pass2') + ' mos emas!'); return; }
+  if (phone.length < 7){ showErr(err, 'Введите номер телефона!'); return; }
 
-  var fullPhone = code + ' ' + phone;
+  var fullPhone = code + phone.replace(/\s/g,'');
   var existing = getUsers();
   if (existing.find(function(u){ return u.phone === fullPhone; })) {
-    showErr(err, "Bu telefon allaqachon ro'yxatdan o'tgan!"); return;
+    showErr(err, 'Этот номер уже зарегистрирован!'); return;
   }
   err.style.display = 'none';
 
   var otp = String(Math.floor(1000 + Math.random() * 9000));
   localStorage.setItem('jj_otp', otp);
   localStorage.setItem('jj_otp_exp', String(Date.now() + 5 * 60 * 1000));
-  localStorage.setItem('jj_pending', JSON.stringify({ name: name, phone: fullPhone, pass: pass, av: '', role: 'worker' }));
+  localStorage.setItem('jj_pending', JSON.stringify({ phone: fullPhone, av: '', role: 'worker' }));
 
-  document.getElementById('otp-hint').textContent = fullPhone + ' ga SMS yuborildi';
+  document.getElementById('otp-hint').textContent = 'Код отправлен на ' + fullPhone;
 
-  setTimeout(function() {
-    confirm('📱 SMS Kodi (Demo):\n\n🔑 ' + otp + '\n\nOK bosib kodni nusxalang!');
-  }, 400);
+  // Send SMS via Gateway
+  try {
+    var smsResp = await fetch('https://gateway.api.sc/send?token=b9b67b25-9b2c-49c5-80f0-b19c3271b81e', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        phone: fullPhone,
+        text: 'Ваш код JobJobs: ' + otp + '. Никому не сообщайте.'
+      })
+    });
+  } catch(e) {
+    console.log('SMS send error:', e);
+  }
 
   go('screen-otp');
 }
 
 function verifyOTP() {
   var entered = [0,1,2,3].map(function(i){ return document.getElementById('o'+i).value; }).join('');
-  if (entered.length < 4) { alert('4 raqamli kodni kiriting!'); return; }
+  if (entered.length < 4) { alert('Введите 4-значный код!'); return; }
 
   var saved = localStorage.getItem('jj_otp');
   var exp   = parseInt(localStorage.getItem('jj_otp_exp') || '0');
 
   if (Date.now() > exp) {
-    alert("Kod muddati o'tdi. Qayta yuborib ko'ring.");
-    go('screen-register'); return;
+    alert('Код устарел. Запросите новый.');
+    go(localStorage.getItem('jj_login_mode') ? 'screen-login' : 'screen-register');
+    return;
   }
   if (entered !== saved) {
-    alert("Noto'g'ri kod!");
+    alert('Неверный код!');
     [0,1,2,3].forEach(function(i){ document.getElementById('o'+i).value = ''; });
     document.getElementById('o0').focus();
     return;
@@ -2032,19 +1892,33 @@ function verifyOTP() {
   if (!pending) { go('screen-login'); return; }
 
   var users = getUsers();
-  users.push(pending);
-  saveUsers(users);
-  user = pending;
+  var existIdx = users.findIndex(function(u){ return u.phone === pending.phone; });
+  if (existIdx >= 0) {
+    user = users[existIdx];
+  } else {
+    users.push(pending);
+    saveUsers(users);
+    user = pending;
+  }
+
   localStorage.setItem('jj_user', JSON.stringify(user));
   localStorage.removeItem('jj_pending');
   localStorage.removeItem('jj_otp');
   localStorage.removeItem('jj_otp_exp');
+  var isLogin = localStorage.getItem('jj_login_mode');
+  localStorage.removeItem('jj_login_mode');
   [0,1,2,3].forEach(function(i){ document.getElementById('o'+i).value = ''; });
   updateProfUI();
 
-  // Always show onboarding after register
-  localStorage.removeItem('jj_onboard_done');
-  goOnboard();
+  if (isLogin && localStorage.getItem('jj_onboard_done')) {
+    // Existing user logging in
+    go('screen-home');
+    renderAdsList();
+  } else {
+    // New user — show onboarding
+    localStorage.removeItem('jj_onboard_done');
+    goOnboard();
+  }
 }
 
 function resendOTP() {
@@ -2257,45 +2131,35 @@ async function findMatchingGroups() {
 
 async function finishOnboard() {
   if (!user) user = {};
-  
-  // Gather data
-  user.name = (obData.firstname + ' ' + obData.lastname).trim() || user.name;
-  user.age = obData.age;
-  user.city = obData.city || user.city;
-  user.locText = obData.locText || user.locText;
-  user.lat = obData.lat;
-  user.lng = obData.lng;
-  user.role = obData.role || 'worker';
-  user.cats = obData.cats;
-  user.passport = obData.passport || '';
-  user.grpOpt = obData.grpOpt;
-  user.isBrigadir = (obData.grpOpt === 'own');
-  user.grpCount = obData.grpCount || 0;
-  
+  var fn = (document.getElementById('ob-firstname').value || '').trim();
+  var ln = (document.getElementById('ob-lastname').value || '').trim();
+  var age = parseInt(document.getElementById('ob-age').value) || 0;
+  var errEl = document.getElementById('ob-err');
+  if (!fn) { if(errEl){errEl.textContent='Введите имя!';errEl.style.display='block';} return; }
+  if (!ln) { if(errEl){errEl.textContent='Введите фамилию!';errEl.style.display='block';} return; }
+  if (age < 14) { if(errEl){errEl.textContent='Возраст должен быть 14+!';errEl.style.display='block';} return; }
+  if(errEl) errEl.style.display='none';
+
+  user.name = fn + ' ' + ln;
+  user.age = age;
+  user.role = 'worker';
+
   localStorage.setItem('jj_user', JSON.stringify(user));
   localStorage.setItem('jj_onboard_done', '1');
-  
-  // Save group membership to DB
-  if (obData.grpOpt === 'own' || obData.grpOpt === 'join') {
-    var grpPhone = user.phone || '';
-    var grpData = {
-      specialty: (obData.cats[0] || 'workers'),
-      phone: grpPhone,
-      user_name: user.name || 'Anonim',
-      user_phone: grpPhone,
-      is_brigadir: obData.grpOpt === 'own',
-      member_count: obData.grpCount || 1,
-      city: user.city || ''
-    };
-    if (sb) {
-      try { await sb.from('groups').insert([grpData]); } catch(e){}
-    } else {
-      var groups = getLocalGroups();
-      groups.push(grpData);
-      localStorage.setItem('jj_groups', JSON.stringify(groups));
-    }
+
+  // Save user to DB if connected
+  if (sb) {
+    try {
+      await sb.from('users').upsert([{
+        phone: user.phone,
+        name: user.name,
+        age: user.age,
+        role: user.role,
+        created_at: new Date().toISOString()
+      }]);
+    } catch(e){}
   }
-  
+
   updateProfUI();
   go('screen-home');
   renderAdsList();
@@ -2494,9 +2358,25 @@ function onCatChange() {
 function addPhotos(input) {
   var files = Array.from(input.files).slice(0, 5 - photos.length);
   files.forEach(function(f) {
-    if (f.size > 3 * 1024 * 1024) { alert('Fayl hajmi katta (max 3 MB)!'); return; }
+    if (f.size > 10 * 1024 * 1024) { alert('Файл слишком большой (макс. 10 МБ)!'); return; }
     var r = new FileReader();
-    r.onload = function(e) { photos.push(e.target.result); renderPhotos(); };
+    r.onload = function(e) {
+      // Compress image via canvas
+      var img = new Image();
+      img.onload = function() {
+        var canvas = document.createElement('canvas');
+        var MAX = 800;
+        var w = img.width, wh = img.height;
+        if (w > MAX) { wh = Math.round(wh * MAX / w); w = MAX; }
+        if (wh > MAX) { w = Math.round(w * MAX / wh); wh = MAX; }
+        canvas.width = w; canvas.height = wh;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, wh);
+        var compressed = canvas.toDataURL('image/jpeg', 0.75);
+        photos.push(compressed);
+        renderPhotos();
+      };
+      img.src = e.target.result;
+    };
     r.readAsDataURL(f);
   });
   input.value = '';
@@ -2522,15 +2402,7 @@ function renderPhotos() {
   }
 }
 
-/* ══════════════════════════════════════
-   TEZKOR
-══════════════════════════════════════ */
-function togTez() {
-  tezOn = !tezOn;
-  document.getElementById('tez-tog').classList.toggle('on', tezOn);
-  if (tezOn) openM('m-tez');
-}
-function confirmTez() { closeM('m-tez'); }
+/* tezkor removed */
 
 /* ══════════════════════════════════════
    SUBMIT AD
@@ -2540,6 +2412,14 @@ async function submitAd() {
     if (!user) { go('screen-login'); return; }
     var titleEl = document.getElementById('ad-title');
     if (!titleEl || !titleEl.value.trim()) { alert(t('lbl_title') + '!'); if (titleEl) titleEl.focus(); return; }
+    // If editing, delete old ad first
+    if (window._editingAdId) {
+      var localAds = getLocalAds();
+      localAds = localAds.filter(function(a){ return String(a.id) !== window._editingAdId; });
+      saveLocalAds(localAds);
+      if (sb) { try { await sb.from('ads').delete().eq('id', window._editingAdId); } catch(e){} }
+      window._editingAdId = null;
+    }
 
     var title   = titleEl.value.trim();
     var descEl  = document.getElementById('ad-desc');
@@ -2555,7 +2435,7 @@ async function submitAd() {
     var catLabel = catEl ? catEl.options[catEl.selectedIndex].textContent.trim() : '';
     var locEl   = document.getElementById('ad-loc-text');
     var locText = locEl ? locEl.textContent.trim() : '';
-    var wasTez  = tezOn;
+    var wasTez  = false;
 
     // Get user from auth
     var cu = getCurrentUser();
@@ -2572,7 +2452,14 @@ async function submitAd() {
       locText:  locText, lat: user.lat || 0, lng: user.lng || 0,
       photos:   photos.slice(), tezkor: wasTez,
       author:   authorName, phone: authorPhone,
-      date:     new Date().toLocaleDateString()
+      date:     new Date().toLocaleDateString(),
+      deadline: (function(){
+        var d = document.getElementById('ad-day').value;
+        var m = document.getElementById('ad-month').value;
+        var y = document.getElementById('ad-year').value;
+        if (d && m && y) return d + '.' + m + '.' + y;
+        return '';
+      })()
     };
 
     var savedOk = false;
@@ -2593,9 +2480,10 @@ async function submitAd() {
     if (locShow) locShow.style.display = 'none';
     photos = [];
     renderPhotos();
+    var adDay = document.getElementById('ad-day'); if (adDay) adDay.value = '';
+    var adMonth = document.getElementById('ad-month'); if (adMonth) adMonth.selectedIndex = 0;
+    var adYear = document.getElementById('ad-year'); if (adYear) adYear.value = '';
     tezOn = false;
-    var tezTog = document.getElementById('tez-tog');
-    if (tezTog) tezTog.classList.remove('on');
     var salWrap = document.getElementById('salary-wrap');
     if (salWrap) salWrap.style.display = 'none';
     var commNote = document.getElementById('comm-note');
@@ -2612,12 +2500,36 @@ async function submitAd() {
 /* ══════════════════════════════════════
    TAKE JOB
 ══════════════════════════════════════ */
-function openJob(title, price) {
+var _jobBtn = null;
+function openJob(btn, title, price, author, phone, city, locText) {
+  _jobBtn = btn;
   document.getElementById('job-title').textContent = '🤝 ' + title;
-  document.getElementById('job-fee').textContent = Math.max(1, Math.ceil(+price * .1)) + ' сомонӣ';
+  document.getElementById('job-fee').textContent = Math.max(1, Math.ceil(+(price||0) * .1)) + ' сомонӣ';
+  var m = document.getElementById('m-job');
+  m.dataset.phone = phone || '';
+  m.dataset.addr  = city  || '';
+  m.dataset.loc   = locText || '';
+  m.dataset.author = author || '';
   openM('m-job');
 }
-function confirmJob() { closeM('m-job'); openM('m-contact'); }
+function confirmJob() {
+  var m = document.getElementById('m-job');
+  var rPhone = document.getElementById('reveal-phone');
+  var rAddr  = document.getElementById('reveal-addr');
+  var rLoc   = document.getElementById('reveal-loc');
+  if (rPhone) rPhone.textContent = m.dataset.phone || '—';
+  if (rAddr)  rAddr.textContent  = (m.dataset.author ? m.dataset.author + ', ' : '') + (m.dataset.addr || '—');
+  if (rLoc)   rLoc.textContent   = m.dataset.loc   || '—';
+  closeM('m-job');
+  if (_jobBtn) {
+    _jobBtn.textContent = '✅ Получен';
+    _jobBtn.style.background = '#888';
+    _jobBtn.style.cursor = 'default';
+    _jobBtn.onclick = null;
+    _jobBtn = null;
+  }
+  openM('m-contact');
+}
 
 /* ══════════════════════════════════════
    LOCATION (AD FORM)
@@ -2651,7 +2563,21 @@ function togAcc(id) {
   document.getElementById('body-'+id).classList.toggle('open');
   document.getElementById('chev-'+id).classList.toggle('open');
 }
-function togFav(btn) { btn.textContent = btn.textContent === '🤍' ? '❤️' : '🤍'; }
+function getFavs() { try { return JSON.parse(localStorage.getItem('jj_favs')||'[]'); } catch(e){ return []; } }
+function saveFavs(arr) { localStorage.setItem('jj_favs', JSON.stringify(arr)); }
+
+function togFav(btn, adId) {
+  var isFav = btn.textContent === '❤️';
+  btn.textContent = isFav ? '🤍' : '❤️';
+  var favs = getFavs();
+  if (!isFav) {
+    if (!favs.includes(String(adId))) favs.push(String(adId));
+  } else {
+    favs = favs.filter(function(id){ return id !== String(adId); });
+  }
+  saveFavs(favs);
+  if (document.getElementById('screen-fav').classList.contains('active')) renderFavsList();
+}
 function openM(id)  { var m = document.getElementById(id); if(m) m.classList.add('open'); }
 function closeM(id) { var m = document.getElementById(id); if(m) m.classList.remove('open'); }
 
@@ -2671,7 +2597,12 @@ function searchAds() {
 /* ══════════════════════════════════════
    ADS RENDER
 ══════════════════════════════════════ */
-var CAT_EMOJI = {home:'✨',field:'🌾',build:'🔨',help:'🤝',daily:'⏱️',master:'🔧',courier:'🚗',gruzchik:'📦',workers:'👷',vacancy:'💼',other:'📋'};
+var CAT_EMOJI = {
+  master_el:'🔌', mardikor:'👷', home_serv:'🏠', trade:'🛒', master_app:'📺',
+  ac_cold:'❄️', medical:'💊', build:'🏗️', logistic:'🚛', garden:'🌿',
+  driver:'🚕', sewing:'🧵', autoserv:'🚗', kitchen:'👨‍🍳', beauty:'✂️',
+  education:'📚', it:'💻', security:'🛡️', photo:'📸', legal:'⚖️', other:'⚙️'
+};
 
 var SAMPLE_ADS = [
   {id:-1, title:'Kvartira tozalash', price:'150000', salary:'', city:'Душанбе', cat:'home', catLabel:'Uy ishlari',
@@ -2683,33 +2614,43 @@ var SAMPLE_ADS = [
 function makeAdCard(ad) {
   var card = document.createElement('div');
   card.className = 'ad-card';
+  card.style.cursor = 'pointer';
+  var CAT_EM = {
+  master_el:'🔌', mardikor:'👷', home_serv:'🏠', trade:'🛒', master_app:'📺',
+  ac_cold:'❄️', medical:'💊', build:'🏗️', logistic:'🚛', garden:'🌿',
+  driver:'🚕', sewing:'🧵', autoserv:'🚗', kitchen:'👨‍🍳', beauty:'✂️',
+  education:'📚', it:'💻', security:'🛡️', photo:'📸', legal:'⚖️', other:'⚙️'
+};
   var imgHtml;
   if (ad.photos && ad.photos.length > 0) {
-    imgHtml = '<div style="overflow:hidden;"><img src="'+ad.photos[0]+'" style="width:100%;height:140px;object-fit:cover;display:block;"></div>';
+    imgHtml = '<div style="overflow:hidden;border-radius:12px 12px 0 0"><img src="'+ad.photos[0]+'" style="width:100%;height:110px;object-fit:cover;display:block;" onclick="openAdDetail('+ad.id+')"></div>';
   } else {
-    imgHtml = '<div class="ad-img">'+(CAT_EMOJI[ad.cat]||'📋')+'</div>';
+    imgHtml = '<div class="ad-img" onclick="openAdDetail('+ad.id+')" style="cursor:pointer">'+(CAT_EM[ad.cat]||'📋')+'</div>';
   }
-  var safeTitle = (ad.title||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-  var salaryHtml = '';
-  if (ad.salary && ad.cat === 'vacancy') {
-    salaryHtml = '<div class="ad-salary">💰 ' + Number(ad.salary).toLocaleString() + ' ' + t('salary_month') + '</div>';
-  }
+  var safeId = String(ad.id||0);
+  var favs   = getFavs();
+  var isFav  = favs.includes(safeId);
+  var deadlineHtml = ad.deadline ? '<div style="font-size:11px;color:var(--or);font-weight:700;margin-top:2px">📅 '+ad.deadline+'</div>' : '';
+  var takenIds2 = getTakenIds();
+  var isTaken2 = takenIds2.includes(safeId);
   card.innerHTML =
-    (ad.tezkor ? '<div class="ad-badge">⚡ ' + t('tezkor') + '</div>' : '') +
     imgHtml +
-    '<button class="fav-btn" onclick="togFav(this)">🤍</button>'+
-    '<div class="ad-body">'+
+    '<button class="fav-btn" onclick="togFav(this,\''+safeId+'\')">'+( isFav ? '❤️' : '🤍')+'</button>'+
+    '<div class="ad-body" onclick="openAdDetail('+ad.id+')" style="cursor:pointer">'+
       '<div class="ad-title">'+(ad.title||'')+'</div>'+
-      '<div class="ad-price">'+(ad.price ? Number(ad.price).toLocaleString()+' сомонӣ' : t('p_nego'))+'</div>'+
-      salaryHtml +
-      '<div class="ad-meta"><span>📍 '+(ad.city||'')+'</span><span>👤 '+(ad.author||'')+'</span></div>'+
-      '<div class="ad-acts">'+
-        '<button class="btn-p" onclick="openJob(\''+safeTitle+'\',\''+(ad.price||0)+'\')" data-k="take_job">'+t('take_job')+'</button>'+
-        '<button class="btn-s">💬</button>'+
+      '<div class="ad-price">'+(ad.price ? Number(ad.price).toLocaleString()+' сомонӣ' : 'Договорная')+'</div>'+
+      deadlineHtml +
+      '<div class="ad-meta">'+
+        '<span>📍 '+(ad.city||'')+'</span>'+
+        (ad.date ? '<span>🗓 '+ad.date+'</span>' : '')+
       '</div>'+
+    '</div>'+
+    '<div style="padding:0 8px 8px">'+
+      '<button id="take-'+safeId+'" onclick="event.stopPropagation();takeJob(\''+safeId+'\')" style="width:100%;padding:8px;border:none;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;cursor:pointer;background:'+(isTaken2?'#888':'var(--g)')+';color:#fff">'+(isTaken2?'✅ Получена':'Взять работу')+'</button>'+
     '</div>';
   return card;
 }
+
 
 async function renderAdsList() {
   var list = document.getElementById('ads-list');
@@ -2780,7 +2721,525 @@ window.addEventListener('DOMContentLoaded', function() {
   }, 1500);
 });
 
+function takeJob(adId) {
+  if (!user) { go('screen-login'); return; }
+  var takenIds = getTakenIds();
+  if (takenIds.includes(String(adId))) return;
+  takenIds.push(String(adId));
+  saveTakenIds(takenIds);
+  // Update button in card
+  var btn = document.getElementById('take-'+adId);
+  if (btn) { btn.textContent = '✅ Получена'; btn.style.background = '#888'; btn.disabled = true; }
+  // Save to DB
+  if (sb && user) {
+    try {
+      sb.from('taken_jobs').upsert([{
+        ad_id: String(adId), user_phone: user.phone||'', user_name: user.name||'',
+        taken_at: new Date().toISOString()
+      }]);
+    } catch(e){}
+  }
+  if (document.getElementById('screen-my-ads').classList.contains('active')) renderMyAds();
 }
+
+/* ══════════════════════════════════════
+   FAVORITES RENDER
+══════════════════════════════════════ */
+async function renderFavsList() {
+  var list = document.getElementById('fav-list');
+  if (!list) return;
+  var favIds = getFavs();
+  if (favIds.length === 0) {
+    list.innerHTML = '<div class="empty"><div style="font-size:60px">🤍</div><div style="font-size:16px;font-weight:800;color:var(--nv)">Нет избранных</div><div style="font-size:13px;color:var(--tx2);margin-top:6px">Нажмите ♥ для сохранения</div></div>';
+    return;
+  }
+  var allAds = null;
+  if (sb) { try { allAds = await getAdsFromDB(); } catch(e){} }
+  if (!allAds) { var local = getLocalAds(); allAds = local.length > 0 ? local : SAMPLE_ADS; }
+  var favAds = allAds.filter(function(ad){ return favIds.includes(String(ad.id)); });
+  if (favAds.length === 0) {
+    list.innerHTML = '<div class="empty"><div style="font-size:60px">🤍</div><div style="font-size:16px;font-weight:800;color:var(--nv)">Нет избранных</div></div>';
+    return;
+  }
+  list.innerHTML = '';
+  favAds.forEach(function(ad){ list.appendChild(makeAdCard(ad)); });
+}
+
+/* ══════════════════════════════════════
+   MESSAGES / CHAT
+══════════════════════════════════════ */
+var _currentChatId = null;
+var _currentChatTitle = '';
+
+function getMsgs() { try { return JSON.parse(localStorage.getItem('jj_msgs')||'{}'); } catch(e){ return {}; } }
+function saveMsgs(obj) { localStorage.setItem('jj_msgs', JSON.stringify(obj)); }
+
+function openMsgWith(adId, adTitle) {
+  _currentChatId = String(adId);
+  _currentChatTitle = adTitle || 'Чат';
+  var chatTitleEl = document.getElementById('chat-title');
+  if (chatTitleEl) chatTitleEl.textContent = _currentChatTitle;
+  renderChatMessages();
+  var cw = document.getElementById('chat-window');
+  if (cw) { cw.style.display = 'flex'; }
+}
+
+function closeChat() {
+  var cw = document.getElementById('chat-window');
+  if (cw) cw.style.display = 'none';
+  _currentChatId = null;
+  renderMsgThreads();
+}
+
+function renderChatMessages() {
+  var cont = document.getElementById('chat-messages');
+  if (!cont || !_currentChatId) return;
+  var msgs = getMsgs();
+  var thread = msgs[_currentChatId] || [];
+  cont.innerHTML = '';
+  if (thread.length === 0) {
+    cont.innerHTML = '<div style="text-align:center;color:var(--tx2);font-size:13px;margin-top:20px">Начните переписку 💬</div>';
+    return;
+  }
+  var cu = getCurrentUser();
+  var myName = cu ? (cu.name || cu.phone || 'Я') : 'Я';
+  thread.forEach(function(m) {
+    var isMe = (m.sender === myName);
+    var div = document.createElement('div');
+    div.style.cssText = 'display:flex;flex-direction:column;align-items:' + (isMe ? 'flex-end' : 'flex-start') + ';gap:2px;margin-bottom:4px';
+    div.innerHTML =
+      '<div style="max-width:80%;background:' + (isMe ? 'var(--g)' : '#f0f4f2') + ';color:' + (isMe ? '#fff' : 'var(--tx)') + ';padding:9px 13px;border-radius:' + (isMe ? '16px 16px 4px 16px' : '16px 16px 16px 4px') + ';font-size:13px;word-break:break-word">' + m.text + '</div>' +
+      '<div style="font-size:10px;color:var(--tx2);padding:0 4px">' + m.time + '</div>';
+    cont.appendChild(div);
+  });
+  cont.scrollTop = cont.scrollHeight;
+}
+
+function sendMsg() {
+  var inp = document.getElementById('chat-input');
+  if (!inp || !_currentChatId) return;
+  var text = inp.value.trim();
+  if (!text) return;
+  var cu = getCurrentUser();
+  var myName = cu ? (cu.name || cu.phone || 'Я') : 'Я';
+  var msgs = getMsgs();
+  if (!msgs[_currentChatId]) msgs[_currentChatId] = [];
+  var now = new Date();
+  var timeStr = now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
+  msgs[_currentChatId].push({ sender: myName, text: text, time: timeStr });
+  saveMsgs(msgs);
+  inp.value = '';
+  renderChatMessages();
+}
+
+function renderMsgThreads() {
+  var cont = document.getElementById('msg-threads');
+  if (!cont) return;
+  var msgs = getMsgs();
+  var keys = Object.keys(msgs);
+  if (keys.length === 0) {
+    cont.innerHTML = '<div class="empty"><div style="font-size:60px">💬</div><div style="font-size:16px;font-weight:800;color:var(--nv)">Нет сообщений</div></div>';
+    return;
+  }
+  var allAds = getLocalAds();
+  var adMap = {};
+  SAMPLE_ADS.forEach(function(a){ adMap[String(a.id)] = a; });
+  allAds.forEach(function(a){ adMap[String(a.id)] = a; });
+  cont.innerHTML = '';
+  keys.forEach(function(adId) {
+    var thread = msgs[adId];
+    if (!thread || thread.length === 0) return;
+    var last = thread[thread.length - 1];
+    var ad = adMap[adId];
+    var title = ad ? ad.title : ('Объявление #' + adId);
+    var div = document.createElement('div');
+    div.style.cssText = 'background:#fff;border-radius:14px;padding:14px;margin-bottom:10px;box-shadow:var(--sh);cursor:pointer;display:flex;gap:12px;align-items:center';
+    div.onclick = function(){ openMsgWith(adId, title); };
+    div.innerHTML =
+      '<div style="width:44px;height:44px;background:var(--gl);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">💬</div>' +
+      '<div style="flex:1;min-width:0">' +
+        '<div style="font-weight:800;font-size:14px;color:var(--nv);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + title + '</div>' +
+        '<div style="font-size:12px;color:var(--tx2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + (last ? last.text : '') + '</div>' +
+      '</div>' +
+      '<div style="font-size:10px;color:var(--tx2);flex-shrink:0">' + (last ? last.time : '') + '</div>';
+    cont.appendChild(div);
+  });
+}
+
+/* ══════════════════════════════════════
+   МОИ ОБЪЯВЛЕНИЯ — 2 TABS
+══════════════════════════════════════ */
+var _myTab = 'posted';
+
+function switchMyTab(tab) {
+  _myTab = tab;
+  var tPost = document.getElementById('tab-posted');
+  var tTaken = document.getElementById('tab-taken');
+  if (tPost) { tPost.style.background = tab === 'posted' ? 'var(--g)' : 'transparent'; tPost.style.color = tab === 'posted' ? '#fff' : 'var(--tx2)'; }
+  if (tTaken) { tTaken.style.background = tab === 'taken' ? 'var(--g)' : 'transparent'; tTaken.style.color = tab === 'taken' ? '#fff' : 'var(--tx2)'; }
+  renderMyAds();
+}
+
+function getTakenIds() { try { return JSON.parse(localStorage.getItem('jj_taken')||'[]'); } catch(e){ return []; } }
+function saveTakenIds(arr) { localStorage.setItem('jj_taken', JSON.stringify(arr)); }
+
+function renderMyAds() {
+  var list = document.getElementById('my-ads-list');
+  if (!list) return;
+  var cu = getCurrentUser();
+  var myName = cu ? (cu.name || cu.phone || '') : '';
+  var allAds = getLocalAds();
+  if (allAds.length === 0) allAds = SAMPLE_ADS;
+  var takenIds = getTakenIds();
+  var filtered;
+  if (_myTab === 'posted') {
+    filtered = allAds.filter(function(ad){ return myName && (ad.author === myName || (ad.author && ad.author.indexOf(myName) > -1)); });
+    if (filtered.length === 0) filtered = getLocalAds();
+  } else {
+    filtered = allAds.filter(function(ad){ return takenIds.includes(String(ad.id)); });
+  }
+  list.innerHTML = '';
+  if (filtered.length === 0) {
+    list.innerHTML = '<div class="empty" style="padding:40px 0"><div style="font-size:50px">' + (_myTab === 'posted' ? '📋' : '✅') + '</div><div style="font-size:15px;font-weight:800;color:var(--nv);margin-top:10px">' + (_myTab === 'posted' ? 'Нет размещённых' : 'Нет полученных') + '</div></div>';
+    return;
+  }
+  filtered.forEach(function(ad) {
+    var adId = String(ad.id);
+    var card = makeAdCard(ad);
+    var actDiv = document.createElement('div');
+    actDiv.style.cssText = 'padding:0 8px 10px;display:flex;flex-direction:column;gap:7px';
+    if (_myTab === 'posted') {
+      actDiv.innerHTML =
+        '<div style="display:flex;gap:6px">' +
+          '<button style="flex:1;padding:8px;border:none;border-radius:10px;font-family:inherit;font-weight:700;font-size:12px;cursor:pointer;background:#e8f5ed;color:var(--g)" onclick="event.stopPropagation();editMyAd(\''+adId+'\')">✏️ Изменить</button>' +
+          '<button style="flex:1;padding:8px;border:none;border-radius:10px;font-family:inherit;font-weight:700;font-size:12px;cursor:pointer;background:#fde8e8;color:#e74c3c" onclick="event.stopPropagation();deleteMyAd(\''+adId+'\')">🗑 Удалить</button>' +
+        '</div>' +
+        '<button id="done-btn-'+adId+'" style="width:100%;padding:8px;border:none;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;cursor:pointer;background:#27ae60;color:#fff" onclick="event.stopPropagation();markDoneInList(\''+adId+'\',this)">✅ Работа выполнена</button>';
+    } else {
+      actDiv.innerHTML =
+        '<button id="done-btn-'+adId+'" style="width:100%;padding:8px;border:none;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;cursor:pointer;background:#27ae60;color:#fff" onclick="event.stopPropagation();markDoneInList(\''+adId+'\',this)">✅ Работа выполнена</button>';
+    }
+    card.appendChild(actDiv);
+    list.appendChild(card);
+  });
+}
+
+function markDoneInList(adId, btn) {
+  if (btn.dataset.done === '1') return;
+  btn.dataset.done = '1';
+  btn.textContent = '✅ Отмечено';
+  btn.style.background = '#888';
+  btn.disabled = true;
+  reportDone(adId);
+}
+
+function editMyAd(adId) {
+  var allAds = getLocalAds();
+  var ad = allAds.find(function(a){ return String(a.id) === String(adId); });
+  if (!ad) { alert('Объявление не найдено'); return; }
+  // Fill add form
+  document.getElementById('ad-title').value = ad.title || '';
+  document.getElementById('ad-desc').value = ad.desc || '';
+  document.getElementById('ad-price').value = ad.price || '';
+  var catEl = document.getElementById('ad-cat');
+  if (catEl) {
+    for (var i=0;i<catEl.options.length;i++) {
+      if (catEl.options[i].value === ad.cat) { catEl.selectedIndex = i; break; }
+    }
+  }
+  var cityEl = document.getElementById('ad-city');
+  if (cityEl) {
+    for (var j=0;j<cityEl.options.length;j++) {
+      if (cityEl.options[j].value === ad.city) { cityEl.selectedIndex = j; break; }
+    }
+  }
+  photos = (ad.photos || []).slice();
+  renderPhotos();
+  // Set edit mode — delete old ad on submit
+  window._editingAdId = String(adId);
+  go('screen-add');
+}
+
+/* ══ ALL CATS MODAL ══ */
+function openAllCats() { openM('m-all-cats'); }
+function selCatFromModal(catKey) {
+  closeM('m-all-cats');
+  currentCat = catKey;
+  document.querySelectorAll('.cat-item').forEach(function(c){ c.classList.remove('act'); });
+  renderAdsList();
+}
+
+/* ══ AD DETAIL ══ */
+var _detailAdId = null;
+
+function openAdDetail(adId) {
+  _detailAdId = String(adId);
+  var allAds = getLocalAds();
+  if (allAds.length === 0) allAds = SAMPLE_ADS;
+  SAMPLE_ADS.forEach(function(a){ if(!allAds.find(function(x){return x.id===a.id;})) allAds.push(a); });
+  var ad = allAds.find(function(a){ return String(a.id) === _detailAdId; });
+  if (!ad) { alert('Объявление не найдено'); return; }
+
+  var CAT_EM = {
+  master_el:'🔌', mardikor:'👷', home_serv:'🏠', trade:'🛒', master_app:'📺',
+  ac_cold:'❄️', medical:'💊', build:'🏗️', logistic:'🚛', garden:'🌿',
+  driver:'🚕', sewing:'🧵', autoserv:'🚗', kitchen:'👨‍🍳', beauty:'✂️',
+  education:'📚', it:'💻', security:'🛡️', photo:'📸', legal:'⚖️', other:'⚙️'
+};
+  var favs = getFavs();
+  var isFav = favs.includes(_detailAdId);
+  var detailFavBtn = document.getElementById('detail-fav-btn');
+  if (detailFavBtn) detailFavBtn.textContent = isFav ? '❤️' : '🤍';
+
+  var takenIds = getTakenIds();
+  var isTaken = takenIds.includes(_detailAdId);
+  var takeBtnEl = document.getElementById('detail-take-btn');
+  var doneBtnEl = document.getElementById('detail-done-btn');
+  if (takeBtnEl) {
+    if (isTaken) {
+      takeBtnEl.textContent = '✅ Получена';
+      takeBtnEl.style.background = '#888';
+      takeBtnEl.disabled = true;
+      if (doneBtnEl) doneBtnEl.style.display = 'block';
+    } else {
+      takeBtnEl.textContent = 'Взять работу';
+      takeBtnEl.style.background = '';
+      takeBtnEl.disabled = false;
+      if (doneBtnEl) doneBtnEl.style.display = 'none';
+    }
+  }
+
+  var photosHtml = '';
+  if (ad.photos && ad.photos.length > 0) {
+    photosHtml = '<div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px">' +
+      ad.photos.map(function(p){ return '<img src="'+p+'" style="height:200px;min-width:280px;object-fit:cover;border-radius:12px;flex-shrink:0">'; }).join('') +
+      '</div>';
+  } else {
+    photosHtml = '<div style="height:180px;background:var(--gl);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:60px;margin-bottom:12px">'+(CAT_EM[ad.cat]||'📋')+'</div>';
+  }
+
+  // Check if this ad belongs to current user
+  var cu = getCurrentUser();
+  var myName = cu ? (cu.name || cu.phone || '') : '';
+  var isMyAd = myName && ad.author && (ad.author === myName || ad.author.indexOf(myName) > -1);
+
+  var myAdActions = isMyAd ?
+    '<div style="margin-top:10px;background:#fff8e1;border-radius:12px;padding:12px;border-left:3px solid var(--or)">' +
+    '<div style="font-weight:800;font-size:13px;color:var(--nv);margin-bottom:6px">✅ Работа выполнена?</div>' +
+    '<p style="font-size:12px;color:var(--tx2);margin-bottom:10px">Нажмите кнопку, если работа выполнена. Мы проверим и удалим объявление.</p>' +
+    '<button class="btn-p" style="width:100%;background:#27ae60" onclick="reportDone(\''+_detailAdId+'\')">✅ Работа выполнена</button>' +
+    '</div>' : '';
+
+  var takenAction = !isMyAd && isTaken ? '<div style="margin-top:10px;background:#fff8e1;border-radius:12px;padding:12px;border-left:3px solid var(--or)">' +
+    '<div style="font-weight:800;font-size:13px;color:var(--nv);margin-bottom:6px">✅ Выполнили работу?</div>' +
+    '<p style="font-size:12px;color:var(--tx2);margin-bottom:10px">Нажмите кнопку, если работа выполнена.</p>' +
+    '<button class="btn-p" style="width:100%;background:#27ae60" onclick="reportDone(\''+_detailAdId+'\')">✅ Работа выполнена</button>' +
+    '</div>' : '';
+
+  var content = document.getElementById('detail-content');
+  if (content) content.innerHTML =
+    photosHtml +
+    '<div style="padding:0 2px">' +
+    '<div style="font-size:20px;font-weight:900;color:var(--nv);line-height:1.3;margin-bottom:8px">'+(ad.title||'')+'</div>' +
+    (ad.desc ? '<div style="font-size:14px;color:var(--tx2);line-height:1.6;margin-bottom:12px;white-space:pre-wrap">'+ad.desc+'</div>' : '') +
+    '<div style="background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:var(--sh)">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">' +
+        '<div style="font-size:22px;font-weight:900;color:var(--g)">'+(ad.price ? Number(ad.price).toLocaleString()+' сомонӣ' : 'Договорная')+'</div>' +
+        (ad.deadline ? '<div style="font-size:12px;color:var(--or);font-weight:700">📅 '+ad.deadline+'</div>' : '') +
+      '</div>' +
+      '<div style="font-size:13px;color:var(--tx2);display:flex;flex-direction:column;gap:6px">' +
+        '<div>📍 Город: <strong style="color:var(--tx)">'+(ad.city||'—')+'</strong></div>' +
+        '<div>👤 Автор: <strong style="color:var(--tx)">'+(ad.author||'—')+'</strong></div>' +
+        (ad.phone ? '<div>📞 Телефон: <a href="tel:'+ad.phone+'" style="color:var(--g);font-weight:800">'+ad.phone+'</a></div>' : '') +
+        (ad.locText ? '<div>🗺️ Место: <strong style="color:var(--tx)">'+ad.locText+'</strong></div>' : '') +
+        '<div>🗓 Размещено: <strong style="color:var(--tx)">'+(ad.date||'—')+'</strong></div>' +
+        '<div>👁 Просмотров: <strong style="color:var(--tx)">'+(ad.views||0)+'</strong></div>' +
+        '<div>📂 Категория: <strong style="color:var(--tx)">'+(CAT_EM[ad.cat]||'')+(ad.catLabel ? ' '+ad.catLabel : '')+'</strong></div>' +
+      '</div>' +
+    '</div>' +
+    myAdActions +
+    takenAction +
+    '</div>';
+
+  // Increment views
+  var localAds = getLocalAds();
+  var foundIdx = localAds.findIndex(function(a){ return String(a.id) === _detailAdId; });
+  if (foundIdx >= 0) {
+    localAds[foundIdx].views = (localAds[foundIdx].views||0) + 1;
+    saveLocalAds(localAds);
+  }
+  if (sb) {
+    try { sb.from('ads').update({views: (ad.views||0)+1}).eq('id', adId); } catch(e){}
+  }
+
+  go('screen-ad-detail');
+}
+
+function closeAdDetail() {
+  _detailAdId = null;
+  history.back ? null : go('screen-home');
+  go('screen-home');
+}
+
+function togDetailFav() {
+  if (!_detailAdId) return;
+  var btn = document.getElementById('detail-fav-btn');
+  var favs = getFavs();
+  var isFav = favs.includes(_detailAdId);
+  if (!isFav) { favs.push(_detailAdId); btn.textContent='❤️'; }
+  else { favs = favs.filter(function(x){return x!==_detailAdId;}); btn.textContent='🤍'; }
+  saveFavs(favs);
+}
+
+function takeJobFromDetail() {
+  if (!_detailAdId) return;
+  var takenIds = getTakenIds();
+  if (!takenIds.includes(_detailAdId)) {
+    takenIds.push(_detailAdId);
+    saveTakenIds(takenIds);
+  }
+  var btn = document.getElementById('detail-take-btn');
+  if (btn) {
+    btn.textContent = '✅ Получена';
+    btn.style.background = '#888';
+    btn.disabled = true;
+  }
+  var doneBtn = document.getElementById('detail-done-btn');
+  if (doneBtn) doneBtn.style.display = 'block';
+  // Save to DB
+  if (sb && user) {
+    try {
+      sb.from('taken_jobs').upsert([{
+        ad_id: _detailAdId,
+        user_phone: user.phone || '',
+        user_name: user.name || '',
+        taken_at: new Date().toISOString()
+      }]);
+    } catch(e){}
+  }
+  alert('✅ Работа добавлена в «Полученные»!');
+  // Also update my-ads screen
+  if (document.getElementById('screen-my-ads').classList.contains('active')) renderMyAds();
+}
+
+async function deleteMyAd(adId) {
+  if (!confirm('Удалить это объявление?')) return;
+  // Remove from local
+  var localAds = getLocalAds();
+  localAds = localAds.filter(function(a){ return String(a.id) !== String(adId); });
+  saveLocalAds(localAds);
+  // Remove from DB
+  if (sb) {
+    try { await sb.from('ads').delete().eq('id', adId); } catch(e){}
+  }
+  closeAdDetail();
+  renderAdsList();
+  if (document.getElementById('screen-my-ads').classList.contains('active')) renderMyAds();
+  alert('Объявление удалено!');
+}
+
+function reportDoneFromDetail() {
+  if (_detailAdId) reportDone(_detailAdId);
+  var btn = document.getElementById('detail-done-btn');
+  if (btn) { btn.textContent = '✅ Отправлено!'; btn.style.background = '#888'; btn.disabled = true; }
+}
+
+async function reportDone(adId) {
+  if (!confirm('Подтвердите: работа по этому объявлению выполнена?')) return;
+  // Notify via DB
+  if (sb) {
+    try {
+      await sb.from('done_reports').insert([{
+        ad_id: adId,
+        reported_by: user ? (user.phone || user.name || '') : 'anonymous',
+        reported_at: new Date().toISOString()
+      }]);
+      alert('✅ Уведомление отправлено! Администратор проверит и удалит объявление.');
+    } catch(e) {
+      alert('✅ Отмечено как выполненное! (Без подключения к базе)');
+    }
+  } else {
+    alert('✅ Отмечено как выполненное!');
+  }
+}
+
+/* ══ SAVE AD TO DB — add user_phone & views field ══ */
+
 </script>
+
+<!-- МОИ ОБЪЯВЛЕНИЯ SCREEN -->
+<div class="screen" id="screen-my-ads">
+  <div class="topbar">
+    <button onclick="go('screen-profile')" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--nv);padding:0 6px 0 0">←</button>
+    <span style="font-size:16px;font-weight:800;color:var(--nv);flex:1;text-align:center">Мои объявления</span>
+  </div>
+  <div class="content" style="padding-top:10px">
+    <div style="display:flex;gap:0;background:var(--gr);border-radius:12px;padding:4px;margin-bottom:14px">
+      <button id="tab-posted" onclick="switchMyTab('posted')" style="flex:1;padding:8px;border-radius:9px;border:none;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;background:var(--g);color:#fff">📋 Размещённые</button>
+      <button id="tab-taken" onclick="switchMyTab('taken')" style="flex:1;padding:8px;border-radius:9px;border:none;font-family:inherit;font-weight:700;font-size:13px;cursor:pointer;background:transparent;color:var(--tx2)">✅ Полученные</button>
+    </div>
+    <div id="my-ads-list"></div>
+  </div>
+  <nav class="bot-nav">
+    <button class="ni" onclick="go('screen-home')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span data-k="nav_home">Bosh sahifa</span></button>
+    <button class="ni" onclick="go('screen-fav')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span data-k="nav_fav">Tanlangan</span></button>
+    <button class="ni-add" onclick="go('screen-add')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+    <button class="ni" onclick="go('screen-msg')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span data-k="nav_msg">Xabarlar</span></button>
+    <button class="ni active" onclick="go('screen-profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span data-k="nav_prof">Profil</span></button>
+  </nav>
+</div>
+
+
+<!-- ALL CATEGORIES MODAL -->
+<div class="mo" id="m-all-cats">
+  <div class="md" style="max-height:80vh;overflow-y:auto">
+    <h3 style="margin-bottom:14px">📂 Все категории</h3>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <button class="grp-btn" onclick="selCatFromModal('master_el')"><div class="grp-btn-title" data-k="master_el">🔌 Мастер: Электрик и Сантехник</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('mardikor')"><div class="grp-btn-title" data-k="mardikor">👷 Разнорабочий и поденщик</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('home_serv')"><div class="grp-btn-title" data-k="home_serv">🏠 Домашние услуги</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('trade')"><div class="grp-btn-title" data-k="trade">🛒 Торговля и продавец</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('master_app')"><div class="grp-btn-title" data-k="master_app">📺 Мастер: Бытовая техника</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('ac_cold')"><div class="grp-btn-title" data-k="ac_cold">❄️ Мастер: Кондиционер и Холодильник</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('medical')"><div class="grp-btn-title" data-k="medical">💊 Медицина: Врач и Медсестра</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('cat_build')"><div class="grp-btn-title" data-k="cat_build">🏗️ Строительство и ремонт</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('logistic')"><div class="grp-btn-title" data-k="logistic">🚛 Грузоперевозки и логистика</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('garden')"><div class="grp-btn-title" data-k="garden">🌿 Садоводство и земледелие</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('driver')"><div class="grp-btn-title" data-k="driver">🚕 Водитель и такси</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('sewing')"><div class="grp-btn-title" data-k="sewing">🧵 Швейное дело</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('autoserv')"><div class="grp-btn-title" data-k="autoserv">🚗 Автосервис</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('kitchen')"><div class="grp-btn-title" data-k="kitchen">👨‍🍳 Кухня и ресторан</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('beauty')"><div class="grp-btn-title" data-k="beauty">✂️ Красота и спорт</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('education')"><div class="grp-btn-title" data-k="education">📚 Образование и репетитор</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('it_serv')"><div class="grp-btn-title" data-k="it_serv">💻 IT и компьютерные услуги</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('security')"><div class="grp-btn-title" data-k="security">🛡️ Охрана и безопасность</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('photo')"><div class="grp-btn-title" data-k="photo">📸 Фото, Видео и Свадьбы</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('legal')"><div class="grp-btn-title" data-k="legal">⚖️ Бухгалтер и юрист</div></button>
+      <button class="grp-btn" onclick="selCatFromModal('other')"><div class="grp-btn-title" data-k="other">⚙️ Другие услуги</div></button>
+    </div>
+    <button class="btn-cl" style="margin-top:14px;width:100%" onclick="closeM('m-all-cats')" data-k="cancel">Закрыть</button>
+  </div>
+</div>
+
+<!-- AD DETAIL SCREEN -->
+<div class="screen" id="screen-ad-detail">
+  <div class="topbar">
+    <button onclick="closeAdDetail()" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--nv);padding:0 8px 0 0">←</button>
+    <span style="font-size:16px;font-weight:800;color:var(--nv);flex:1">Объявление</span>
+    <button id="detail-fav-btn" onclick="togDetailFav()" style="background:none;border:none;font-size:24px;cursor:pointer">🤍</button>
+  </div>
+  <div class="content" id="detail-content" style="padding-bottom:100px"></div>
+  <div style="position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;padding:12px 16px 16px;box-shadow:0 -2px 12px rgba(0,0,0,.1)">
+    <button id="detail-take-btn" class="btn-p" style="width:100%;padding:14px;font-size:16px;border-radius:14px" onclick="takeJobFromDetail()">Взять работу</button>
+    <button id="detail-done-btn" style="display:none;width:100%;padding:14px;font-size:15px;border-radius:14px;border:none;background:#27ae60;color:#fff;font-family:inherit;font-weight:800;cursor:pointer;margin-top:8px" onclick="reportDoneFromDetail()">✅ Работа выполнена</button>
+  </div>
+  <nav class="bot-nav">
+    <button class="ni" onclick="closeAdDetail();go('screen-home')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Главная</span></button>
+    <button class="ni" onclick="go('screen-fav')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span>Избранное</span></button>
+    <button class="ni-add" onclick="go('screen-add')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+    <button class="ni" onclick="go('screen-msg')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Сообщения</span></button>
+    <button class="ni" onclick="go('screen-profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Профиль</span></button>
+  </nav>
+</div>
 </body>
 </html>
