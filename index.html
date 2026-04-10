@@ -697,12 +697,12 @@ body{
     </div>
 
     <div class="cat-grid" style="grid-template-columns:repeat(3,1fr);gap:8px">
-      <div class="cat-item act" onclick="selCat(this,'master_el')"><span class="em">🔌</span><span data-k="master_el">🔌 Мастер: Электрик</span></div>
+      <div class="cat-item all-cat act" id="cat-all-btn" onclick="selCat(this,'all')"><span style="font-size:24px">⊞</span><span data-k="c_all_cats">Все категории</span></div>
+      <div class="cat-item" onclick="selCat(this,'master_el')"><span class="em">🔌</span><span data-k="master_el">🔌 Мастер: Электрик</span></div>
       <div class="cat-item" onclick="selCat(this,'mardikor')"><span class="em">👷</span><span data-k="mardikor">👷 Разнорабочий</span></div>
       <div class="cat-item" onclick="selCat(this,'home_serv')"><span class="em">🏠</span><span data-k="home_serv">🏠 Дом. услуги</span></div>
       <div class="cat-item" onclick="selCat(this,'trade')"><span class="em">🛒</span><span data-k="trade">🛒 Торговля</span></div>
-      <div class="cat-item" onclick="selCat(this,'master_app')"><span class="em">📺</span><span data-k="master_app">📺 Бытовая техника</span></div>
-      <div class="cat-item all-cat" onclick="openAllCats()"><span style="font-size:24px">⊞</span><span data-k="c_all_cats">Все категории</span></div>
+      <div class="cat-item" onclick="openAllCats()"><span style="font-size:24px">➕</span><span>Ещё...</span></div>
     </div>
     <div class="ads-hdr">
       <div class="sec-title" data-k="new_ads">Yangi e'lonlar</div>
@@ -747,17 +747,26 @@ body{
     <div class="form-grp"><label class="form-lbl" data-k="lbl_title">Sarlavha *</label><input class="form-in" id="ad-title" placeholder="Masalan: Kvartira tozalash..."></div>
     <div class="form-grp"><label class="form-lbl" data-k="lbl_desc">Tavsif *</label><textarea class="form-ta" id="ad-desc" placeholder="Xizmatingizni batafsil yozing..."></textarea></div>
     <div class="form-grp">
-      <label class="form-lbl">📅 <span id="lbl-deadline-txt">Когда выполнить (дата)</span></label>
-      <div style="display:flex;gap:8px;align-items:center">
-        <input class="form-in" id="ad-day" type="number" inputmode="numeric" min="1" max="31" placeholder="КК" style="flex:1;text-align:center">
-        <select class="form-sel" id="ad-month" style="flex:2">
-          <option value="">Месяц</option>
-          <option value="1">Январь</option><option value="2">Февраль</option><option value="3">Март</option>
-          <option value="4">Апрель</option><option value="5">Май</option><option value="6">Июнь</option>
-          <option value="7">Июль</option><option value="8">Август</option><option value="9">Сентябрь</option>
-          <option value="10">Октябрь</option><option value="11">Ноябрь</option><option value="12">Декабрь</option>
-        </select>
-        <input class="form-in" id="ad-year" type="number" inputmode="numeric" min="2024" max="2099" placeholder="ЙЙЙЙ" style="flex:1.5;text-align:center">
+      <div class="tez-row" style="margin-bottom:10px">
+        <div>
+          <div style="font-weight:800;font-size:14px;color:var(--nv)">⚡ Срочно</div>
+          <div style="font-size:12px;color:var(--tx2);margin-top:2px">Включите если работа срочная (дата не нужна)</div>
+        </div>
+        <button class="tog" id="tez-tog" onclick="togTezkor(this)"></button>
+      </div>
+      <div id="deadline-wrap">
+        <label class="form-lbl">📅 <span id="lbl-deadline-txt">Когда выполнить (дата)</span></label>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input class="form-in" id="ad-day" type="number" inputmode="numeric" min="1" max="31" placeholder="КК" style="flex:1;text-align:center">
+          <select class="form-sel" id="ad-month" style="flex:2">
+            <option value="">Месяц</option>
+            <option value="1">Январь</option><option value="2">Февраль</option><option value="3">Март</option>
+            <option value="4">Апрель</option><option value="5">Май</option><option value="6">Июнь</option>
+            <option value="7">Июль</option><option value="8">Август</option><option value="9">Сентябрь</option>
+            <option value="10">Октябрь</option><option value="11">Ноябрь</option><option value="12">Декабрь</option>
+          </select>
+          <input class="form-in" id="ad-year" type="number" inputmode="numeric" min="2024" max="2099" placeholder="ЙЙЙЙ" style="flex:1.5;text-align:center">
+        </div>
       </div>
     </div>
     <div class="form-grp">
@@ -873,7 +882,7 @@ body{
     </div>
     <div class="form-grp">
       <label class="form-lbl">📍 <span data-k="lbl_loc">Lokatsiya</span></label>
-      <button class="loc-btn" onclick="openM('m-loc')">📍 <span data-k="loc_btn">Xaritadan joyni belgilash</span></button>
+      <button class="loc-btn" onclick="pickAdLocGPS()">📍 <span data-k="loc_btn">GPS орқали локацияни аниқлаш</span></button>
       <div class="loc-show" id="ad-loc-show" style="display:none">📍 <span id="ad-loc-text"></span></div>
     </div>
     <div class="form-grp">
@@ -1132,12 +1141,12 @@ body{
 /* ══════════════════════════════════════
    SUPABASE
 ══════════════════════════════════════ */
-const SUPABASE_URL = 'https://kgonmgxssisddaawmhaa.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtnb25tZ3hzc2lzZGRhYXdtaGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNzU1MDIsImV4cCI6MjA4OTg1MTUwMn0.uq09mfLuIoqgrJC-8iia8v_KaESs2OQJyN_1wKTP8LM';
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
 let sb = null;
 (function(){
   try {
-    if (SUPABASE_URL !== 'https://kgonmgxssisddaawmhaa.supabase.co' && typeof supabase !== 'undefined') {
+    if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && typeof supabase !== 'undefined') {
       sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     }
   } catch(e){ sb = null; }
@@ -1606,7 +1615,7 @@ var lang = localStorage.getItem('jj_lang') || 'ru';
 var user = null;
 var photos = [];
 var tezOn = false;
-var currentCat = 'home';
+var currentCat = 'all';
 var obData = { firstname:'', lastname:'', age:0, passport:'', city:'', locText:'', lat:0, lng:0, role:'', cats:[], grpOpt:'', grpCount:0 };
 
 /* ══════════════════════════════════════
@@ -2403,6 +2412,17 @@ function renderPhotos() {
 }
 
 /* tezkor removed */
+function togTezkor(btn) {
+  btn.classList.toggle('on');
+  tezOn = btn.classList.contains('on');
+  var dw = document.getElementById('deadline-wrap');
+  if (dw) dw.style.display = tezOn ? 'none' : 'block';
+  if (tezOn) {
+    var adDay = document.getElementById('ad-day'); if(adDay) adDay.value='';
+    var adMonth = document.getElementById('ad-month'); if(adMonth) adMonth.selectedIndex=0;
+    var adYear = document.getElementById('ad-year'); if(adYear) adYear.value='';
+  }
+}
 
 /* ══════════════════════════════════════
    SUBMIT AD
@@ -2435,7 +2455,7 @@ async function submitAd() {
     var catLabel = catEl ? catEl.options[catEl.selectedIndex].textContent.trim() : '';
     var locEl   = document.getElementById('ad-loc-text');
     var locText = locEl ? locEl.textContent.trim() : '';
-    var wasTez  = false;
+    var wasTez  = tezOn;
 
     // Get user from auth
     var cu = getCurrentUser();
@@ -2452,8 +2472,17 @@ async function submitAd() {
       locText:  locText, lat: user.lat || 0, lng: user.lng || 0,
       photos:   photos.slice(), tezkor: wasTez,
       author:   authorName, phone: authorPhone,
-      date:     new Date().toLocaleDateString(),
+      date:     (function(){
+        var now = new Date();
+        var dd = String(now.getDate()).padStart(2,'0');
+        var mm = String(now.getMonth()+1).padStart(2,'0');
+        var yy = now.getFullYear();
+        var hh = String(now.getHours()).padStart(2,'0');
+        var mi = String(now.getMinutes()).padStart(2,'0');
+        return dd+'.'+mm+'.'+yy+' '+hh+':'+mi;
+      })(),
       deadline: (function(){
+        if (wasTez) return 'Срочно';
         var d = document.getElementById('ad-day').value;
         var m = document.getElementById('ad-month').value;
         var y = document.getElementById('ad-year').value;
@@ -2484,6 +2513,8 @@ async function submitAd() {
     var adMonth = document.getElementById('ad-month'); if (adMonth) adMonth.selectedIndex = 0;
     var adYear = document.getElementById('ad-year'); if (adYear) adYear.value = '';
     tezOn = false;
+    var tezTog = document.getElementById('tez-tog'); if(tezTog) tezTog.classList.remove('on');
+    var dw = document.getElementById('deadline-wrap'); if(dw) dw.style.display='block';
     var salWrap = document.getElementById('salary-wrap');
     if (salWrap) salWrap.style.display = 'none';
     var commNote = document.getElementById('comm-note');
@@ -2531,9 +2562,27 @@ function confirmJob() {
   openM('m-contact');
 }
 
-/* ══════════════════════════════════════
-   LOCATION (AD FORM)
-══════════════════════════════════════ */
+function pickAdLocGPS() {
+  var show = document.getElementById('ad-loc-show');
+  var txt  = document.getElementById('ad-loc-text');
+  if (show) show.style.display = 'flex';
+  if (txt)  txt.textContent = '⏳ Аниқланмоқда...';
+  if (!navigator.geolocation) {
+    if (txt) txt.textContent = 'Душанбе, Тоҷикистон';
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(
+    function(p) {
+      var loc = p.coords.latitude.toFixed(4) + '°N, ' + p.coords.longitude.toFixed(4) + '°E';
+      if (txt) txt.textContent = loc;
+      if (user) { user.lat = p.coords.latitude; user.lng = p.coords.longitude; user.locText = loc; }
+    },
+    function() { if (txt) txt.textContent = 'Душанбе, Тоҷикистон'; },
+    { timeout: 10000, enableHighAccuracy: true }
+  );
+}
+
+/* ══ LOCATION (AD FORM) ══ */
 function pickAdLoc() {
   var sel = document.getElementById('ad-loc-sel');
   if (!sel) return;
@@ -2611,7 +2660,7 @@ var SAMPLE_ADS = [
    author:'Qurilish LLC', phone:'+992 93 000 00 01', locText:'', photos:[], tezkor:true, date:'01.01.2025'}
 ];
 
-function makeAdCard(ad) {
+function makeAdCard(ad, hideJobBtn) {
   var card = document.createElement('div');
   card.className = 'ad-card';
   card.style.cursor = 'pointer';
@@ -2630,7 +2679,7 @@ function makeAdCard(ad) {
   var safeId = String(ad.id||0);
   var favs   = getFavs();
   var isFav  = favs.includes(safeId);
-  var deadlineHtml = ad.deadline ? '<div style="font-size:11px;color:var(--or);font-weight:700;margin-top:2px">📅 '+ad.deadline+'</div>' : '';
+  var deadlineHtml = ad.deadline ? '<div style="font-size:11px;font-weight:700;margin-top:2px;color:'+(ad.deadline==='Срочно'?'#e74c3c':'var(--or)')+'">'+( ad.deadline==='Срочно'?'⚡ Срочно':'📅 '+ad.deadline)+'</div>' : '';
   var takenIds2 = getTakenIds();
   var isTaken2 = takenIds2.includes(safeId);
   card.innerHTML =
@@ -2645,9 +2694,10 @@ function makeAdCard(ad) {
         (ad.date ? '<span>🗓 '+ad.date+'</span>' : '')+
       '</div>'+
     '</div>'+
+    (hideJobBtn ? '' :
     '<div style="padding:0 8px 8px">'+
       '<button id="take-'+safeId+'" onclick="event.stopPropagation();takeJob(\''+safeId+'\')" style="width:100%;padding:8px;border:none;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;cursor:pointer;background:'+(isTaken2?'#888':'var(--g)')+';color:#fff">'+(isTaken2?'✅ Получена':'Взять работу')+'</button>'+
-    '</div>';
+    '</div>');
   return card;
 }
 
@@ -2905,8 +2955,7 @@ function renderMyAds() {
   }
   filtered.forEach(function(ad) {
     var adId = String(ad.id);
-    var card = makeAdCard(ad);
-    var actDiv = document.createElement('div');
+    var card = makeAdCard(ad, true);
     actDiv.style.cssText = 'padding:0 8px 10px;display:flex;flex-direction:column;gap:7px';
     if (_myTab === 'posted') {
       actDiv.innerHTML =
@@ -2968,6 +3017,14 @@ function selCatFromModal(catKey) {
   document.querySelectorAll('.cat-item').forEach(function(c){ c.classList.remove('act'); });
   renderAdsList();
 }
+function selAllCats() {
+  closeM('m-all-cats');
+  currentCat = 'all';
+  document.querySelectorAll('.cat-item').forEach(function(c){ c.classList.remove('act'); });
+  var allBtn = document.getElementById('cat-all-btn');
+  if (allBtn) allBtn.classList.add('act');
+  renderAdsList();
+}
 
 /* ══ AD DETAIL ══ */
 var _detailAdId = null;
@@ -2993,20 +3050,11 @@ function openAdDetail(adId) {
 
   var takenIds = getTakenIds();
   var isTaken = takenIds.includes(_detailAdId);
-  var takeBtnEl = document.getElementById('detail-take-btn');
   var doneBtnEl = document.getElementById('detail-done-btn');
-  if (takeBtnEl) {
-    if (isTaken) {
-      takeBtnEl.textContent = '✅ Получена';
-      takeBtnEl.style.background = '#888';
-      takeBtnEl.disabled = true;
-      if (doneBtnEl) doneBtnEl.style.display = 'block';
-    } else {
-      takeBtnEl.textContent = 'Взять работу';
-      takeBtnEl.style.background = '';
-      takeBtnEl.disabled = false;
-      if (doneBtnEl) doneBtnEl.style.display = 'none';
-    }
+  if (doneBtnEl) {
+    doneBtnEl.textContent = '✅ Работа выполнена';
+    doneBtnEl.style.background = '#27ae60';
+    doneBtnEl.disabled = false;
   }
 
   var photosHtml = '';
@@ -3091,36 +3139,6 @@ function togDetailFav() {
   saveFavs(favs);
 }
 
-function takeJobFromDetail() {
-  if (!_detailAdId) return;
-  var takenIds = getTakenIds();
-  if (!takenIds.includes(_detailAdId)) {
-    takenIds.push(_detailAdId);
-    saveTakenIds(takenIds);
-  }
-  var btn = document.getElementById('detail-take-btn');
-  if (btn) {
-    btn.textContent = '✅ Получена';
-    btn.style.background = '#888';
-    btn.disabled = true;
-  }
-  var doneBtn = document.getElementById('detail-done-btn');
-  if (doneBtn) doneBtn.style.display = 'block';
-  // Save to DB
-  if (sb && user) {
-    try {
-      sb.from('taken_jobs').upsert([{
-        ad_id: _detailAdId,
-        user_phone: user.phone || '',
-        user_name: user.name || '',
-        taken_at: new Date().toISOString()
-      }]);
-    } catch(e){}
-  }
-  alert('✅ Работа добавлена в «Полученные»!');
-  // Also update my-ads screen
-  if (document.getElementById('screen-my-ads').classList.contains('active')) renderMyAds();
-}
 
 async function deleteMyAd(adId) {
   if (!confirm('Удалить это объявление?')) return;
@@ -3195,6 +3213,7 @@ async function reportDone(adId) {
   <div class="md" style="max-height:80vh;overflow-y:auto">
     <h3 style="margin-bottom:14px">📂 Все категории</h3>
     <div style="display:flex;flex-direction:column;gap:8px">
+      <button class="grp-btn" onclick="selAllCats()"><div class="grp-btn-title">⊞ Все категории (показать все)</div></button>
       <button class="grp-btn" onclick="selCatFromModal('master_el')"><div class="grp-btn-title" data-k="master_el">🔌 Мастер: Электрик и Сантехник</div></button>
       <button class="grp-btn" onclick="selCatFromModal('mardikor')"><div class="grp-btn-title" data-k="mardikor">👷 Разнорабочий и поденщик</div></button>
       <button class="grp-btn" onclick="selCatFromModal('home_serv')"><div class="grp-btn-title" data-k="home_serv">🏠 Домашние услуги</div></button>
@@ -3230,8 +3249,7 @@ async function reportDone(adId) {
   </div>
   <div class="content" id="detail-content" style="padding-bottom:100px"></div>
   <div style="position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;padding:12px 16px 16px;box-shadow:0 -2px 12px rgba(0,0,0,.1)">
-    <button id="detail-take-btn" class="btn-p" style="width:100%;padding:14px;font-size:16px;border-radius:14px" onclick="takeJobFromDetail()">Взять работу</button>
-    <button id="detail-done-btn" style="display:none;width:100%;padding:14px;font-size:15px;border-radius:14px;border:none;background:#27ae60;color:#fff;font-family:inherit;font-weight:800;cursor:pointer;margin-top:8px" onclick="reportDoneFromDetail()">✅ Работа выполнена</button>
+    <button id="detail-done-btn" style="width:100%;padding:14px;font-size:15px;border-radius:14px;border:none;background:#27ae60;color:#fff;font-family:inherit;font-weight:800;cursor:pointer" onclick="reportDoneFromDetail()">✅ Работа выполнена</button>
   </div>
   <nav class="bot-nav">
     <button class="ni" onclick="closeAdDetail();go('screen-home')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Главная</span></button>
