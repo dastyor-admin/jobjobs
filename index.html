@@ -522,7 +522,7 @@ body{
   <div class="auth-wrap">
     <img style="height:60px;width:auto;margin-bottom:20px" id="login-logo-img" src="" alt="JobJobs">
     <div class="auth-title">Вход</div>
-    <div class="auth-sub">Введите номер телефона для входа по SMS-коду</div>
+    <div class="auth-sub">Введите номер телефона для входа</div>
     <div class="auth-err" id="login-err">Xato!</div>
     <div class="fld">
       <label class="flbl" data-k="lbl_phone">Telefon raqam</label>
@@ -547,7 +547,7 @@ body{
   <div class="auth-wrap">
     <img style="height:60px;width:auto;margin-bottom:20px" src="" id="reg-logo-img" alt="JobJobs">
     <div class="auth-title">Регистрация</div>
-    <div class="auth-sub">Введите номер телефона для получения SMS-кода</div>
+    <div class="auth-sub">Введите номер телефона</div>
     <div class="auth-err" id="reg-err"></div>
     <div class="fld">
       <label class="flbl">Номер телефона</label>
@@ -562,28 +562,8 @@ body{
         <input class="finp" id="reg-phone" type="tel" placeholder="93 123 45 67" inputmode="numeric">
       </div>
     </div>
-    <button class="btn-auth" onclick="doRegister()">Получить SMS-код →</button>
+    <button class="btn-auth" onclick="doRegister()">Далее →</button>
     <div class="auth-sw"><span>Уже есть аккаунт?</span> <a onclick="go('screen-login')" style="color:var(--g);font-weight:800;cursor:pointer">Войти</a></div>
-  </div>
-</div>
-
-<!-- OTP -->
-<div class="screen" id="screen-otp">
-  <div class="auth-wrap">
-    <button class="back-link" onclick="go(localStorage.getItem('jj_login_mode') ? 'screen-login' : 'screen-register')">← Назад</button>
-    <div class="auth-title" data-k="otp_title">SMS tasdiqlash</div>
-    <div class="auth-sub" id="otp-hint" style="margin-bottom:20px">Raqamingizga SMS yuborildi</div>
-    <div class="otp-row">
-      <input class="otp-in" id="o0" maxlength="1" inputmode="numeric" oninput="oNext(this,0)">
-      <input class="otp-in" id="o1" maxlength="1" inputmode="numeric" oninput="oNext(this,1)">
-      <input class="otp-in" id="o2" maxlength="1" inputmode="numeric" oninput="oNext(this,2)">
-      <input class="otp-in" id="o3" maxlength="1" inputmode="numeric" oninput="oNext(this,3)">
-    </div>
-    <p style="font-size:13px;color:var(--tx2);text-align:center;margin-bottom:16px" data-k="otp_hint2">SMS kodni kiriting</p>
-    <button class="btn-auth" onclick="verifyOTP()" data-k="btn_verify">Tasdiqlash →</button>
-    <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--tx2)">
-      <span data-k="no_sms">SMS kelmadimi?</span> <a onclick="resendOTP()" style="color:var(--g);font-weight:800;cursor:pointer" data-k="resend">Qayta yuborish</a>
-    </div>
   </div>
 </div>
 
@@ -888,7 +868,7 @@ body{
     <div class="form-grp">
       <label class="form-lbl" data-k="lbl_photos">Rasmlar (5 tagacha)</label>
       <div class="photo-row" id="photo-row">
-        <button class="photo-add" id="photo-add-btn" onclick="document.getElementById('ph-file').click()">📷<br><span data-k="photo_add">Qo'shish</span></button>
+        <button class="photo-add" id="photo-add-btn" onclick="triggerPhotoUpload()">📷<br><span data-k="photo_add">Qo'shish</span></button>
       </div>
       <input type="file" id="ph-file" accept="image/*" multiple style="display:none" onchange="addPhotos(this)">
     </div>
@@ -945,7 +925,7 @@ body{
   </div>
   <div class="content" style="padding:0 0 84px">
     <div class="prof-head">
-      <div class="av-wrap" onclick="document.getElementById('av-file').click()">
+      <div class="av-wrap" onclick="triggerAvatarUpload()">
         <div class="av" id="av-el"><span id="av-letter">J</span></div>
         <div class="av-cam">📷</div>
       </div>
@@ -1141,12 +1121,12 @@ body{
 /* ══════════════════════════════════════
    SUPABASE
 ══════════════════════════════════════ */
-const SUPABASE_URL = 'https://kgonmgxssisddaawmhaa.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtnb25tZ3hzc2lzZGRhYXdtaGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNzU1MDIsImV4cCI6MjA4OTg1MTUwMn0.uq09mfLuIoqgrJC-8iia8v_KaESs2OQJyN_1wKTP8LM';
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
 let sb = null;
 (function(){
   try {
-    if (SUPABASE_URL !== 'https://kgonmgxssisddaawmhaa.supabase.co' && typeof supabase !== 'undefined') {
+    if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && typeof supabase !== 'undefined') {
       sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     }
   } catch(e){ sb = null; }
@@ -1795,9 +1775,9 @@ function go(id) {
 }
 
 /* ══════════════════════════════════════
-   AUTH — LOGIN (SMS-based)
+   AUTH — LOGIN (тел рақам бўйича)
 ══════════════════════════════════════ */
-async function doLogin() {
+function doLogin() {
   var code  = document.getElementById('login-code').value;
   var phone = document.getElementById('login-phone').value.trim();
   var err   = document.getElementById('login-err');
@@ -1807,39 +1787,31 @@ async function doLogin() {
 
   var fullPhone = code + phone.replace(/\s/g,'');
 
-  // Check if user exists in local storage
+  // Локал фойдаланувчини топ
   var users = getUsers();
   var found = users.find(function(u){ return u.phone === fullPhone; });
 
-  var otp = String(Math.floor(1000 + Math.random() * 9000));
-  localStorage.setItem('jj_otp', otp);
-  localStorage.setItem('jj_otp_exp', String(Date.now() + 5 * 60 * 1000));
-  localStorage.setItem('jj_pending', JSON.stringify(
-    found || { phone: fullPhone, av: '', role: 'worker', name: '' }
-  ));
-  localStorage.setItem('jj_login_mode', '1');
-
-  document.getElementById('otp-hint').textContent = 'Код отправлен на ' + fullPhone;
-
-  // Send via Gateway
-  try {
-    await fetch('https://gateway.api.sc/send?token=b9b67b25-9b2c-49c5-80f0-b19c3271b81e', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        phone: fullPhone,
-        text: 'Ваш код JobJobs: ' + otp + '. Никому не сообщайте.'
-      })
-    });
-  } catch(e) { console.log('SMS error', e); }
-
-  go('screen-otp');
+  if (found) {
+    // Мавжуд фойдаланувчи — тўғридан кир
+    user = found;
+    localStorage.setItem('jj_user', JSON.stringify(user));
+    updateProfUI();
+    if (localStorage.getItem('jj_onboard_done')) {
+      go('screen-home');
+      renderAdsList();
+    } else {
+      goOnboard();
+    }
+  } else {
+    // Рўйхатда йўқ — регистрация га юбор
+    showErr(err, 'Номер не найден. Пожалуйста, зарегистрируйтесь.');
+  }
 }
 
 /* ══════════════════════════════════════
-   AUTH — REGISTER
+   AUTH — REGISTER (тел рақам → onboard)
 ══════════════════════════════════════ */
-async function doRegister() {
+function doRegister() {
   var code  = document.getElementById('reg-code').value;
   var phone = document.getElementById('reg-phone').value.trim();
   var err   = document.getElementById('reg-err');
@@ -1849,99 +1821,16 @@ async function doRegister() {
   var fullPhone = code + phone.replace(/\s/g,'');
   var existing = getUsers();
   if (existing.find(function(u){ return u.phone === fullPhone; })) {
-    showErr(err, 'Этот номер уже зарегистрирован!'); return;
+    showErr(err, 'Этот номер уже зарегистрирован. Войдите!'); return;
   }
   err.style.display = 'none';
 
-  var otp = String(Math.floor(1000 + Math.random() * 9000));
-  localStorage.setItem('jj_otp', otp);
-  localStorage.setItem('jj_otp_exp', String(Date.now() + 5 * 60 * 1000));
-  localStorage.setItem('jj_pending', JSON.stringify({ phone: fullPhone, av: '', role: 'worker' }));
-
-  document.getElementById('otp-hint').textContent = 'Код отправлен на ' + fullPhone;
-
-  // Send SMS via Gateway
-  try {
-    var smsResp = await fetch('https://gateway.api.sc/send?token=b9b67b25-9b2c-49c5-80f0-b19c3271b81e', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        phone: fullPhone,
-        text: 'Ваш код JobJobs: ' + otp + '. Никому не сообщайте.'
-      })
-    });
-  } catch(e) {
-    console.log('SMS send error:', e);
-  }
-
-  go('screen-otp');
-}
-
-function verifyOTP() {
-  var entered = [0,1,2,3].map(function(i){ return document.getElementById('o'+i).value; }).join('');
-  if (entered.length < 4) { alert('Введите 4-значный код!'); return; }
-
-  var saved = localStorage.getItem('jj_otp');
-  var exp   = parseInt(localStorage.getItem('jj_otp_exp') || '0');
-
-  if (Date.now() > exp) {
-    alert('Код устарел. Запросите новый.');
-    go(localStorage.getItem('jj_login_mode') ? 'screen-login' : 'screen-register');
-    return;
-  }
-  if (entered !== saved) {
-    alert('Неверный код!');
-    [0,1,2,3].forEach(function(i){ document.getElementById('o'+i).value = ''; });
-    document.getElementById('o0').focus();
-    return;
-  }
-
-  var pending = null;
-  try { pending = JSON.parse(localStorage.getItem('jj_pending') || 'null'); } catch(e){}
-  if (!pending) { go('screen-login'); return; }
-
-  var users = getUsers();
-  var existIdx = users.findIndex(function(u){ return u.phone === pending.phone; });
-  if (existIdx >= 0) {
-    user = users[existIdx];
-  } else {
-    users.push(pending);
-    saveUsers(users);
-    user = pending;
-  }
-
-  localStorage.setItem('jj_user', JSON.stringify(user));
-  localStorage.removeItem('jj_pending');
-  localStorage.removeItem('jj_otp');
-  localStorage.removeItem('jj_otp_exp');
-  var isLogin = localStorage.getItem('jj_login_mode');
-  localStorage.removeItem('jj_login_mode');
-  [0,1,2,3].forEach(function(i){ document.getElementById('o'+i).value = ''; });
-  updateProfUI();
-
-  if (isLogin && localStorage.getItem('jj_onboard_done')) {
-    // Existing user logging in
-    go('screen-home');
-    renderAdsList();
-  } else {
-    // New user — show onboarding
-    localStorage.removeItem('jj_onboard_done');
-    goOnboard();
-  }
-}
-
-function resendOTP() {
-  var pending = null;
-  try { pending = JSON.parse(localStorage.getItem('jj_pending') || 'null'); } catch(e){}
-  if (!pending) { go('screen-register'); return; }
-  var otp = String(Math.floor(1000 + Math.random() * 9000));
-  localStorage.setItem('jj_otp', otp);
-  localStorage.setItem('jj_otp_exp', String(Date.now() + 5 * 60 * 1000));
-  setTimeout(function(){ alert('📱 Yangi SMS Kodi:\n\n🔑 ' + otp); }, 200);
-}
-
-function oNext(el, i) {
-  if (el.value.length === 1 && i < 3) document.getElementById('o'+(i+1)).focus();
+  // Янги фойдаланувчини pending га сақла
+  var newUser = { phone: fullPhone, av: '', role: 'worker', name: '' };
+  localStorage.setItem('jj_pending', JSON.stringify(newUser));
+  user = newUser;
+  localStorage.removeItem('jj_onboard_done');
+  goOnboard();
 }
 
 function socialLogin(provider) {
@@ -1982,7 +1871,6 @@ function selObLang(l) {
 function goOnboard() {
   obCurrentStep = 0;
   obData = { firstname:'', lastname:'', age:0, passport:'', city:'', locText:'', lat:0, lng:0, role:'', cats:[], grpOpt:'', grpCount:0 };
-  
   // Pre-fill name from registration
   if (user && user.name) {
     var parts = user.name.split(' ');
@@ -1991,30 +1879,11 @@ function goOnboard() {
     if (fn) fn.value = parts[0] || '';
     if (ln) ln.value = parts.slice(1).join(' ') || '';
   }
-  
-  // Show lang selection first
-  document.querySelectorAll('.ob-step').forEach(function(s){ s.classList.remove('active'); s.style.display = ''; });
-  document.getElementById('ob-step-lang').style.display = 'flex';
-  document.getElementById('ob-step-lang').style.flexDirection = 'column';
-  // Update step dots - hide during lang selection
-  document.querySelectorAll('.step-dot').forEach(function(d){ d.classList.remove('active','done'); });
   go('screen-onboard');
 }
 
 function showObStep(idx) {
-  // Hide lang step
-  var langStep = document.getElementById('ob-step-lang');
-  if (langStep) langStep.style.display = 'none';
-  document.querySelectorAll('.ob-step').forEach(function(s){ s.classList.remove('active'); });
-  var step = document.getElementById('ob-step-' + idx);
-  if (step) step.classList.add('active');
-  
-  // Update step dots
-  document.querySelectorAll('.step-dot').forEach(function(d, i){
-    d.classList.remove('active','done');
-    if (i < idx) d.classList.add('done');
-    else if (i === idx) d.classList.add('active');
-  });
+  // Simple fallback - just stay on onboard screen
   obCurrentStep = idx;
 }
 
@@ -2139,7 +2008,6 @@ async function findMatchingGroups() {
 }
 
 async function finishOnboard() {
-  if (!user) user = {};
   var fn = (document.getElementById('ob-firstname').value || '').trim();
   var ln = (document.getElementById('ob-lastname').value || '').trim();
   var age = parseInt(document.getElementById('ob-age').value) || 0;
@@ -2149,21 +2017,34 @@ async function finishOnboard() {
   if (age < 14) { if(errEl){errEl.textContent='Возраст должен быть 14+!';errEl.style.display='block';} return; }
   if(errEl) errEl.style.display='none';
 
+  // Pending или существующий user
+  if (!user) {
+    var pending = null;
+    try { pending = JSON.parse(localStorage.getItem('jj_pending') || 'null'); } catch(e){}
+    user = pending || { phone: '', av: '', role: 'worker' };
+  }
+
   user.name = fn + ' ' + ln;
   user.age = age;
-  user.role = 'worker';
+  user.role = user.role || 'worker';
+
+  // Сохранить в users
+  var users = getUsers();
+  var existIdx = -1;
+  for (var i = 0; i < users.length; i++) { if (users[i].phone === user.phone) { existIdx = i; break; } }
+  if (existIdx >= 0) { users[existIdx] = user; } else { users.push(user); }
+  saveUsers(users);
 
   localStorage.setItem('jj_user', JSON.stringify(user));
   localStorage.setItem('jj_onboard_done', '1');
+  localStorage.removeItem('jj_pending');
 
-  // Save user to DB if connected
+  // Save to DB if connected
   if (sb) {
     try {
       await sb.from('users').upsert([{
-        phone: user.phone,
-        name: user.name,
-        age: user.age,
-        role: user.role,
+        phone: user.phone, name: user.name,
+        age: user.age, role: user.role,
         created_at: new Date().toISOString()
       }]);
     } catch(e){}
@@ -2269,6 +2150,16 @@ function updateMyAdsCount() {
 }
 
 function filterMyAds() { go('screen-home'); }
+
+function triggerAvatarUpload() {
+  var inp = document.getElementById('av-file');
+  if (inp) inp.click();
+}
+
+function triggerPhotoUpload() {
+  var inp = document.getElementById('ph-file');
+  if (inp) inp.click();
+}
 
 function setAvatar(input) {
   var file = input.files[0];
@@ -2405,7 +2296,7 @@ function renderPhotos() {
     var b = document.createElement('button');
     b.className = 'photo-add';
     b.id = 'photo-add-btn';
-    b.onclick = function(){ document.getElementById('ph-file').click(); };
+    b.onclick = function(){ triggerPhotoUpload(); };
     b.innerHTML = '📷<br><span>'+(t('photo_add'))+'</span>';
     row.appendChild(b);
   }
@@ -2682,6 +2573,14 @@ function makeAdCard(ad, hideJobBtn) {
   var deadlineHtml = ad.deadline ? '<div style="font-size:11px;font-weight:700;margin-top:2px;color:'+(ad.deadline==='Срочно'?'#e74c3c':'var(--or)')+'">'+( ad.deadline==='Срочно'?'⚡ Срочно':'📅 '+ad.deadline)+'</div>' : '';
   var takenIds2 = getTakenIds();
   var isTaken2 = takenIds2.includes(safeId);
+  var takeBtn = '';
+  if (!hideJobBtn) {
+    if (isTaken2) {
+      takeBtn = '<button id="take-'+safeId+'" disabled style="width:calc(100% - 16px);margin:0 8px 10px;padding:8px;border:none;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;background:#888;color:#fff;cursor:default">✅ Получена</button>';
+    } else {
+      takeBtn = '<button id="take-'+safeId+'" onclick="event.stopPropagation();takeJobFromCard(\''+safeId+'\')" style="width:calc(100% - 16px);margin:0 8px 10px;padding:8px;border:none;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;background:var(--g);color:#fff;cursor:pointer">🤝 Взять работу</button>';
+    }
+  }
   card.innerHTML =
     imgHtml +
     '<button class="fav-btn" onclick="togFav(this,\''+safeId+'\')">'+( isFav ? '❤️' : '🤍')+'</button>'+
@@ -2694,10 +2593,7 @@ function makeAdCard(ad, hideJobBtn) {
         (ad.date ? '<span>🗓 '+ad.date+'</span>' : '')+
       '</div>'+
     '</div>'+
-    (hideJobBtn ? '' :
-    '<div style="padding:0 8px 8px">'+
-      '<button id="take-'+safeId+'" onclick="event.stopPropagation();takeJob(\''+safeId+'\')" style="width:100%;padding:8px;border:none;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;cursor:pointer;background:'+(isTaken2?'#888':'var(--g)')+';color:#fff">'+(isTaken2?'✅ Получена':'Взять работу')+'</button>'+
-    '</div>');
+    takeBtn;
   return card;
 }
 
@@ -2779,7 +2675,7 @@ function takeJob(adId) {
   saveTakenIds(takenIds);
   // Update button in card
   var btn = document.getElementById('take-'+adId);
-  if (btn) { btn.textContent = '✅ Получена'; btn.style.background = '#888'; btn.disabled = true; }
+  if (btn) { btn.textContent = '✅ Получена'; btn.style.background = '#888'; btn.disabled = true; btn.onclick = null; }
   // Save to DB
   if (sb && user) {
     try {
@@ -2790,6 +2686,11 @@ function takeJob(adId) {
     } catch(e){}
   }
   if (document.getElementById('screen-my-ads').classList.contains('active')) renderMyAds();
+}
+
+function takeJobFromCard(adId) {
+  if (!user) { go('screen-login'); return; }
+  takeJob(adId);
 }
 
 /* ══════════════════════════════════════
@@ -2956,8 +2857,15 @@ function renderMyAds() {
   filtered.forEach(function(ad) {
     var adId = String(ad.id);
     var card = makeAdCard(ad, true);
+    var actDiv = document.createElement('div');
     actDiv.style.cssText = 'padding:0 8px 10px;display:flex;flex-direction:column;gap:7px';
     if (_myTab === 'posted') {
+      // Make card clickable to open detail
+      card.style.cursor = 'pointer';
+      var cardBody = card.querySelector('.ad-body');
+      if (cardBody) cardBody.onclick = function(e){ e.stopPropagation(); openAdDetailMyAd(adId); };
+      var cardImg = card.querySelector('.ad-img, img');
+      if (cardImg) cardImg.onclick = function(e){ e.stopPropagation(); openAdDetailMyAd(adId); };
       actDiv.innerHTML =
         '<div style="display:flex;gap:6px">' +
           '<button style="flex:1;padding:8px;border:none;border-radius:10px;font-family:inherit;font-weight:700;font-size:12px;cursor:pointer;background:#e8f5ed;color:var(--g)" onclick="event.stopPropagation();editMyAd(\''+adId+'\')">✏️ Изменить</button>' +
@@ -2965,8 +2873,17 @@ function renderMyAds() {
         '</div>' +
         '<button id="done-btn-'+adId+'" style="width:100%;padding:8px;border:none;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;cursor:pointer;background:#27ae60;color:#fff" onclick="event.stopPropagation();markDoneInList(\''+adId+'\',this)">✅ Работа выполнена</button>';
     } else {
+      // Taken tab: Удалить + Работа выполнена (без Изменить)
+      card.style.cursor = 'pointer';
+      var cardBody2 = card.querySelector('.ad-body');
+      if (cardBody2) cardBody2.onclick = function(e){ e.stopPropagation(); openAdDetailTaken(adId); };
+      var cardImg2 = card.querySelector('.ad-img, img');
+      if (cardImg2) cardImg2.onclick = function(e){ e.stopPropagation(); openAdDetailTaken(adId); };
       actDiv.innerHTML =
-        '<button id="done-btn-'+adId+'" style="width:100%;padding:8px;border:none;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;cursor:pointer;background:#27ae60;color:#fff" onclick="event.stopPropagation();markDoneInList(\''+adId+'\',this)">✅ Работа выполнена</button>';
+        '<div style="display:flex;gap:6px;margin-bottom:6px">' +
+        '<button style="flex:1;padding:8px;border:none;border-radius:10px;font-family:inherit;font-weight:700;font-size:12px;cursor:pointer;background:#fde8e8;color:#e74c3c" onclick="event.stopPropagation();deleteTakenAd(\'' + adId + '\')">🗑 Удалить</button>' +
+        '</div>' +
+        '<button id="done-btn-' + adId + '" style="width:100%;padding:8px;border:none;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;cursor:pointer;background:#27ae60;color:#fff" onclick="event.stopPropagation();markDoneInList(\'' + adId + '\',this)">✅ Работа выполнена</button>';
     }
     card.appendChild(actDiv);
     list.appendChild(card);
@@ -2980,6 +2897,14 @@ function markDoneInList(adId, btn) {
   btn.style.background = '#888';
   btn.disabled = true;
   reportDone(adId);
+}
+
+function deleteTakenAd(adId) {
+  if (!confirm('Удалить из полученных?')) return;
+  var takenIds = getTakenIds();
+  takenIds = takenIds.filter(function(id){ return id !== String(adId); });
+  saveTakenIds(takenIds);
+  renderMyAds();
 }
 
 function editMyAd(adId) {
@@ -3007,6 +2932,21 @@ function editMyAd(adId) {
   // Set edit mode — delete old ad on submit
   window._editingAdId = String(adId);
   go('screen-add');
+}
+
+/* ══ OPEN AD DETAIL FROM MY ADS (POSTED) — shows edit/delete + работа выполнена ══ */
+function openAdDetailMyAd(adId) {
+  // Set a flag so detail screen knows it came from my-posted
+  window._detailFromPosted = true;
+  window._detailFromTaken = false;
+  openAdDetail(parseInt(adId) || adId);
+}
+
+/* ══ OPEN AD DETAIL FROM MY ADS (TAKEN) — read-only + работа выполнена only ══ */
+function openAdDetailTaken(adId) {
+  window._detailFromPosted = false;
+  window._detailFromTaken = true;
+  openAdDetail(parseInt(adId) || adId);
 }
 
 /* ══ ALL CATS MODAL ══ */
@@ -3048,13 +2988,31 @@ function openAdDetail(adId) {
   var detailFavBtn = document.getElementById('detail-fav-btn');
   if (detailFavBtn) detailFavBtn.textContent = isFav ? '❤️' : '🤍';
 
+  // Check if this ad belongs to current user
+  var cu = getCurrentUser();
+  var myName = cu ? (cu.name || cu.phone || '') : '';
+  var isMyAd = myName && ad.author && (ad.author === myName || ad.author.indexOf(myName) > -1);
+
   var takenIds = getTakenIds();
   var isTaken = takenIds.includes(_detailAdId);
   var doneBtnEl = document.getElementById('detail-done-btn');
   if (doneBtnEl) {
-    doneBtnEl.textContent = '✅ Работа выполнена';
-    doneBtnEl.style.background = '#27ae60';
-    doneBtnEl.disabled = false;
+    if (isMyAd || isTaken) {
+      doneBtnEl.textContent = '✅ Работа выполнена';
+      doneBtnEl.style.background = '#27ae60';
+      doneBtnEl.disabled = false;
+      doneBtnEl.onclick = function(){ reportDoneFromDetail(); };
+    } else {
+      doneBtnEl.textContent = '🤝 Взять работу';
+      doneBtnEl.style.background = 'var(--g)';
+      doneBtnEl.disabled = false;
+      doneBtnEl.onclick = function(){
+        takeJob(_detailAdId);
+        doneBtnEl.textContent = '✅ Получена';
+        doneBtnEl.style.background = '#888';
+        doneBtnEl.disabled = true;
+      };
+    }
   }
 
   var photosHtml = '';
@@ -3066,26 +3024,8 @@ function openAdDetail(adId) {
     photosHtml = '<div style="height:180px;background:var(--gl);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:60px;margin-bottom:12px">'+(CAT_EM[ad.cat]||'📋')+'</div>';
   }
 
-  // Check if this ad belongs to current user
-  var cu = getCurrentUser();
-  var myName = cu ? (cu.name || cu.phone || '') : '';
-  var isMyAd = myName && ad.author && (ad.author === myName || ad.author.indexOf(myName) > -1);
-
-  var myAdActions = isMyAd ?
-    '<div style="margin-top:10px;background:#fff8e1;border-radius:12px;padding:12px;border-left:3px solid var(--or)">' +
-    '<div style="font-weight:800;font-size:13px;color:var(--nv);margin-bottom:6px">✅ Работа выполнена?</div>' +
-    '<p style="font-size:12px;color:var(--tx2);margin-bottom:10px">Нажмите кнопку, если работа выполнена. Мы проверим и удалим объявление.</p>' +
-    '<button class="btn-p" style="width:100%;background:#27ae60" onclick="reportDone(\''+_detailAdId+'\')">✅ Работа выполнена</button>' +
-    '</div>' : '';
-
-  var takenAction = !isMyAd && isTaken ? '<div style="margin-top:10px;background:#fff8e1;border-radius:12px;padding:12px;border-left:3px solid var(--or)">' +
-    '<div style="font-weight:800;font-size:13px;color:var(--nv);margin-bottom:6px">✅ Выполнили работу?</div>' +
-    '<p style="font-size:12px;color:var(--tx2);margin-bottom:10px">Нажмите кнопку, если работа выполнена.</p>' +
-    '<button class="btn-p" style="width:100%;background:#27ae60" onclick="reportDone(\''+_detailAdId+'\')">✅ Работа выполнена</button>' +
-    '</div>' : '';
-
-  var content = document.getElementById('detail-content');
-  if (content) content.innerHTML =
+  var detailContent = document.getElementById('detail-content');
+  if (detailContent) detailContent.innerHTML =
     photosHtml +
     '<div style="padding:0 2px">' +
     '<div style="font-size:20px;font-weight:900;color:var(--nv);line-height:1.3;margin-bottom:8px">'+(ad.title||'')+'</div>' +
@@ -3105,8 +3045,6 @@ function openAdDetail(adId) {
         '<div>📂 Категория: <strong style="color:var(--tx)">'+(CAT_EM[ad.cat]||'')+(ad.catLabel ? ' '+ad.catLabel : '')+'</strong></div>' +
       '</div>' +
     '</div>' +
-    myAdActions +
-    takenAction +
     '</div>';
 
   // Increment views
@@ -3125,8 +3063,13 @@ function openAdDetail(adId) {
 
 function closeAdDetail() {
   _detailAdId = null;
-  history.back ? null : go('screen-home');
-  go('screen-home');
+  if (window._detailFromPosted || window._detailFromTaken) {
+    window._detailFromPosted = false;
+    window._detailFromTaken = false;
+    go('screen-my-ads');
+  } else {
+    go('screen-home');
+  }
 }
 
 function togDetailFav() {
