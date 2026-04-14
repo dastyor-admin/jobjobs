@@ -507,6 +507,23 @@ body{
   background:#e8f5ed;color:var(--g);font-size:13px;font-weight:800;
   padding:6px 12px;border-radius:10px;white-space:nowrap;
 }
+
+/* ══ RATING MODAL ══ */
+#m-rating .md{padding:28px 22px 24px;text-align:center;}
+.star-row{display:flex;justify-content:center;gap:8px;margin:14px 0 12px;}
+.star-btn{
+  font-size:38px;background:none;border:none;cursor:pointer;
+  transition:transform .15s;filter:grayscale(1);opacity:.45;line-height:1;
+}
+.star-btn.active{filter:none;opacity:1;transform:scale(1.15);color:#f1c40f;}
+.rating-comment{
+  width:100%;padding:11px 14px;border:2px solid var(--gr2);
+  border-radius:12px;font-family:inherit;font-size:14px;
+  outline:none;resize:none;height:72px;margin-bottom:14px;
+  transition:border-color .2s;
+}
+.rating-comment:focus{border-color:var(--g);}
+.rating-stars-label{font-size:13px;color:var(--tx2);margin-bottom:2px;min-height:18px;}
 </style>
 </head>
 <body>
@@ -894,6 +911,24 @@ body{
     <span style="font-size:16px;font-weight:800;color:var(--nv);flex:1;text-align:center" data-k="nav_msg">Сообщения</span>
   </div>
   <div class="content" id="msg-content">
+    <!-- Kontakt ma'lumotlari paneli -->
+    <div style="background:linear-gradient(135deg,#1a7a3c,#2ca05a);border-radius:16px;padding:16px;margin-bottom:16px">
+      <div style="font-weight:900;font-size:14px;color:#fff;margin-bottom:12px;letter-spacing:.3px">📞 Связаться с нами</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <a href="https://wa.me/992928487070" target="_blank" style="display:flex;align-items:center;gap:8px;text-decoration:none;background:rgba(255,255,255,.18);border-radius:12px;padding:10px">
+          <span style="font-size:20px">💬</span><div><div style="font-weight:800;font-size:12px;color:#fff">WhatsApp</div><div style="font-size:11px;color:rgba(255,255,255,.82)">+992928487070</div></div>
+        </a>
+        <a href="https://t.me/+992928487070" target="_blank" style="display:flex;align-items:center;gap:8px;text-decoration:none;background:rgba(255,255,255,.18);border-radius:12px;padding:10px">
+          <span style="font-size:20px">✈️</span><div><div style="font-weight:800;font-size:12px;color:#fff">Telegram</div><div style="font-size:11px;color:rgba(255,255,255,.82)">+992928487070</div></div>
+        </a>
+        <a href="https://t.me/Job_jobs_bot" target="_blank" style="display:flex;align-items:center;gap:8px;text-decoration:none;background:rgba(255,255,255,.18);border-radius:12px;padding:10px">
+          <span style="font-size:20px">🤖</span><div><div style="font-weight:800;font-size:12px;color:#fff">Bot</div><div style="font-size:11px;color:rgba(255,255,255,.82)">Job_jobs_bot</div></div>
+        </a>
+        <a href="https://instagram.com/jobjobs.ai" target="_blank" style="display:flex;align-items:center;gap:8px;text-decoration:none;background:rgba(255,255,255,.18);border-radius:12px;padding:10px">
+          <span style="font-size:20px">📸</span><div><div style="font-weight:800;font-size:12px;color:#fff">Instagram</div><div style="font-size:11px;color:rgba(255,255,255,.82)">Jobjobs.ai</div></div>
+        </a>
+      </div>
+    </div>
     <div id="msg-threads"></div>
   </div>
   <!-- Chat window -->
@@ -1121,12 +1156,12 @@ body{
 /* ══════════════════════════════════════
    SUPABASE
 ══════════════════════════════════════ */
-const SUPABASE_URL = 'https://kgonmgxssisddaawmhaa.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtnb25tZ3hzc2lzZGRhYXdtaGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNzU1MDIsImV4cCI6MjA4OTg1MTUwMn0.uq09mfLuIoqgrJC-8iia8v_KaESs2OQJyN_1wKTP8LM';
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
 let sb = null;
 (function(){
   try {
-    if (SUPABASE_URL !== 'https://kgonmgxssisddaawmhaa.supabase.co' && typeof supabase !== 'undefined') {
+    if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && typeof supabase !== 'undefined') {
       sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     }
   } catch(e){ sb = null; }
@@ -1210,6 +1245,9 @@ uz:{
   other:"⚙️ Boshqa xizmatlar",
   c_all_cats:"Barcha kategoriyalar",
   comm_title:"10% Komissiya",
+  rate_worker:"Ishchini baholang",rate_employer:"Ish beruvchini baholang",
+  rate_submit:"✅ Baholashni yuborish",rate_thanks:"Rahmat! Bahoyingiz saqlandi.",
+  rate_placeholder:"Izoh (ixtiyoriy)...",own_ad_warn:"Bu e'lon sizniki!",
 },
 kk:{
   nav_home:"Басты бет",nav_fav:"Таңдаулы",nav_msg:"Хабарлар",nav_prof:"Профиль",
@@ -1285,6 +1323,9 @@ kk:{
   other:"⚙️ Басқа қызметтер",
   c_all_cats:"Барлық санаттар",
   comm_title:"10% Комиссия",
+  rate_worker:"Жұмысшыны бағалаңыз",rate_employer:"Жұмыс берушіні бағалаңыз",
+  rate_submit:"✅ Бағалауды жіберу",rate_thanks:"Рахмет! Бағаңыз сақталды.",
+  rate_placeholder:"Пікір (міндетті емес)...",own_ad_warn:"Бұл сіздің хабарландыруыңыз!",
 },
 ru:{
   nav_home:"Главная",nav_fav:"Избранное",nav_msg:"Сообщения",nav_prof:"Профиль",
@@ -1360,6 +1401,9 @@ ru:{
   other:"⚙️ Другие услуги",
   c_all_cats:"Все категории",
   comm_title:"10% Комиссия",
+  rate_worker:"Оцените исполнителя",rate_employer:"Оцените работодателя",
+  rate_submit:"✅ Отправить оценку",rate_thanks:"Спасибо! Оценка сохранена.",
+  rate_placeholder:"Комментарий (необязательно)...",own_ad_warn:"Это ваше объявление!",
 },
 en:{
   nav_home:"Home",nav_fav:"Saved",nav_msg:"Messages",nav_prof:"Profile",
@@ -1435,6 +1479,9 @@ en:{
   other:"⚙️ Other Services",
   c_all_cats:"All Categories",
   comm_title:"10% Commission",
+  rate_worker:"Rate the Worker",rate_employer:"Rate the Employer",
+  rate_submit:"✅ Submit Rating",rate_thanks:"Thank you! Rating saved.",
+  rate_placeholder:"Comment (optional)...",own_ad_warn:"This is your own listing!",
 }
 ,tg:{
   nav_home:"Саҳифаи асосӣ",nav_fav:"Интихобшудагон",nav_msg:"Паёмҳо",nav_prof:"Профил",
@@ -1510,6 +1557,9 @@ en:{
   other:"⚙️ Дигар хидматҳо",
   c_all_cats:"Ҳамаи категорияҳо",
   comm_title:"10% Комиссия",
+  rate_worker:"Корандаро баҳо диҳед",rate_employer:"Корфарморо баҳо диҳед",
+  rate_submit:"✅ Фиристодани баҳо",rate_thanks:"Ташаккур! Баҳо сабт шуд.",
+  rate_placeholder:"Шарҳ (ихтиёрӣ)...",own_ad_warn:"Ин эълони шумост!",
 }
 ,ky:{
   nav_home:"Башкы бет",nav_fav:"Тандалган",nav_msg:"Билдирүүлөр",nav_prof:"Профиль",
@@ -1585,6 +1635,9 @@ en:{
   other:"⚙️ Башка кызматтар",
   c_all_cats:"Бардык категориялар",
   comm_title:"10% Комиссия",
+  rate_worker:"Жумушчуну баалаңыз",rate_employer:"Иш берүүчүнү баалаңыз",
+  rate_submit:"✅ Баалоону жиберүү",rate_thanks:"Рахмат! Баа сакталды.",
+  rate_placeholder:"Комментарий (милдеттүү эмес)...",own_ad_warn:"Бул сиздин жарыяңыз!",
 }
 };
 
@@ -2571,19 +2624,16 @@ function makeAdCard(ad, hideJobBtn) {
   var favs   = getFavs();
   var isFav  = favs.includes(safeId);
   var deadlineHtml = ad.deadline ? '<div style="font-size:11px;font-weight:700;margin-top:2px;color:'+(ad.deadline==='Срочно'?'#e74c3c':'var(--or)')+'">'+( ad.deadline==='Срочно'?'⚡ Срочно':'📅 '+ad.deadline)+'</div>' : '';
-  var takenIds2 = getTakenIds();
-  var isTaken2 = takenIds2.includes(safeId);
+  // Glavnaya kartada: FAQAT "🤝 Взять работу" tugmasi
+  // Изменить / Удалить / Работа выполнена — FAQAT detail ichida
   var takeBtn = '';
   if (!hideJobBtn) {
-    if (isTaken2) {
-      takeBtn = '<button id="take-'+safeId+'" disabled style="width:calc(100% - 16px);margin:0 8px 10px;padding:8px;border:none;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;background:#888;color:#fff;cursor:default">✅ Получена</button>';
-    } else {
-      takeBtn = '<button id="take-'+safeId+'" onclick="event.stopPropagation();takeJobFromCard(\''+safeId+'\')" style="width:calc(100% - 16px);margin:0 8px 10px;padding:8px;border:none;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;background:var(--g);color:#fff;cursor:pointer">🤝 Взять работу</button>';
-    }
+    takeBtn = '<button id="take-'+safeId+'" onclick="event.stopPropagation();takeJobFromCard(\''+safeId+'\')" style="width:calc(100% - 16px);margin:0 8px 10px;padding:8px;border:none;border-radius:10px;font-family:inherit;font-weight:800;font-size:12px;background:var(--g);color:#fff;cursor:pointer">🤝 Взять работу</button>';
   }
+  // hideJobBtn=true => My Ads ekranida — kartada hech qanday tugma yo'q
   card.innerHTML =
     imgHtml +
-    '<button class="fav-btn" onclick="togFav(this,\''+safeId+'\')">'+( isFav ? '❤️' : '🤍')+'</button>'+
+    '<button class="fav-btn" onclick="event.stopPropagation();togFav(this,\''+safeId+'\')">'+( isFav ? '❤️' : '🤍')+'</button>'+
     '<div class="ad-body" onclick="openAdDetail('+ad.id+')" style="cursor:pointer">'+
       '<div class="ad-title">'+(ad.title||'')+'</div>'+
       '<div class="ad-price">'+(ad.price ? Number(ad.price).toLocaleString()+' сомонӣ' : 'Договорная')+'</div>'+
@@ -2690,6 +2740,20 @@ function takeJob(adId) {
 
 function takeJobFromCard(adId) {
   if (!user) { go('screen-login'); return; }
+  // Egasi o'z e'lonini ololmasin
+  var allAds = getLocalAds();
+  if (allAds.length === 0) allAds = SAMPLE_ADS;
+  var ad = allAds.find(function(a){ return String(a.id) === String(adId); });
+  if (ad) {
+    var myPhone = user.phone || '';
+    var myName  = user.name  || '';
+    var isOwner = (myPhone && ad.phone && ad.phone === myPhone) ||
+                  (myName  && ad.author && (ad.author === myName || ad.author.indexOf(myName) > -1));
+    if (isOwner) {
+      alert(t('own_ad_warn'));
+      return;
+    }
+  }
   takeJob(adId);
 }
 
@@ -2978,47 +3042,89 @@ function openAdDetail(adId) {
   if (!ad) { alert('Объявление не найдено'); return; }
 
   var CAT_EM = {
-  master_el:'🔌', mardikor:'👷', home_serv:'🏠', trade:'🛒', master_app:'📺',
-  ac_cold:'❄️', medical:'💊', build:'🏗️', logistic:'🚛', garden:'🌿',
-  driver:'🚕', sewing:'🧵', autoserv:'🚗', kitchen:'👨‍🍳', beauty:'✂️',
-  education:'📚', it:'💻', security:'🛡️', photo:'📸', legal:'⚖️', other:'⚙️'
-};
+    master_el:'🔌', mardikor:'👷', home_serv:'🏠', trade:'🛒', master_app:'📺',
+    ac_cold:'❄️', medical:'💊', build:'🏗️', logistic:'🚛', garden:'🌿',
+    driver:'🚕', sewing:'🧵', autoserv:'🚗', kitchen:'👨‍🍳', beauty:'✂️',
+    education:'📚', it:'💻', security:'🛡️', photo:'📸', legal:'⚖️', other:'⚙️'
+  };
+
   var favs = getFavs();
   var isFav = favs.includes(_detailAdId);
   var detailFavBtn = document.getElementById('detail-fav-btn');
   if (detailFavBtn) detailFavBtn.textContent = isFav ? '❤️' : '🤍';
 
-  // Check if this ad belongs to current user
-  var cu = getCurrentUser();
-  var myName = cu ? (cu.name || cu.phone || '') : '';
-  var isMyAd = myName && ad.author && (ad.author === myName || ad.author.indexOf(myName) > -1);
-
+  // Egami yoki olganmi aniqlash
+  var myPhone = user ? (user.phone || '') : '';
+  var myName  = user ? (user.name  || '') : '';
+  var isOwner = user && (
+    (myPhone && ad.phone  && ad.phone === myPhone) ||
+    (myName  && ad.author && (ad.author === myName || ad.author.indexOf(myName) > -1))
+  );
   var takenIds = getTakenIds();
-  var isTaken = takenIds.includes(_detailAdId);
+  var isTaken  = takenIds.includes(_detailAdId);
+
+  // --- Detail pastki tugmalar ---
+  // EGASI: Изменить + Удалить + Работа выполнена
+  // OLGAN (taken): Работа выполнена + Удалить (profiledan olingan)
+  // ODDIY: Взять работу
   var doneBtnEl = document.getElementById('detail-done-btn');
-  if (doneBtnEl) {
-    if (isMyAd || isTaken) {
+  var detailExtraEl = document.getElementById('detail-extra-btns');
+
+  if (isOwner) {
+    // Egasi: Изменить | Удалить | Работа выполнена
+    if (detailExtraEl) {
+      detailExtraEl.style.display = 'flex';
+      detailExtraEl.innerHTML =
+        '<button onclick="editMyAd(\''+_detailAdId+'\')" style="flex:1;padding:12px 6px;border:none;border-radius:12px;font-family:inherit;font-weight:800;font-size:13px;cursor:pointer;background:#e8f5ed;color:var(--g)">✏️ Изменить</button>' +
+        '<button onclick="deleteMyAdFromDetail(\''+_detailAdId+'\')" style="flex:1;padding:12px 6px;border:none;border-radius:12px;font-family:inherit;font-weight:800;font-size:13px;cursor:pointer;background:#fde8e8;color:#e74c3c">🗑 Удалить</button>';
+    }
+    if (doneBtnEl) {
+      doneBtnEl.style.display = 'block';
       doneBtnEl.textContent = '✅ Работа выполнена';
       doneBtnEl.style.background = '#27ae60';
       doneBtnEl.disabled = false;
       doneBtnEl.onclick = function(){ reportDoneFromDetail(); };
-    } else {
+    }
+  } else if (isTaken) {
+    // Olgan: Работа выполнена + Удалить
+    if (detailExtraEl) {
+      detailExtraEl.style.display = 'flex';
+      detailExtraEl.innerHTML =
+        '<button onclick="deleteTakenAdFromDetail(\''+_detailAdId+'\')" style="flex:1;padding:12px 6px;border:none;border-radius:12px;font-family:inherit;font-weight:800;font-size:13px;cursor:pointer;background:#fde8e8;color:#e74c3c">🗑 Удалить</button>';
+    }
+    if (doneBtnEl) {
+      doneBtnEl.style.display = 'block';
+      doneBtnEl.textContent = '✅ Работа выполнена';
+      doneBtnEl.style.background = '#27ae60';
+      doneBtnEl.disabled = false;
+      doneBtnEl.onclick = function(){ reportDoneFromDetail(); };
+    }
+  } else {
+    // Oddiy: faqat Взять работу
+    if (detailExtraEl) detailExtraEl.style.display = 'none';
+    if (doneBtnEl) {
+      doneBtnEl.style.display = 'block';
       doneBtnEl.textContent = '🤝 Взять работу';
       doneBtnEl.style.background = 'var(--g)';
       doneBtnEl.disabled = false;
       doneBtnEl.onclick = function(){
+        if (!user) { go('screen-login'); return; }
         takeJob(_detailAdId);
-        doneBtnEl.textContent = '✅ Получена';
+        doneBtnEl.textContent = '✅ ' + t('take_job');
         doneBtnEl.style.background = '#888';
         doneBtnEl.disabled = true;
+        takenIds.push(_detailAdId);
       };
     }
   }
 
+  // Photos
   var photosHtml = '';
   if (ad.photos && ad.photos.length > 0) {
-    photosHtml = '<div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px">' +
-      ad.photos.map(function(p){ return '<img src="'+p+'" style="height:200px;min-width:280px;object-fit:cover;border-radius:12px;flex-shrink:0">'; }).join('') +
+    photosHtml = '<div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px;-webkit-overflow-scrolling:touch">' +
+      ad.photos.map(function(p){
+        return '<img src="'+p+'" onclick="openLightbox(\''+p+'\')" style="height:200px;min-width:280px;object-fit:cover;border-radius:12px;flex-shrink:0;cursor:zoom-in">';
+      }).join('') +
       '</div>';
   } else {
     photosHtml = '<div style="height:180px;background:var(--gl);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:60px;margin-bottom:12px">'+(CAT_EM[ad.cat]||'📋')+'</div>';
@@ -3047,7 +3153,7 @@ function openAdDetail(adId) {
     '</div>' +
     '</div>';
 
-  // Increment views
+  // Ko'rishlar soni
   var localAds = getLocalAds();
   var foundIdx = localAds.findIndex(function(a){ return String(a.id) === _detailAdId; });
   if (foundIdx >= 0) {
@@ -3059,6 +3165,45 @@ function openAdDetail(adId) {
   }
 
   go('screen-ad-detail');
+}
+
+// Rasmni to'liq ekranda ko'rish
+function openLightbox(src) {
+  var lb = document.getElementById('jj-lightbox');
+  if (!lb) {
+    lb = document.createElement('div');
+    lb.id = 'jj-lightbox';
+    lb.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.93);z-index:9999;display:flex;align-items:center;justify-content:center;';
+    lb.innerHTML = '<button onclick="document.getElementById(\'jj-lightbox\').style.display=\'none\'" style="position:absolute;top:16px;right:16px;background:rgba(255,255,255,.2);border:none;color:#fff;font-size:24px;width:44px;height:44px;border-radius:50%;cursor:pointer">✕</button><img id="jj-lb-img" style="max-width:96vw;max-height:90vh;object-fit:contain;border-radius:10px">';
+    lb.addEventListener('click', function(e){ if(e.target===lb) lb.style.display='none'; });
+    document.body.appendChild(lb);
+  }
+  document.getElementById('jj-lb-img').src = src;
+  lb.style.display = 'flex';
+}
+
+// Detail ichidan o'chirish (egasi uchun)
+async function deleteMyAdFromDetail(adId) {
+  if (!confirm('Удалить это объявление?')) return;
+  var localAds = getLocalAds();
+  localAds = localAds.filter(function(a){ return String(a.id) !== String(adId); });
+  saveLocalAds(localAds);
+  if (sb) { try { await sb.from('ads').delete().eq('id', adId); } catch(e){} }
+  closeAdDetail();
+  renderAdsList();
+  if (document.getElementById('screen-my-ads').classList.contains('active')) renderMyAds();
+  alert('Объявление удалено!');
+}
+
+// Detail ichidan o'chirish (olgan uchun)
+function deleteTakenAdFromDetail(adId) {
+  if (!confirm('Удалить из полученных?')) return;
+  var takenIds = getTakenIds();
+  takenIds = takenIds.filter(function(id){ return id !== String(adId); });
+  saveTakenIds(takenIds);
+  closeAdDetail();
+  if (document.getElementById('screen-my-ads').classList.contains('active')) renderMyAds();
+  alert('Удалено из полученных!');
 }
 
 function closeAdDetail() {
@@ -3085,14 +3230,10 @@ function togDetailFav() {
 
 async function deleteMyAd(adId) {
   if (!confirm('Удалить это объявление?')) return;
-  // Remove from local
   var localAds = getLocalAds();
   localAds = localAds.filter(function(a){ return String(a.id) !== String(adId); });
   saveLocalAds(localAds);
-  // Remove from DB
-  if (sb) {
-    try { await sb.from('ads').delete().eq('id', adId); } catch(e){}
-  }
+  if (sb) { try { await sb.from('ads').delete().eq('id', adId); } catch(e){} }
   closeAdDetail();
   renderAdsList();
   if (document.getElementById('screen-my-ads').classList.contains('active')) renderMyAds();
@@ -3101,27 +3242,151 @@ async function deleteMyAd(adId) {
 
 function reportDoneFromDetail() {
   if (_detailAdId) reportDone(_detailAdId);
-  var btn = document.getElementById('detail-done-btn');
-  if (btn) { btn.textContent = '✅ Отправлено!'; btn.style.background = '#888'; btn.disabled = true; }
 }
 
 async function reportDone(adId) {
-  if (!confirm('Подтвердите: работа по этому объявлению выполнена?')) return;
-  // Notify via DB
+  if (!user) { go('screen-login'); return; }
+  var allAds = getLocalAds();
+  if (allAds.length === 0) allAds = SAMPLE_ADS;
+  SAMPLE_ADS.forEach(function(a){ if(!allAds.find(function(x){return x.id===a.id;})) allAds.push(a); });
+  var ad = allAds.find(function(a){ return String(a.id) === String(adId); });
+  var myPhone = user ? (user.phone || '') : '';
+  var myName  = user ? (user.name  || '') : '';
+  var isOwner = ad && (
+    (myPhone && ad.phone  && ad.phone === myPhone) ||
+    (myName  && ad.author && (ad.author === myName || ad.author.indexOf(myName) > -1))
+  );
+  // Egasi o'z e'lonini ololmasin
+  if (isOwner) {
+    openRatingModal(adId, 'owner');
+  } else {
+    openRatingModal(adId, 'worker');
+  }
+}
+
+/* ══ RATING SYSTEM ══ */
+var _ratingAdId  = null;
+var _ratingStarVal = 0;
+var _ratingRole  = ''; // 'owner' | 'worker'
+
+var STAR_LABELS = ['','😞 Yomon','😐 Qoniqarli','🙂 Yaxshi','😊 A\'lo','🤩 Zo\'r!'];
+
+function openRatingModal(adId, role) {
+  _ratingAdId    = String(adId);
+  _ratingRole    = role;
+  _ratingStarVal = 0;
+  // Reset
+  document.querySelectorAll('.star-btn').forEach(function(b){ b.classList.remove('active'); });
+  var commentEl = document.getElementById('rating-comment');
+  if (commentEl) { commentEl.value = ''; commentEl.placeholder = t('rate_placeholder'); }
+  var lbl = document.getElementById('rating-stars-label');
+  if (lbl) lbl.textContent = '';
+  var titleEl = document.getElementById('rating-modal-title');
+  if (titleEl) titleEl.textContent = role === 'owner' ? t('rate_worker') : t('rate_employer');
+  var subEl = document.getElementById('rating-modal-sub');
+  if (subEl) subEl.textContent = role === 'owner'
+    ? (lang==='ru'?'Оцените качество работы исполнителя':lang==='en'?'Rate the quality of the worker':lang==='tg'?'Сифати корро баҳо диҳед':lang==='kk'?'Орындаушының сапасын бағалаңыз':lang==='ky'?'Аткаруучунун сапатын баалаңыз':'Ishchi sifatini baholang')
+    : (lang==='ru'?'Оцените работодателя':lang==='en'?'Rate the employer':lang==='tg'?'Корфарморо баҳо диҳед':lang==='kk'?'Жұмыс берушіні бағалаңыз':lang==='ky'?'Иш берүүчүнү баалаңыз':'Ish beruvchini baholang');
+  var submitBtn = document.getElementById('rating-submit-btn');
+  if (submitBtn) submitBtn.textContent = t('rate_submit');
+  openM('m-rating');
+}
+
+function setRatingStar(val) {
+  _ratingStarVal = val;
+  document.querySelectorAll('.star-btn').forEach(function(b){
+    var v = parseInt(b.getAttribute('data-v'));
+    b.classList.toggle('active', v <= val);
+  });
+  var lbl = document.getElementById('rating-stars-label');
+  if (lbl) lbl.textContent = STAR_LABELS[val] || '';
+}
+
+async function submitRating() {
+  if (_ratingStarVal === 0) {
+    alert(lang==='ru'?'Выберите звезду!':lang==='en'?'Please select a star!':lang==='tg'?'Ситораро интихоб кунед!':lang==='kk'?'Жұлдызды таңдаңыз!':lang==='ky'?'Жылдызды тандаңыз!':'Yulduz tanlang!');
+    return;
+  }
+  var comment = (document.getElementById('rating-comment').value || '').trim();
+  var adId    = _ratingAdId;
+  var role    = _ratingRole;
+  var submitBtn = document.getElementById('rating-submit-btn');
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '⏳...'; }
+
+  // LocalStorage ga saqlash (offline fallback)
+  var ratingKey = 'jj_rating_' + adId + '_' + role;
+  localStorage.setItem(ratingKey, JSON.stringify({
+    stars: _ratingStarVal, comment: comment, at: new Date().toISOString()
+  }));
+
+  var bothDone = false;
+
+  // ── Supabase ──
   if (sb) {
     try {
-      await sb.from('done_reports').insert([{
-        ad_id: adId,
-        reported_by: user ? (user.phone || user.name || '') : 'anonymous',
-        reported_at: new Date().toISOString()
-      }]);
-      alert('✅ Уведомление отправлено! Администратор проверит и удалит объявление.');
-    } catch(e) {
-      alert('✅ Отмечено как выполненное! (Без подключения к базе)');
-    }
-  } else {
-    alert('✅ Отмечено как выполненное!');
+      var updateData = {};
+      if (role === 'owner') {
+        updateData.worker_rating  = _ratingStarVal;
+        updateData.worker_review  = comment;
+        updateData.owner_completed = true;
+      } else {
+        updateData.worker_rating   = _ratingStarVal;
+        updateData.worker_review   = comment;
+        updateData.worker_completed = true;
+      }
+      await sb.from('taken_jobs').update(updateData).eq('ad_id', adId);
+
+      // IF owner_completed == true AND worker_completed == true → delete ad
+      var chk = await sb.from('taken_jobs')
+        .select('owner_completed,worker_completed')
+        .eq('ad_id', adId)
+        .single();
+      if (chk.data && chk.data.owner_completed && chk.data.worker_completed) {
+        await sb.from('ads').delete().eq('id', adId);
+        bothDone = true;
+      }
+    } catch(e) {}
   }
+
+  // ── Lokal fallback tekshirish ──
+  if (!bothDone) {
+    var ownerRated  = localStorage.getItem('jj_rating_' + adId + '_owner');
+    var workerRated = localStorage.getItem('jj_rating_' + adId + '_worker');
+    if (ownerRated && workerRated) bothDone = true;
+  }
+
+  closeM('m-rating');
+
+  if (bothDone) {
+    // Ikki tomon ham tasdiqladi — lokal tozalash
+    var localAds = getLocalAds();
+    localAds = localAds.filter(function(a){ return String(a.id) !== adId; });
+    saveLocalAds(localAds);
+    var takenIds = getTakenIds();
+    takenIds = takenIds.filter(function(id){ return id !== adId; });
+    saveTakenIds(takenIds);
+    ['jj_rating_'+adId+'_owner','jj_rating_'+adId+'_worker','jj_done_'+adId]
+      .forEach(function(k){ localStorage.removeItem(k); });
+    alert('✅ ' + t('rate_thanks') + '\n\n' +
+      (lang==='ru'?'Обе стороны подтвердили — объявление удалено!':
+       lang==='en'?'Both sides confirmed — listing removed!':
+       lang==='tg'?'Ҳарду тараф тасдиқ кард — эълон ҳазф шуд!':
+       lang==='kk'?'Екі тарап та растады — хабарландыру жойылды!':
+       lang==='ky'?'Эки тарап тастыктады — жарыя өчүрүлдү!':
+       'Ikki tomon ham tasdiqladi — e\'lon o\'chirildi!'));
+    closeAdDetail();
+    renderAdsList();
+    if (document.getElementById('screen-my-ads').classList.contains('active')) renderMyAds();
+  } else {
+    alert('✅ ' + t('rate_thanks') + '\n\n' +
+      (lang==='ru'?'Ожидаем подтверждения второй стороны. Объявление удалится автоматически.':
+       lang==='en'?'Waiting for the other party. Listing will be removed automatically.':
+       lang==='tg'?'Мунтазири тасдиқи тарафи дигар. Эълон худкор ҳазф мешавад.':
+       lang==='kk'?'Екінші тараптың растауын күтеміз. Автоматты жойылады.':
+       lang==='ky'?'Экинчи тараптын тастыктоосун күтөбүз. Автоматтык өчүрүлөт.':
+       'Ikkinchi tomon ham tasdiqlaganida e\'lon avtomatik o\'chiriladi.'));
+  }
+  if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = t('rate_submit'); }
 }
 
 /* ══ SAVE AD TO DB — add user_phone & views field ══ */
@@ -3183,6 +3448,28 @@ async function reportDone(adId) {
   </div>
 </div>
 
+<!-- RATING MODAL -->
+<div class="mo" id="m-rating">
+  <div class="md" style="text-align:center;padding:28px 22px 24px">
+    <div style="font-size:48px;margin-bottom:8px">⭐</div>
+    <h3 id="rating-modal-title" style="font-size:18px;font-weight:900;color:var(--nv);margin-bottom:6px">Baholang</h3>
+    <p id="rating-modal-sub" style="font-size:13px;color:var(--tx2);margin-bottom:6px"></p>
+    <div class="star-row" id="star-row">
+      <button class="star-btn" data-v="1" onclick="setRatingStar(1)">★</button>
+      <button class="star-btn" data-v="2" onclick="setRatingStar(2)">★</button>
+      <button class="star-btn" data-v="3" onclick="setRatingStar(3)">★</button>
+      <button class="star-btn" data-v="4" onclick="setRatingStar(4)">★</button>
+      <button class="star-btn" data-v="5" onclick="setRatingStar(5)">★</button>
+    </div>
+    <div class="rating-stars-label" id="rating-stars-label"></div>
+    <textarea id="rating-comment" class="rating-comment" placeholder="Izoh (ixtiyoriy)..."></textarea>
+    <div style="display:flex;gap:10px">
+      <button class="btn-cl" style="flex:1" onclick="closeM('m-rating')">❌ Bekor</button>
+      <button class="btn-p" id="rating-submit-btn" style="flex:2" onclick="submitRating()">✅ Yuborish</button>
+    </div>
+  </div>
+</div>
+
 <!-- AD DETAIL SCREEN -->
 <div class="screen" id="screen-ad-detail">
   <div class="topbar">
@@ -3190,9 +3477,13 @@ async function reportDone(adId) {
     <span style="font-size:16px;font-weight:800;color:var(--nv);flex:1">Объявление</span>
     <button id="detail-fav-btn" onclick="togDetailFav()" style="background:none;border:none;font-size:24px;cursor:pointer">🤍</button>
   </div>
-  <div class="content" id="detail-content" style="padding-bottom:100px"></div>
-  <div style="position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;padding:12px 16px 16px;box-shadow:0 -2px 12px rgba(0,0,0,.1)">
-    <button id="detail-done-btn" style="width:100%;padding:14px;font-size:15px;border-radius:14px;border:none;background:#27ae60;color:#fff;font-family:inherit;font-weight:800;cursor:pointer" onclick="reportDoneFromDetail()">✅ Работа выполнена</button>
+  <div class="content" id="detail-content" style="padding-bottom:130px"></div>
+  <!-- Pastki tugmalar paneli -->
+  <div style="position:fixed;bottom:60px;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;padding:10px 14px 12px;box-shadow:0 -2px 12px rgba(0,0,0,.1);z-index:150">
+    <!-- Izменить + Удалить (faqat ega uchun ko'rinadi) -->
+    <div id="detail-extra-btns" style="display:none;gap:8px;margin-bottom:8px"></div>
+    <!-- Взять работу / Работа выполнена -->
+    <button id="detail-done-btn" style="width:100%;padding:14px;font-size:15px;border-radius:14px;border:none;background:var(--g);color:#fff;font-family:inherit;font-weight:800;cursor:pointer">🤝 Взять работу</button>
   </div>
   <nav class="bot-nav">
     <button class="ni" onclick="closeAdDetail();go('screen-home')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Главная</span></button>
