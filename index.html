@@ -7,8 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="JobJobs">
-<meta name="description" content="JobJobs — Ish topish va berish platformasi.">
-<title>JobJobs — Ish topish</title>
+<meta name="description" content="JobJobs — поиск работы и работников.">
+<title>JobJobs — поиск работы и работников</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -1156,12 +1156,12 @@ body{
 /* ══════════════════════════════════════
    SUPABASE
 ══════════════════════════════════════ */
-const SUPABASE_URL = 'https://kgonmgxssisddaawmhaa.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtnb25tZ3hzc2lzZGRhYXdtaGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNzU1MDIsImV4cCI6MjA4OTg1MTUwMn0.uq09mfLuIoqgrJC-8iia8v_KaESs2OQJyN_1wKTP8LM';
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
 let sb = null;
 (function(){
   try {
-    if (SUPABASE_URL !== 'https://kgonmgxssisddaawmhaa.supabase.co' && typeof supabase !== 'undefined') {
+    if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && typeof supabase !== 'undefined') {
       sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     }
   } catch(e){ sb = null; }
@@ -1248,6 +1248,7 @@ uz:{
   rate_worker:"Ishchini baholang",rate_employer:"Ish beruvchini baholang",
   rate_submit:"✅ Baholashni yuborish",rate_thanks:"Rahmat! Bahoyingiz saqlandi.",
   rate_placeholder:"Izoh (ixtiyoriy)...",own_ad_warn:"Bu e'lon sizniki!",
+  ph_title:"Masalan: Kvartira tozalash...",ph_desc:"Xizmatingizni batafsil yozing...",
 },
 kk:{
   nav_home:"Басты бет",nav_fav:"Таңдаулы",nav_msg:"Хабарлар",nav_prof:"Профиль",
@@ -1326,6 +1327,7 @@ kk:{
   rate_worker:"Жұмысшыны бағалаңыз",rate_employer:"Жұмыс берушіні бағалаңыз",
   rate_submit:"✅ Бағалауды жіберу",rate_thanks:"Рахмет! Бағаңыз сақталды.",
   rate_placeholder:"Пікір (міндетті емес)...",own_ad_warn:"Бұл сіздің хабарландыруыңыз!",
+  ph_title:"Мысалы: Пәтер жинау...",ph_desc:"Қызметіңізді толық сипаттаңыз...",
 },
 ru:{
   nav_home:"Главная",nav_fav:"Избранное",nav_msg:"Сообщения",nav_prof:"Профиль",
@@ -1404,6 +1406,7 @@ ru:{
   rate_worker:"Оцените исполнителя",rate_employer:"Оцените работодателя",
   rate_submit:"✅ Отправить оценку",rate_thanks:"Спасибо! Оценка сохранена.",
   rate_placeholder:"Комментарий (необязательно)...",own_ad_warn:"Это ваше объявление!",
+  ph_title:"Например: Уборка квартиры...",ph_desc:"Опишите вашу услугу подробно...",
 },
 en:{
   nav_home:"Home",nav_fav:"Saved",nav_msg:"Messages",nav_prof:"Profile",
@@ -1482,6 +1485,7 @@ en:{
   rate_worker:"Rate the Worker",rate_employer:"Rate the Employer",
   rate_submit:"✅ Submit Rating",rate_thanks:"Thank you! Rating saved.",
   rate_placeholder:"Comment (optional)...",own_ad_warn:"This is your own listing!",
+  ph_title:"E.g.: Apartment cleaning...",ph_desc:"Describe your service in detail...",
 }
 ,tg:{
   nav_home:"Саҳифаи асосӣ",nav_fav:"Интихобшудагон",nav_msg:"Паёмҳо",nav_prof:"Профил",
@@ -1560,6 +1564,7 @@ en:{
   rate_worker:"Корандаро баҳо диҳед",rate_employer:"Корфарморо баҳо диҳед",
   rate_submit:"✅ Фиристодани баҳо",rate_thanks:"Ташаккур! Баҳо сабт шуд.",
   rate_placeholder:"Шарҳ (ихтиёрӣ)...",own_ad_warn:"Ин эълони шумост!",
+  ph_title:"Масалан: Тозакунии квартира...",ph_desc:"Хидмати худро муфассал тавсиф кунед...",
 }
 ,ky:{
   nav_home:"Башкы бет",nav_fav:"Тандалган",nav_msg:"Билдирүүлөр",nav_prof:"Профиль",
@@ -1638,6 +1643,7 @@ en:{
   rate_worker:"Жумушчуну баалаңыз",rate_employer:"Иш берүүчүнү баалаңыз",
   rate_submit:"✅ Баалоону жиберүү",rate_thanks:"Рахмат! Баа сакталды.",
   rate_placeholder:"Комментарий (милдеттүү эмес)...",own_ad_warn:"Бул сиздин жарыяңыз!",
+  ph_title:"Мисалы: Батирди тазалоо...",ph_desc:"Кызматыңызды кеңири сүрөттөңүз...",
 }
 };
 
@@ -1792,6 +1798,11 @@ function applyLang(l) {
     var pabSpan = pab.querySelector('span');
     if (pabSpan) pabSpan.textContent = d.photo_add || "Qo'shish";
   }
+  // Update placeholders for title and description in add form
+  var adTitle = document.getElementById('ad-title');
+  if (adTitle) adTitle.placeholder = d.ph_title || "Masalan: Kvartira tozalash...";
+  var adDesc = document.getElementById('ad-desc');
+  if (adDesc) adDesc.placeholder = d.ph_desc || "Xizmatingizni batafsil yozing...";
   // Update HTML lang attr
   document.documentElement.lang = l === 'kk' ? 'kk' : l === 'ru' ? 'ru' : l === 'en' ? 'en' : 'uz';
 }
@@ -2731,7 +2742,8 @@ function takeJob(adId) {
     try {
       sb.from('taken_jobs').upsert([{
         ad_id: String(adId), user_phone: user.phone||'', user_name: user.name||'',
-        taken_at: new Date().toISOString()
+        taken_at: new Date().toISOString(),
+        owner_completed: false, worker_completed: false
       }]);
     } catch(e){}
   }
@@ -3326,12 +3338,12 @@ async function submitRating() {
     try {
       var updateData = {};
       if (role === 'owner') {
-        updateData.worker_rating  = _ratingStarVal;
-        updateData.worker_review  = comment;
+        updateData.owner_rating    = _ratingStarVal;
+        updateData.owner_review    = comment;
         updateData.owner_completed = true;
       } else {
-        updateData.worker_rating   = _ratingStarVal;
-        updateData.worker_review   = comment;
+        updateData.worker_rating    = _ratingStarVal;
+        updateData.worker_review    = comment;
         updateData.worker_completed = true;
       }
       await sb.from('taken_jobs').update(updateData).eq('ad_id', adId);
