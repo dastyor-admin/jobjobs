@@ -893,7 +893,7 @@ body{
 
 
 
-    <button class="btn-p" style="width:100%;padding:16px;font-size:16px;border-radius:16px" onclick="submitAd()" data-k="submit_ad" id="submit-ad-btn">✓ E'lonni joylashtirish</button>
+    <button class="btn-p" style="width:100%;padding:16px;font-size:16px;border-radius:16px" onclick="submitAd(event)" data-k="submit_ad" id="submit-ad-btn">✓ E'lonni joylashtirish</button>
   </div>
   <nav class="bot-nav">
     <button class="ni" onclick="go('screen-home')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span data-k="nav_home">Bosh sahifa</span></button>
@@ -1156,15 +1156,32 @@ body{
 /* ══════════════════════════════════════
    SUPABASE
 ══════════════════════════════════════ */
-const SUPABASE_URL = 'https://kgonmgxssisddaawmhaa.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtnb25tZ3hzc2lzZGRhYXdtaGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNzU1MDIsImV4cCI6MjA4OTg1MTUwMn0.uq09mfLuIoqgrJC-8iia8v_KaESs2OQJyN_1wKTP8LM';
+/* ══════════════════════════════════════
+   ⚙️  SUPABASE SOZLAMALARI
+   Quyidagi 2 qatorni o'z loyihangiz
+   ma'lumotlari bilan almashtiring:
+   https://app.supabase.com → Project Settings → API
+══════════════════════════════════════ */
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';   // ← o'zgartiring
+const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY'; // ← o'zgartiring
+
 let sb = null;
 (function(){
   try {
-    if (SUPABASE_URL !== 'https://kgonmgxssisddaawmhaa.supabase.co' && typeof supabase !== 'undefined') {
-      sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    if (SUPABASE_URL === 'YOUR_SUPABASE_URL') {
+      console.warn('⚠️ Supabase URL kiritilmagan. Offline (localStorage) rejimda ishlaydi.');
+      return;
     }
-  } catch(e){ sb = null; }
+    if (typeof supabase === 'undefined') {
+      console.error('❌ Supabase kutubxonasi yuklanmadi (CDN xatosi).');
+      return;
+    }
+    sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    console.log('✅ Supabase ulandi:', SUPABASE_URL);
+  } catch(e) {
+    sb = null;
+    console.error('❌ Supabase init xatosi:', e);
+  }
 })();
 
 /* ══════════════════════════════════════
@@ -1705,7 +1722,11 @@ async function getAdsFromDB() {
 }
 
 async function saveAdToDB(ad) {
-  if (!sb) return false;
+  if (!sb) {
+    console.warn('⚠️ saveAdToDB: Supabase ulanmagan (sb = null). Offline saqlanmoqda.');
+    return false;
+  }
+  console.log('📤 Supabase ga e\'lon yuborilmoqda...', ad.title);
   try {
     var res = await sb.from('ads').insert([{
       title: ad.title, description: ad.desc, price: ad.price, salary: ad.salary,
@@ -1716,8 +1737,16 @@ async function saveAdToDB(ad) {
       deadline: ad.deadline || null, views: 0,
       user_phone: ad.phone || ''
     }]);
-    return !res.error;
-  } catch(e) { return false; }
+    if (res.error) {
+      console.error('❌ Supabase insert xatosi:', res.error);
+      return false;
+    }
+    console.log('✅ E\'lon Supabase ga saqlandi!');
+    return true;
+  } catch(e) {
+    console.error('❌ saveAdToDB catch xatosi:', e);
+    return false;
+  }
 }
 
 /* ══════════════════════════════════════
@@ -2382,7 +2411,12 @@ function togTezkor(btn) {
 /* ══════════════════════════════════════
    SUBMIT AD
 ══════════════════════════════════════ */
-async function submitAd() {
+async function submitAd(event) {
+  // event.preventDefault() — sahifa refresh bo'lmasin
+  if (event && event.preventDefault) event.preventDefault();
+
+  console.log('🖱️ Bosildi — submitAd ishga tushdi');
+
   try {
     if (!user) { go('screen-login'); return; }
     var titleEl = document.getElementById('ad-title');
@@ -2447,11 +2481,13 @@ async function submitAd() {
     };
 
     var savedOk = false;
-    if (sb) { try { savedOk = await saveAdToDB(ad); } catch(e){} }
+    console.log('💾 Supabase holati:', sb ? '✅ Ulangan' : '❌ Ulanmagan (offline rejim)');
+    if (sb) { try { savedOk = await saveAdToDB(ad); } catch(e){ console.error('❌ saveAdToDB xatosi:', e); } }
     if (!savedOk) {
       var localAds = getLocalAds();
       if (wasTez) { localAds.unshift(ad); } else { localAds.push(ad); }
       saveLocalAds(localAds);
+      console.log('💾 E\'lon localStorage ga saqlandi (offline)');
     }
 
     // Reset form
