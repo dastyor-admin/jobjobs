@@ -649,6 +649,7 @@ body{
           <option value="Конибодом">Конибодом</option>
           <option value="Кушониён">Кушониён</option>
           <option value="Кӯлоб">Кӯлоб</option>
+          <option value="Кӯлоб тумани">Кӯлоб тумани</option>
           <option value="Кӯҳистони Мастчоҳ">Кӯҳистони Мастчоҳ</option>
           <option value="Лахш">Лахш</option>
           <option value="Левакант">Левакант</option>
@@ -839,6 +840,7 @@ body{
           <option value="Конибодом">Конибодом</option>
           <option value="Кушониён">Кушониён</option>
           <option value="Кӯлоб">Кӯлоб</option>
+          <option value="Кӯлоб тумани">Кӯлоб тумани</option>
           <option value="Кӯҳистони Мастчоҳ">Кӯҳистони Мастчоҳ</option>
           <option value="Лахш">Лахш</option>
           <option value="Левакант">Левакант</option>
@@ -1159,7 +1161,7 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 let sb = null;
 (function(){
   try {
-    if (SUPABASE_URL !== 'https://kgonmgxssisddaawmhaa.supabase.co' && typeof supabase !== 'undefined') {
+    if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && typeof supabase !== 'undefined') {
       sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     }
   } catch(e){ sb = null; }
@@ -2108,7 +2110,7 @@ async function finishOnboard() {
         phone: user.phone, name: user.name,
         age: user.age, role: user.role,
         created_at: new Date().toISOString()
-      }]);
+      }], { onConflict: 'phone' });
     } catch(e){}
   }
 
@@ -2742,7 +2744,7 @@ function takeJob(adId) {
         ad_id: String(adId), user_phone: user.phone||'', user_name: user.name||'',
         taken_at: new Date().toISOString(),
         owner_completed: false, worker_completed: false
-      }]);
+      }], { onConflict: 'ad_id,user_phone' });
     } catch(e){}
   }
   if (document.getElementById('screen-my-ads').classList.contains('active')) renderMyAds();
